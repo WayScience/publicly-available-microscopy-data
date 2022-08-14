@@ -1,0 +1,8 @@
+name: microscopy-data 
+channels:
+- conda-forge
+dependencies:
+- conda-forge::python>=3.6
+- conda-forge::jupyterlab
+- conda-forge::pandas=>1.2
+- conda-forge::plotnine

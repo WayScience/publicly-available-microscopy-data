@@ -1,0 +1,200 @@
+screen_id	idr_name	channel	stain	mark	plate_count
+2351	idr0064-goglia-erkdynamics/screenA	405:erkktr-bfp	405	erkktr-bfp	9
+2701	idr0080-way-perturbation/screenA	488 long:nucleoli and cytoplasmic rna	488 long	nucleoli and cytoplasmic rna	18
+1351	idr0010-doil-dnadamage/screenA	53bp1/alexa fluor 488:53bp1	53bp1/alexa fluor 488	53bp1	148
+2351	idr0064-goglia-erkdynamics/screenA	561:h2b-rfp	561	h2b-rfp	9
+3202	idr0120-german-immunologicalsynapse/screenA	af 488:actin	af 488	actin	4
+3203	idr0120-german-immunologicalsynapse/screenB	af 488:actin	af 488	actin	1
+3204	idr0120-german-immunologicalsynapse/screenC	af 488:actin	af 488	actin	1
+3205	idr0120-german-immunologicalsynapse/screenD	af 488:actin	af 488	actin	1
+3203	idr0120-german-immunologicalsynapse/screenB	af 555:perforin	af 555	perforin	1
+3204	idr0120-german-immunologicalsynapse/screenC	af 555:perforin	af 555	perforin	1
+3205	idr0120-german-immunologicalsynapse/screenD	af 555:perforin	af 555	perforin	1
+3202	idr0120-german-immunologicalsynapse/screenA	af 647:lfa-1	af 647	lfa-1	4
+3205	idr0120-german-immunologicalsynapse/screenD	af 647:lfa-1	af 647	lfa-1	1
+2051	idr0037-vigilante-hipsci/screenA	alexa 488:edu	alexa 488	edu	69
+1901	idr0034-kilpinen-hipsci/screenA	alexa 488:edu	alexa 488	edu	29
+3001	idr0112-verzat-motorneurons/screenA	alexa 488:fus	alexa 488	fus	14
+3001	idr0112-verzat-motorneurons/screenA	alexa 488:hnrnpk	alexa 488	hnrnpk	9
+3001	idr0112-verzat-motorneurons/screenA	alexa 488:sfpq	alexa 488	sfpq	7
+1851	idr0025-stadler-proteinatlas/screenA	alexa 488:target protein	alexa 488	target protein	3
+1202	idr0012-fuchs-cellmorph/screenA	alexa 488:tubulin	alexa 488	tubulin	62
+1851	idr0025-stadler-proteinatlas/screenA	alexa 555:microtubules	alexa 555	microtubules	3
+3001	idr0112-verzat-motorneurons/screenA	alexa 568:caspase-3	alexa 568	caspase-3	1
+3001	idr0112-verzat-motorneurons/screenA	alexa 568:hnrnpa1	alexa 568	hnrnpa1	9
+3001	idr0112-verzat-motorneurons/screenA	alexa 568:pabp	alexa 568	pabp	13
+3001	idr0112-verzat-motorneurons/screenA	alexa 568:tdp-43	alexa 568	tdp-43	7
+3001	idr0112-verzat-motorneurons/screenA	alexa 647:tubulin	alexa 647	tubulin	22
+1203	idr0019-sero-nfkappab/screenA	alexa-488: nf-kappab	alexa-488	 nf-kappab	7
+1801	idr0030-sero-yap/screenA	alexa647 phalloidin:f-actin	alexa647 phalloidin	f-actin	10
+1651	idr0028-pascualvargas-rhogtpases/screenA	alexafluor568:alphatubulin	alexafluor568	alphatubulin	4
+1652	idr0028-pascualvargas-rhogtpases/screenB	alexafluor568:alphatubulin	alexafluor568	alphatubulin	4
+1653	idr0028-pascualvargas-rhogtpases/screenC	alexafluor568:alphatubulin	alexafluor568	alphatubulin	4
+1654	idr0028-pascualvargas-rhogtpases/screenD	alexafluor568:alphatubulin	alexafluor568	alphatubulin	4
+1651	idr0028-pascualvargas-rhogtpases/screenA	alexafluor647:yap/taz	alexafluor647	yap/taz	4
+1652	idr0028-pascualvargas-rhogtpases/screenB	alexafluor647:yap/taz	alexafluor647	yap/taz	4
+1653	idr0028-pascualvargas-rhogtpases/screenC	alexafluor647:yap/taz	alexafluor647	yap/taz	4
+1654	idr0028-pascualvargas-rhogtpases/screenD	alexafluor647:yap/taz	alexafluor647	yap/taz	4
+2701	idr0080-way-perturbation/screenA	and plasma membrane ):agp	and plasma membrane )	agp	18
+1204	idr0020-barr-chtog/screenA	anti-alpha-tubulin: microtubules	anti-alpha-tubulin	 microtubules	4
+1204	idr0020-barr-chtog/screenA	anti-ser10 phosphohistone h3: mitotic nuclei	anti-ser10 phosphohistone h3	 mitotic nuclei	4
+2851	idr0090-ashdown-malaria/screenA	bf:brightfield	bf	brightfield	22
+51	idr0003-breker-plasticity/screenA	bright field/transmitted:cell	bright field/transmitted	cell	85
+2051	idr0037-vigilante-hipsci/screenA	brightfield:cell outline	brightfield	cell outline	69
+1901	idr0034-kilpinen-hipsci/screenA	brightfield:cell outline	brightfield	cell outline	29
+3	idr0001-graml-sysgro/screenA	cascade blue:growth media	cascade blue	growth media	192
+2051	idr0037-vigilante-hipsci/screenA	cellmask:plasma membrane	cellmask	plasma membrane	69
+1901	idr0034-kilpinen-hipsci/screenA	cellmask:plasma membrane	cellmask	plasma membrane	29
+3151	idr0133-dahlin-cellpainting/screenA	ch1 : nuclei:blue	ch1 	 nuclei	84
+3151	idr0133-dahlin-cellpainting/screenA	ch2 : er:green	ch2 	 er	84
+3151	idr0133-dahlin-cellpainting/screenA	ch3 : nucleoli/cytoplasmic rna:yellow	ch3 	 nucleoli/cytoplasmic rna	84
+3151	idr0133-dahlin-cellpainting/screenA	ch4 : actin/golgi/membrane:orange	ch4 	 actin/golgi/membrane	84
+3151	idr0133-dahlin-cellpainting/screenA	ch5 : mitochondria:red	ch5 	 mitochondria	84
+1251	idr0016-wawer-bioactivecompoundprofiling/screenA	concanavalin a  alexafluor488 conjugate:endoplasmic reticulumn:con a	concanavalin a  alexafluor488 conjugate	endoplasmic reticulumn	413
+1952	idr0036-gustafsdottir-cellpainting/screenA	concanavalin a  alexafluor488 conjugate:endoplasmic reticulumn:con a	concanavalin a  alexafluor488 conjugate	endoplasmic reticulumn	20
+2701	idr0080-way-perturbation/screenA	concanavalin a/alexa 488:endoplasmic reticulum	concanavalin a/alexa 488	endoplasmic reticulum	18
+1751	idr0033-rohban-pathways/screenA	concanavalin a/alexafluor488 conjugate:endoplasmic reticulum	concanavalin a/alexafluor488 conjugate	endoplasmic reticulum	12
+1151	idr0017-breinig-drugscreen/screenA	cy3:actin	cy3	actin	96
+2851	idr0090-ashdown-malaria/screenA	cy3:red blood cell	cy3	red blood cell	22
+2851	idr0090-ashdown-malaria/screenA	cy5:mitochondria	cy5	mitochondria	22
+1351	idr0010-doil-dnadamage/screenA	dapi/hoechst 33258: dna	dapi/hoechst 33258	 dna	148
+251	idr0009-simpson-secretion/screenA	dapi: dna	dapi	 dna	499
+803	idr0009-simpson-secretion/screenB	dapi: dna	dapi	 dna	70
+1203	idr0019-sero-nfkappab/screenA	dapi: nuclei	dapi	 nuclei	7
+1151	idr0017-breinig-drugscreen/screenA	dapi:dna	dapi	dna	96
+154	idr0008-rohn-actinome/screenA	dapi:dna	dapi	dna	58
+2001	idr0035-caie-drugresponse/screenA	dapi:dna	dapi	dna	55
+3001	idr0112-verzat-motorneurons/screenA	dapi:dna	dapi	dna	30
+2851	idr0090-ashdown-malaria/screenA	dapi:dna	dapi	dna	22
+206	idr0008-rohn-actinome/screenB	dapi:dna	dapi	dna	7
+3202	idr0120-german-immunologicalsynapse/screenA	dapi:dna	dapi	dna	4
+3203	idr0120-german-immunologicalsynapse/screenB	dapi:dna	dapi	dna	1
+3204	idr0120-german-immunologicalsynapse/screenC	dapi:dna	dapi	dna	1
+3205	idr0120-german-immunologicalsynapse/screenD	dapi:dna	dapi	dna	1
+253	idr0006-fong-nuclearbodies/screenA	dapi:nuclei	dapi	nuclei	168
+2051	idr0037-vigilante-hipsci/screenA	dapi:nuclei	dapi	nuclei	69
+1901	idr0034-kilpinen-hipsci/screenA	dapi:nuclei	dapi	nuclei	29
+1851	idr0025-stadler-proteinatlas/screenA	dapi:nuclei	dapi	nuclei	3
+2501	idr0078-mattiazziusaj-endocyticcomp/screenA	dextran alexa 647: cell outline	dextran alexa 647	 cell outline	117
+2502	idr0078-mattiazziusaj-endocyticcomp/screenB	dextran alexa 647: cell outline	dextran alexa 647	 cell outline	57
+1501	idr0011-ledesmafernandez-dad4/screenA	dic: whole cell	dic	 whole cell	129
+1551	idr0011-ledesmafernandez-dad4/screenB	dic: whole cell	dic	 whole cell	39
+1601	idr0011-ledesmafernandez-dad4/screenC	dic: whole cell	dic	 whole cell	4
+1603	idr0011-ledesmafernandez-dad4/screenE	dic: whole cell	dic	 whole cell	1
+202	idr0004-thorpe-rad52/screenA	dic:cell structure	dic	cell structure	45
+1203	idr0019-sero-nfkappab/screenA	dihydroethidium: cell bodies:dhe	dihydroethidium	 cell bodies	7
+2953	idr0072-schormann-subcellref/screenB	draq5:dna	draq5	dna	84
+2952	idr0072-schormann-subcellref/screenA	draq5:dna	draq5	dna	10
+102	idr0002-heriche-condensation/screenA	egfp:nuclear lamina and report on nuclear envelope breakdown	egfp	nuclear lamina and report on nuclear envelope breakdown	12
+2953	idr0072-schormann-subcellref/screenB	egfp:protein of interest	egfp	protein of interest	84
+2952	idr0072-schormann-subcellref/screenA	egfp:protein of interest	egfp	protein of interest	10
+201	idr0007-srikumar-sumo/screenA	exp1cam2:various	exp1cam2	various	11
+206	idr0008-rohn-actinome/screenB	fitc-filterwheel:alpha-tubulin	fitc-filterwheel	alpha-tubulin	7
+154	idr0008-rohn-actinome/screenA	fitc:alpha-tubulin	fitc	alpha-tubulin	58
+2801	idr0097-reicher-proteintag/screenA	gfp: a different gfp-tagged protein as indicated by the expressed sgrna.	gfp	 a different gfp-tagged protein as indicated by the expressed sgrna.	8
+1101	idr0013-neumann-mitocheck/screenA	gfp: core histone 2b tagged with gfp to monitor chromosomes	gfp	 core histone 2b tagged with gfp to monitor chromosomes	500
+1302	idr0013-neumann-mitocheck/screenB	gfp: core histone 2b tagged with gfp to monitor chromosomes	gfp	 core histone 2b tagged with gfp to monitor chromosomes	28
+2851	idr0090-ashdown-malaria/screenA	gfp:cytosolic gfp	gfp	cytosolic gfp	22
+3	idr0001-graml-sysgro/screenA	gfp:endogenous alpha tubulin 2	gfp	endogenous alpha tubulin 2	192
+2404	idr0081-georgi-adenovirus/screenD	gfp:infection	gfp	infection	16
+2405	idr0081-georgi-adenovirus/screenE	gfp:infection	gfp	infection	16
+3051	idr0128-georgi-influenza/screenE	gfp:infection	gfp	infection	16
+3052	idr0128-georgi-influenza/screenD	gfp:infection	gfp	infection	16
+3101	idr0129-georgi-rhinovirus/screenD	gfp:infection	gfp	infection	16
+3102	idr0129-georgi-rhinovirus/screenC	gfp:infection	gfp	infection	16
+3105	idr0130-olszewski-herpes/screenC	gfp:infection	gfp	infection	12
+2401	idr0081-georgi-adenovirus/screenA	gfp:infection	gfp	infection	2
+2402	idr0081-georgi-adenovirus/screenB	gfp:infection	gfp	infection	2
+2403	idr0081-georgi-adenovirus/screenC	gfp:infection	gfp	infection	2
+3053	idr0128-georgi-influenza/screenC	gfp:infection	gfp	infection	2
+3054	idr0128-georgi-influenza/screenB	gfp:infection	gfp	infection	2
+3055	idr0128-georgi-influenza/screenA	gfp:infection	gfp	infection	2
+3103	idr0129-georgi-rhinovirus/screenA	gfp:infection	gfp	infection	2
+3107	idr0130-olszewski-herpes/screenB	gfp:infection	gfp	infection	2
+3104	idr0129-georgi-rhinovirus/screenB	gfp:infection	gfp	infection	1
+3106	idr0130-olszewski-herpes/screenA	gfp:infection	gfp	infection	1
+51	idr0003-breker-plasticity/screenA	gfp:tagged protein	gfp	tagged protein	85
+102	idr0002-heriche-condensation/screenA	h2b- mcherry/cy3:chromatin	h2b- mcherry/cy3	chromatin	12
+51	idr0003-breker-plasticity/screenA	h2b-mcherry:cytosol	h2b-mcherry	cytosol	85
+2701	idr0080-way-perturbation/screenA	hoechst 33342:dna	hoechst 33342	dna	18
+1251	idr0016-wawer-bioactivecompoundprofiling/screenA	hoechst 33342:nucleus	hoechst 33342	nucleus	413
+1952	idr0036-gustafsdottir-cellpainting/screenA	hoechst 33342:nucleus	hoechst 33342	nucleus	20
+1751	idr0033-rohban-pathways/screenA	hoechst 33342:nucleus	hoechst 33342	nucleus	12
+1651	idr0028-pascualvargas-rhogtpases/screenA	hoechst: nuclei	hoechst	 nuclei	4
+1652	idr0028-pascualvargas-rhogtpases/screenB	hoechst: nuclei.	hoechst	 nuclei.	4
+1653	idr0028-pascualvargas-rhogtpases/screenC	hoechst: nuclei.	hoechst	 nuclei.	4
+1654	idr0028-pascualvargas-rhogtpases/screenD	hoechst: nuclei.	hoechst	 nuclei.	4
+597	idr0005-toret-adhesion/screenA	hoechst:dna	hoechst	dna	141
+1202	idr0012-fuchs-cellmorph/screenA	hoechst:dna	hoechst	dna	62
+751	idr0005-toret-adhesion/screenB	hoechst:dna	hoechst	dna	18
+1801	idr0030-sero-yap/screenA	hoechst:dna	hoechst	dna	10
+2404	idr0081-georgi-adenovirus/screenD	hoechst:nuclei	hoechst	nuclei	16
+2405	idr0081-georgi-adenovirus/screenE	hoechst:nuclei	hoechst	nuclei	16
+3051	idr0128-georgi-influenza/screenE	hoechst:nuclei	hoechst	nuclei	16
+3052	idr0128-georgi-influenza/screenD	hoechst:nuclei	hoechst	nuclei	16
+3101	idr0129-georgi-rhinovirus/screenD	hoechst:nuclei	hoechst	nuclei	16
+3102	idr0129-georgi-rhinovirus/screenC	hoechst:nuclei	hoechst	nuclei	16
+3105	idr0130-olszewski-herpes/screenC	hoechst:nuclei	hoechst	nuclei	12
+2401	idr0081-georgi-adenovirus/screenA	hoechst:nuclei	hoechst	nuclei	2
+2402	idr0081-georgi-adenovirus/screenB	hoechst:nuclei	hoechst	nuclei	2
+2403	idr0081-georgi-adenovirus/screenC	hoechst:nuclei	hoechst	nuclei	2
+3053	idr0128-georgi-influenza/screenC	hoechst:nuclei	hoechst	nuclei	2
+3054	idr0128-georgi-influenza/screenB	hoechst:nuclei	hoechst	nuclei	2
+3055	idr0128-georgi-influenza/screenA	hoechst:nuclei	hoechst	nuclei	2
+3103	idr0129-georgi-rhinovirus/screenA	hoechst:nuclei	hoechst	nuclei	2
+3107	idr0130-olszewski-herpes/screenB	hoechst:nuclei	hoechst	nuclei	2
+3104	idr0129-georgi-rhinovirus/screenB	hoechst:nuclei	hoechst	nuclei	1
+3106	idr0130-olszewski-herpes/screenA	hoechst:nuclei	hoechst	nuclei	1
+1204	idr0020-barr-chtog/screenA	hoescht: nuclei	hoescht	 nuclei	4
+2701	idr0080-way-perturbation/screenA	mitotracker deep red/alexa 647:mitochondria	mitotracker deep red/alexa 647	mitochondria	18
+1251	idr0016-wawer-bioactivecompoundprofiling/screenA	mitotracker deep red: mitochondria	mitotracker deep red	 mitochondria	413
+1952	idr0036-gustafsdottir-cellpainting/screenA	mitotracker deep red: mitochondria	mitotracker deep red	 mitochondria	20
+1751	idr0033-rohban-pathways/screenA	mitotracker deep red:mitochondria	mitotracker deep red	mitochondria	12
+1801	idr0030-sero-yap/screenA	mouse anti-yap/taz plus alexa488 anti-mouse:yap/taz	mouse anti-yap/taz plus alexa488 anti-mouse	yap/taz	10
+1501	idr0011-ledesmafernandez-dad4/screenA	mrfp1:spc42	mrfp1	spc42	129
+1551	idr0011-ledesmafernandez-dad4/screenB	mrfp1:spc42	mrfp1	spc42	39
+1602	idr0011-ledesmafernandez-dad4/screenD	mrfp1:spc42	mrfp1	spc42	8
+1601	idr0011-ledesmafernandez-dad4/screenC	mrfp1:spc42	mrfp1	spc42	4
+1603	idr0011-ledesmafernandez-dad4/screenE	mrfp1:spc42	mrfp1	spc42	1
+2001	idr0035-caie-drugresponse/screenA	phallodin:f-actin	phallodin	f-actin	55
+1952	idr0036-gustafsdottir-cellpainting/screenA	phalloidin alexafluor594 conjugate:f-actin	phalloidin alexafluor594 conjugate	f-actin	20
+1251	idr0016-wawer-bioactivecompoundprofiling/screenA	phalloidin alexafluorafluor594 conjugate: f-actin	phalloidin alexafluorafluor594 conjugate	 f-actin	413
+1751	idr0033-rohban-pathways/screenA	phalloidin/alexafluor594 conjugate:f_actin	phalloidin/alexafluor594 conjugate	f_actin	12
+1651	idr0028-pascualvargas-rhogtpases/screenA	phalloidin488: f-actin	phalloidin488	 f-actin	4
+1652	idr0028-pascualvargas-rhogtpases/screenB	phalloidin488: f-actin	phalloidin488	 f-actin	4
+1653	idr0028-pascualvargas-rhogtpases/screenC	phalloidin488: f-actin	phalloidin488	 f-actin	4
+1654	idr0028-pascualvargas-rhogtpases/screenD	phalloidin488: f-actin	phalloidin488	 f-actin	4
+251	idr0009-simpson-secretion/screenA	pm-647: cell surface tso45g	pm-647	 cell surface tso45g	499
+803	idr0009-simpson-secretion/screenB	pm-647: cell surface tso45g	pm-647	 cell surface tso45g	70
+1801	idr0030-sero-yap/screenA	rabbit anti-cd44 plus alexa568 anti-rabbit:cd44	rabbit anti-cd44 plus alexa568 anti-rabbit	cd44	5
+1801	idr0030-sero-yap/screenA	rabbit anti-yap/taz plus alexa568 anti-rabbit:yap/taz	rabbit anti-yap/taz plus alexa568 anti-rabbit	yap/taz	5
+1204	idr0020-barr-chtog/screenA	rfp: whole cell	rfp	 whole cell	4
+2501	idr0078-mattiazziusaj-endocyticcomp/screenA	sac6-tdtomato: actin patch	sac6-tdtomato	 actin patch	26
+2502	idr0078-mattiazziusaj-endocyticcomp/screenB	sac6-yegfp: actin patch	sac6-yegfp	 actin patch	16
+2501	idr0078-mattiazziusaj-endocyticcomp/screenA	sla1-rfp: endocytic patch	sla1-rfp	 endocytic patch	27
+2501	idr0078-mattiazziusaj-endocyticcomp/screenA	sla1-yegfp: endocytic patch	sla1-yegfp	 endocytic patch	34
+2502	idr0078-mattiazziusaj-endocyticcomp/screenB	sla1-yegfp: endocytic patch	sla1-yegfp	 endocytic patch	14
+2501	idr0078-mattiazziusaj-endocyticcomp/screenA	snf7-yegfp: late endosome	snf7-yegfp	 late endosome	44
+2502	idr0078-mattiazziusaj-endocyticcomp/screenB	snf7-yegfp: late endosome	snf7-yegfp	 late endosome	14
+1251	idr0016-wawer-bioactivecompoundprofiling/screenA	syto 14 green fluorescent nucleic acid stain:nucleoli	syto 14 green fluorescent nucleic acid stain	nucleoli	413
+1952	idr0036-gustafsdottir-cellpainting/screenA	syto 14 green fluorescent nucleic acid stain:nucleoli	syto 14 green fluorescent nucleic acid stain	nucleoli	20
+1751	idr0033-rohban-pathways/screenA	syto14 green fluorescent nucleic acid stain:nucleoli and cytoplasmic rna	syto14 green fluorescent nucleic acid stain	nucleoli and cytoplasmic rna	12
+1602	idr0011-ledesmafernandez-dad4/screenD	tagyfp:dad4	tagyfp	dad4	8
+206	idr0008-rohn-actinome/screenB	tirtc-filterwheel:phallodin/f-actin	tirtc-filterwheel	phallodin/f-actin	7
+154	idr0008-rohn-actinome/screenA	tritc2:phallodin/f-actin	tritc2	phallodin/f-actin	58
+1202	idr0012-fuchs-cellmorph/screenA	tritc:actin	tritc	actin	62
+253	idr0006-fong-nuclearbodies/screenA	tritc:ha_flag tagged protein	tritc	ha_flag tagged protein	168
+154	idr0008-rohn-actinome/screenA	tritc:phallodin/f-actin	tritc	phallodin/f-actin	58
+2501	idr0078-mattiazziusaj-endocyticcomp/screenA	vph1-rfp: vacuole	vph1-rfp	 vacuole	32
+2501	idr0078-mattiazziusaj-endocyticcomp/screenA	vph1-yegfp: vacuole	vph1-yegfp	 vacuole	39
+2502	idr0078-mattiazziusaj-endocyticcomp/screenB	vph1-yegfp: vacuole	vph1-yegfp	 vacuole	13
+251	idr0009-simpson-secretion/screenA	vsvg-cfp: cfp-tso45g 	vsvg-cfp	 cfp-tso45g 	499
+803	idr0009-simpson-secretion/screenB	vsvg-cfp: cfp-tso45g 	vsvg-cfp	 cfp-tso45g 	70
+1251	idr0016-wawer-bioactivecompoundprofiling/screenA	wheat germ agglutinin  alexafluor594 conjugate:golgi apparatus and plasma membrane:wga	wheat germ agglutinin  alexafluor594 conjugate	golgi apparatus and plasma membrane	413
+1952	idr0036-gustafsdottir-cellpainting/screenA	wheat germ agglutinin  alexafluor594 conjugate:golgi apparatus and plasma membrane:wga	wheat germ agglutinin  alexafluor594 conjugate	golgi apparatus and plasma membrane	20
+1751	idr0033-rohban-pathways/screenA	wheat germ agglutinin/alexafluor594 conjugate :golgi apparatus and plasma membrane:wga	wheat germ agglutinin/alexafluor594 conjugate 	golgi apparatus and plasma membrane	12
+1501	idr0011-ledesmafernandez-dad4/screenA	yfp:dad4	yfp	dad4	129
+1551	idr0011-ledesmafernandez-dad4/screenB	yfp:dad4	yfp	dad4	39
+1601	idr0011-ledesmafernandez-dad4/screenC	yfp:dad4	yfp	dad4	4
+1603	idr0011-ledesmafernandez-dad4/screenE	yfp:dad4	yfp	dad4	1
+202	idr0004-thorpe-rad52/screenA	yfp:rad52-yfp protein	yfp	rad52-yfp protein	45
