@@ -2,13 +2,10 @@
 # coding: utf-8
 
 # # Describe study metadata
-# 
+#
 # Each screen contains an experiment with different parameters and conditions.
-# 
+#
 # Extract this information based on ID and save details.
-
-# In[1]:
-
 
 import random
 import pathlib
@@ -16,19 +13,16 @@ import requests
 import pandas as pd
 
 
-# In[2]:
-
-
 def extract_study_info(session, screen_id):
     """Pull metadata info per screen, given screen id
-    
+
     Parameters
     ----------
-    session: Requests.session() 
+    session: Requests.session()
         Requests session providing access to IDR API
     screen_id: str
         Internal indicator of the specific microscopy data set
-        
+
     Returns
     -------
     pandas.DataFrame() of metadata per screen id
@@ -40,14 +34,14 @@ def extract_study_info(session, screen_id):
 
     url = f"{base_url}{screen_url}"
     response = session.get(url).json()
-    
+
     annotations = response["annotations"]
     study_index = [x["ns"] for x in annotations].index('idr.openmicroscopy.org/study/info')
-    
+
     id_ = annotations[study_index]["id"]
     date_ = annotations[study_index]["date"]
     name_ = annotations[study_index]["link"]["parent"]["name"]
-    
+
     details_ = (
         pd.DataFrame({x[0]: x[1] for x in annotations[study_index]["values"]}, index=[0])
         .assign(
@@ -57,20 +51,20 @@ def extract_study_info(session, screen_id):
             screen_id=screen_id
         )
     )
-    
+
     return details_
 
 
 def describe_screen(session, screen_id):
     """Pull additional metadata info per plate, given screen id
-    
+
     Parameters
     ----------
-    session: Requests.session() 
+    session: Requests.session()
         Requests session providing access to IDR API
     screen_id: str
         Internal indicator of the specific microscopy data set
-        
+
     Returns
     -------
     pandas.DataFrame() of metadata per plate. This metadata includes details on stains used.
@@ -80,11 +74,13 @@ def describe_screen(session, screen_id):
     study_plates = {x["id"]: x["name"] for x in all_plates}
 
     plate_results = []
+    analysis_plate_results = []
     for plate in study_plates:
         plate_name = study_plates[plate]
+
         WELLS_IMAGES_URL = f"https://idr.openmicroscopy.org/webgateway/plate/{plate}/"
         grid = session.get(WELLS_IMAGES_URL).json()
-        
+
         try:
             rowlabels = grid['rowlabels']
             collabels = grid['collabels']
@@ -96,7 +92,7 @@ def describe_screen(session, screen_id):
         except (ValueError, KeyError):
             plate_results.append([screen_id, plate, plate_name, None, None, None, None, None])
             continue
-        
+
         # Get a random image id:
         rand_image = None
         while rand_image is None:
@@ -110,7 +106,7 @@ def describe_screen(session, screen_id):
         MAP_URL = f"https://idr.openmicroscopy.org/webclient/api/annotations/?type=map&image={rand_image}"
 
         annotations = session.get(MAP_URL).json()["annotations"]
-        
+
         try:
             bulk_index = [x["ns"] for x in annotations].index('openmicroscopy.org/omero/bulk_annotations')
             channels = {x[0]: x[1] for x in annotations[bulk_index]["values"]}["Channels"]
@@ -122,7 +118,19 @@ def describe_screen(session, screen_id):
             cell_line = {x[0]: x[1] for x in annotations[cell_line_index]["values"]}["Cell Line"]
         except (ValueError, KeyError):
             cell_line = "Not listed"
-        
+
+        try:
+            gene_identifier_index = int([x["ns"] for x in annotations].index('openmicroscopy.org/mapr/gene'))
+            gene_identifier = {x[0]: x[1] for x in annotations[gene_identifier_index]["values"]}["Gene Identifier"]
+        except (ValueError, KeyError):
+            gene_identifier = "Not Listed"
+
+        try:
+            phenotype_identifier_index = int([x["ns"] for x in annotations].index('openmicroscopy.org/mapr/phenotype'))
+            phenotype_identifier = {x[0]: x[1] for x in annotations[phenotype_identifier_index]["values"]}["Phenotype Term Accession"]
+        except (ValueError, KeyError):
+            phenotype_identifier = "Not Listed"
+
         # Build results
         plate_results.append([
             screen_id,
@@ -130,6 +138,20 @@ def describe_screen(session, screen_id):
             plate_name,
             n_wells_plate,
             cell_line,
+            gene_identifier,
+            phenotype_identifier,
+            channels,
+            pixel_size_x,
+            pixel_size_y
+        ])
+
+        analysis_plate_results.append([
+            screen_id,
+            plate,
+            plate_name,
+            cell_line,
+            gene_identifier,
+            phenotype_identifier,
             channels,
             pixel_size_x,
             pixel_size_y
@@ -144,22 +166,31 @@ def describe_screen(session, screen_id):
             "plate_name",
             "n_wells",
             "cell_line",
+            "gene_identifier",
+            "phenotype_identifier",
             "channels",
             "pixel_size_x",
             "pixel_size_y"
         ]
     )
-    return plate_results_df
 
+        analysis_df = pd.DataFrame(
+        analysis_plate_results,
+        columns=[
+            "screen_id",
+            "plate_id",
+            "plate_name",
+            "cell_line",
+            "gene_identifier",
+            "phenotype_identifier",
+            "channels",
+            "pixel_size_x",
+            "pixel_size_y"
+        ]
+    )
+    return plate_results_df, analysis_df
 
-# In[3]:
-
-
-data_dir = pathlib.Path("data")
-
-
-# In[4]:
-
+data_dir = pathlib.Path("publicly-available-microscopy-data/IDR/data")
 
 # Load IDR ids
 id_file = pathlib.Path(data_dir, "idr_ids.tsv")
@@ -168,10 +199,6 @@ id_df = pd.read_csv(id_file, sep="\t")
 
 print(id_df.shape)
 id_df.head(10)
-
-
-# In[5]:
-
 
 # Create session
 INDEX_PAGE = "https://idr.openmicroscopy.org/webclient/?experimenter=-1"
@@ -184,10 +211,6 @@ with requests.Session() as session:
     if response.status_code != 200:
         response.raise_for_status()
 
-
-# In[6]:
-
-
 # Extract summary details for all screens
 screen_ids = id_df.query("category=='Screen'").id.tolist()
 print(f"There are a total of {len(screen_ids)} screens")
@@ -199,37 +222,40 @@ screen_details_df = (
     .reset_index(drop=True)
 )
 
-output_file = pathlib.Path(data_dir, "screen_details.tsv")
+output_file = pathlib.Path("publicly-available-microscopy-data/IDR/data", "screen_details.tsv")
 screen_details_df.to_csv(output_file, index=False, sep="\t")
 
 print(screen_details_df.shape)
 screen_details_df.head(3)
 
-
-# In[7]:
-
-
 plate_info = []
+count = 0
 for idx, screen in screen_details_df.iterrows():
     screen_id = screen.screen_id
     print(f"Now processing screen: {screen_id}")
-    
+
     # Pull pertinent details about the screen (plates, wells, channels, cell line, etc.)
-    plate_results_df = describe_screen(session, screen_id=screen_id)
+    plate_results_df, analysis_df = describe_screen(session, screen_id=screen_id)
     print(f"{plate_results_df.shape[0]} plates found. Done\n")
-    
+
     # Combine to create full dataframe
     plate_info.append(plate_results_df)
-
-
-# In[8]:
-
+    count += 1
+    if count == 1:
+        break
 
 all_plate_results_df = pd.concat(plate_info).reset_index(drop=True)
+
+img_screen_index = dict()
+for index in screen_details_df.itertuples(index=False):
+    screenID = index[19]
+    img_type = index[5]
+    img_screen_index[screenID] = img_type
+
+all_plate_results_df["imaging_method"] = all_plate_results_df["screen_id"].map(img_screen_index)
 
 output_file = pathlib.Path(data_dir, "plate_details_per_screen.tsv")
 all_plate_results_df.to_csv(output_file, index=False, sep="\t")
 
 print(all_plate_results_df.shape)
 all_plate_results_df.head(10)
-
