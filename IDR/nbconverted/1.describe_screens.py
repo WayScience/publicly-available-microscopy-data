@@ -74,12 +74,11 @@ def describe_screen(session, screen_id):
     PLATES_URL = f"https://idr.openmicroscopy.org/webclient/api/plates/?id={screen_id}"
     all_plates = session.get(PLATES_URL).json()["plates"]
     study_plates = {x["id"]: x["name"] for x in all_plates}
-    print("Number of plates in screen {screen}: ", len(study_plates))
+    print("Number of plates found: ", len(study_plates))
 
     plate_results = []
     for plate in study_plates:
         imageIDs = list()
-        wellIDs = list()
         plate_name = study_plates[plate]
 
         # Access .json file for the plate ID. Contains image ID (id) and well ID
@@ -88,21 +87,15 @@ def describe_screen(session, screen_id):
         grid = session.get(WELLS_IMAGES_URL).json()
 
         try:
-            rowlabels = grid['rowlabels']
-            collabels = grid['collabels']
-
             pixel_size_x = grid["image_sizes"][0]["x"]
             pixel_size_y = grid["image_sizes"][0]["y"]
 
             # Get image and well ids
-            for entry in grid['grid'][0]:  # FIX!!!!
-                if entry is not None:
-                    image_id = entry["id"]
-                    wellId = entry["wellId"]
-
-                    # Append IDs to iterable lists
-                    imageIDs.append(image_id)
-                    wellIDs.append(wellId)
+            for image in grid['grid'][0]:  # FIX!!!!
+                # Append IDs to iterable lists
+                thumb_url = image['thumb_url'].rstrip(image['thumb_url'][-1])
+                image_id = thumb_url.split('/')[-1]
+                imageIDs.append(image_id)
 
         except (ValueError, KeyError):
             plate_results.append(
@@ -120,11 +113,9 @@ def describe_screen(session, screen_id):
         #         rand_image = cell['id']
 
         # Get image details from each image id for each plate
-        print(f"Searching plate: {plate} with", len(
-            imageIDs), " images")
-        for imageID, wellId in zip(imageIDs, wellIDs):
+        for id in imageIDs:
             # print("Image ID: ", image_id, "; Well ID: ", wellId)
-            MAP_URL = f"https://idr.openmicroscopy.org/webclient/api/annotations/?type=map&image={imageID}"
+            MAP_URL = f"https://idr.openmicroscopy.org/webclient/api/annotations/?type=map&image={id}"
 
             annotations = session.get(MAP_URL).json()["annotations"]
 
@@ -146,9 +137,9 @@ def describe_screen(session, screen_id):
 
             try:
                 gene_identifier_index = int(
-                    [x["ns"] for x in annotations].index('openmicroscopy.org/mapr/gene'))
-                gene_identifier = {x[0]: x[1] for x in annotations[gene_identifier_index]["values"]}[
-                    "Gene Identifier"]
+                    [x["ns"] for x in annotations].index(
+                        'openmicroscopy.org/mapr/gene'))
+                gene_identifier = {x[0]: x[1] for x in annotations[gene_identifier_index]["values"]}["Gene Identifier"]
             except (ValueError, KeyError):
                 gene_identifier = "Not Listed"
 
@@ -167,8 +158,7 @@ def describe_screen(session, screen_id):
                 screen_id,
                 plate,
                 plate_name,
-                image_id,
-                wellId,
+                id,
                 cell_line,
                 gene_identifier,
                 phenotype_identifier,
@@ -185,7 +175,6 @@ def describe_screen(session, screen_id):
             "plate_id",
             "plate_name",
             "image_id",
-            "well_id",
             "cell_line",
             "gene_identifier",
             "phenotype_identifier",
@@ -194,7 +183,7 @@ def describe_screen(session, screen_id):
             "pixel_size_y"
         ]
     )
-
+    print("Done iterating")
     return plate_results_df
 
 
@@ -244,6 +233,8 @@ for idx, screen in screen_details_df.iterrows():
 
     # Combine to create full dataframe
     plate_info.append(plate_results_df)
+
+    # Break here just for quick testing. Will remove
     count += 1
     if count == 1:
         break
