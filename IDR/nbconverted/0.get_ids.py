@@ -31,7 +31,8 @@ def get_id(json):
     description_ = description_.replace("\n", "")
 
     return (id_, name_, title_, description_, split_detail)
-output_dir = pathlib.Path("publicly-available-microscopy-data/IDR/data")
+
+output_dir = pathlib.Path("/home/parkerhicks/Documents/publicly-available-microscopy-data/IDR/data")
 # Load all screens
 INDEX_PAGE = "https://idr.openmicroscopy.org/api/v0/m/screens/"
 
