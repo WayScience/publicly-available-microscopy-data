@@ -81,8 +81,8 @@ def describe_screen(session, screen_id):
         imageIDs = list()
         plate_name = study_plates[plate]
 
-        # Access .json file for the plate ID. Contains image ID (id) and well ID
-        # (wellId) numbers for replicate images per plate.
+        # Access .json file for the plate ID. Contains image ID (id) numbers
+        # for replicate images per plate.
         WELLS_IMAGES_URL = f"https://idr.openmicroscopy.org/webgateway/plate/{plate}/"
         grid = session.get(WELLS_IMAGES_URL).json()
 
@@ -91,7 +91,7 @@ def describe_screen(session, screen_id):
             pixel_size_y = grid["image_sizes"][0]["y"]
 
             # Get image and well ids
-            for image in grid['grid'][0]:  # FIX!!!!
+            for image in grid['grid'][0]:
                 # Append IDs to iterable lists
                 thumb_url = image['thumb_url'].rstrip(image['thumb_url'][-1])
                 image_id = thumb_url.split('/')[-1]
@@ -102,16 +102,7 @@ def describe_screen(session, screen_id):
                 [screen_id, plate, plate_name, None, None, None, None, None])
             continue
 
-        # SKIP THIS STEP FOR FULL DATASET ACCESS
-        # Get a random image id:
-        # rand_image = None
-        # while rand_image is None:
-        #     rand_row = rowlabels.index(random.choice(rowlabels))
-        #     rand_col = collabels.index(random.choice(collabels))
-        #     cell = grid["grid"][rand_row][rand_col]
-        #     if cell is not None:
-        #         rand_image = cell['id']
-
+        # TODO: Rewrite to optimize and make consice
         # Get image details from each image id for each plate
         for id in imageIDs:
             # print("Image ID: ", image_id, "; Well ID: ", wellId)
@@ -122,26 +113,39 @@ def describe_screen(session, screen_id):
             try:
                 bulk_index = [x["ns"] for x in annotations].index(
                     'openmicroscopy.org/omero/bulk_annotations')
-
-                channels =
-                {x[0]: x[1] for x in
-                    annotations[bulk_index]["values"]}["Channels"]
-
-                if "Strain" in annotations[bulk_index]["values"]:
-                    cell_line =
-                    {x[0]: x[1] for x in
-                        annotations[bulk_index]["values"]["Strain"]
-                else:
-                    try:
-                        cell_line_index = [x["ns"] for x in annotations].index(
-                            'openmicroscopy.org/mapr/cell_line')
-                        cell_line =
-                            {x[0]: x[1] for x in
-                                annotations[cell_line_index]["values"]}["Cell Line"]
-                    except (ValueError, KeyError):
-                        cell_line = "Not listed"
+                channels = {x[0]: x[1]
+                            for x in annotations[bulk_index]
+                            ["values"]}["Channels"]
             except (ValueError, KeyError):
                 channels = "Not listed"
+
+            try:
+                cell_line_index = [x["ns"] for x in annotations].index(
+                    'openmicroscopy.org/mapr/cell_line')
+
+                if "Strain" in annotations[bulk_index]["values"][0]:
+                    cell_line = {x[0]: x[1] for x in
+                                 annotations[bulk_index]["values"]}["Strain"]
+                else:
+                    cell_line = {x[0]: x[1] for x in
+                                 annotations[cell_line_index]["values"]}["Cell Line"]
+            except (ValueError, KeyError):
+                cell_line = "Not listed"
+
+            try:
+                bulk_index = [x["ns"] for x in annotations].index(
+                                'openmicroscopy.org/omero/bulk_annotations')
+                strain = {x[0]: x[1] for x in
+                             annotations[bulk_index]["values"]}["Strain"]
+            except (ValueError, KeyError):
+                strain = "Not listed"
+
+            try:
+                cell_line_index = [x["ns"] for x in annotations].index(
+                    'openmicroscopy.org/mapr/cell_line')
+                cell_line = {x[0]: x[1] for x in annotations[cell_line_index]["values"]}[
+                    "Cell Line"]
+            except (ValueError, KeyError):
                 cell_line = "Not listed"
 
             try:
@@ -170,6 +174,7 @@ def describe_screen(session, screen_id):
                 plate_name,
                 id,
                 cell_line,
+                strain,
                 gene_identifier,
                 phenotype_identifier,
                 channels,
@@ -186,6 +191,7 @@ def describe_screen(session, screen_id):
             "plate_name",
             "image_id",
             "cell_line",
+            "strain",
             "gene_identifier",
             "phenotype_identifier",
             "channels",
@@ -193,7 +199,7 @@ def describe_screen(session, screen_id):
             "pixel_size_y"
         ]
     )
-    print("Done iterating")
+
     return plate_results_df
 
 
