@@ -122,24 +122,34 @@ def describe_screen(session, screen_id):
             try:
                 bulk_index = [x["ns"] for x in annotations].index(
                     'openmicroscopy.org/omero/bulk_annotations')
-                channels = {x[0]: x[1]
-                            for x in annotations[bulk_index]["values"]}["Channels"]
+
+                channels =
+                {x[0]: x[1] for x in
+                    annotations[bulk_index]["values"]}["Channels"]
+
+                if "Strain" in annotations[bulk_index]["values"]:
+                    cell_line =
+                    {x[0]: x[1] for x in
+                        annotations[bulk_index]["values"]["Strain"]
+                else:
+                    try:
+                        cell_line_index = [x["ns"] for x in annotations].index(
+                            'openmicroscopy.org/mapr/cell_line')
+                        cell_line =
+                            {x[0]: x[1] for x in
+                                annotations[cell_line_index]["values"]}["Cell Line"]
+                    except (ValueError, KeyError):
+                        cell_line = "Not listed"
             except (ValueError, KeyError):
                 channels = "Not listed"
-
-            try:
-                cell_line_index = [x["ns"] for x in annotations].index(
-                    'openmicroscopy.org/mapr/cell_line')
-                cell_line = {x[0]: x[1] for x in annotations[cell_line_index]["values"]}[
-                    "Cell Line"]
-            except (ValueError, KeyError):
                 cell_line = "Not listed"
 
             try:
                 gene_identifier_index = int(
                     [x["ns"] for x in annotations].index(
                         'openmicroscopy.org/mapr/gene'))
-                gene_identifier = {x[0]: x[1] for x in annotations[gene_identifier_index]["values"]}["Gene Identifier"]
+                gene_identifier = {x[0]: x[1] for x in annotations[gene_identifier_index]["values"]}[
+                    "Gene Identifier"]
             except (ValueError, KeyError):
                 gene_identifier = "Not Listed"
 
