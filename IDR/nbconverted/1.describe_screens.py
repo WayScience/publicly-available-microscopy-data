@@ -116,8 +116,18 @@ def describe_screen(session, screen_id):
                 channels = {x[0]: x[1]
                             for x in annotations[bulk_index]
                             ["values"]}["Channels"]
+
+                # Clean channels value and separate into stain and stain target
+                stain = set()
+                stain_target = set()
+                for entry in channels.split(";"):
+                    temp_list = entry.split(":")
+                    stain.add(temp_list[0])
+                    stain_target.add(temp_list[1])
+
             except (ValueError, KeyError):
-                channels = "Not listed"
+                stain = "Not listed"
+                stain_target = "Not listed"
 
             try:
                 cell_line_index = [x["ns"] for x in annotations].index(
@@ -136,7 +146,7 @@ def describe_screen(session, screen_id):
                 bulk_index = [x["ns"] for x in annotations].index(
                                 'openmicroscopy.org/omero/bulk_annotations')
                 strain = {x[0]: x[1] for x in
-                             annotations[bulk_index]["values"]}["Strain"]
+                          annotations[bulk_index]["values"]}["Strain"]
             except (ValueError, KeyError):
                 strain = "Not listed"
 
@@ -177,7 +187,8 @@ def describe_screen(session, screen_id):
                 strain,
                 gene_identifier,
                 phenotype_identifier,
-                channels,
+                stain,
+                stain_target,
                 pixel_size_x,
                 pixel_size_y
             ])
@@ -194,7 +205,8 @@ def describe_screen(session, screen_id):
             "strain",
             "gene_identifier",
             "phenotype_identifier",
-            "channels",
+            "stain",
+            "stain_target",
             "pixel_size_x",
             "pixel_size_y"
         ]
