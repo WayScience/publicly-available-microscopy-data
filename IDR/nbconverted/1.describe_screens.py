@@ -29,8 +29,6 @@ def extract_study_info(session, screen_id):
     base_url = "https://idr.openmicroscopy.org/webclient/api/annotations/"
     screen_url = f"?type=map&screen={screen_id}"
 
-    MAP_URL = f"https://idr.openmicroscopy.org/webclient/api/annotations/?type=map&screen={screen_id}"
-
     url = f"{base_url}{screen_url}"
     response = session.get(url).json()
 
@@ -68,8 +66,20 @@ def describe_screen(session, screen_id):
 
     Returns
     -------
-    pandas.DataFrame() of metadata per plate. This metadata includes details on
-    stains used.
+    pandas.DataFrame() of the following metadate values:
+
+        screen_id: IDR ID for the screen
+        plate_id: IDR ID for each plate
+        plate_name: Names given to each plate
+        image_id: IDR ID for each image
+        cell_line: Cell line used in the screen experiment
+        strain: Strain of the cell line (if specified)
+        gene_identifier: Accession code for the gene being perturbed in a well
+        phenotype_identifier: Accession code for the phenotype perturbed in a well
+        stain: Set of the stains used in the screen
+        stain_target: The target protein or media of the stain
+        pixel_size_x: Width of the image
+        pixel_size_y: Height of the image
     """
     PLATES_URL = f"https://idr.openmicroscopy.org/webclient/api/plates/?id={screen_id}"
     all_plates = session.get(PLATES_URL).json()["plates"]
@@ -105,11 +115,10 @@ def describe_screen(session, screen_id):
         # TODO: Rewrite to optimize and make consice
         # Get image details from each image id for each plate
         for id in imageIDs:
-            # print("Image ID: ", image_id, "; Well ID: ", wellId)
             MAP_URL = f"https://idr.openmicroscopy.org/webclient/api/annotations/?type=map&image={id}"
-
             annotations = session.get(MAP_URL).json()["annotations"]
 
+            # Get stain and stain target
             try:
                 bulk_index = [x["ns"] for x in annotations].index(
                     'openmicroscopy.org/omero/bulk_annotations')
@@ -129,35 +138,23 @@ def describe_screen(session, screen_id):
                 stain = "Not listed"
                 stain_target = "Not listed"
 
+            # Get cell line
             try:
                 cell_line_index = [x["ns"] for x in annotations].index(
                     'openmicroscopy.org/mapr/cell_line')
-
-                if "Strain" in annotations[bulk_index]["values"][0]:
-                    cell_line = {x[0]: x[1] for x in
-                                 annotations[bulk_index]["values"]}["Strain"]
-                else:
-                    cell_line = {x[0]: x[1] for x in
-                                 annotations[cell_line_index]["values"]}["Cell Line"]
+                cell_line = {x[0]: x[1] for x in
+                             annotations[cell_line_index]["values"]}["Cell Line"]
             except (ValueError, KeyError):
                 cell_line = "Not listed"
 
+            # Get strain of cell line
             try:
-                bulk_index = [x["ns"] for x in annotations].index(
-                                'openmicroscopy.org/omero/bulk_annotations')
                 strain = {x[0]: x[1] for x in
                           annotations[bulk_index]["values"]}["Strain"]
             except (ValueError, KeyError):
                 strain = "Not listed"
 
-            try:
-                cell_line_index = [x["ns"] for x in annotations].index(
-                    'openmicroscopy.org/mapr/cell_line')
-                cell_line = {x[0]: x[1] for x in annotations[cell_line_index]["values"]}[
-                    "Cell Line"]
-            except (ValueError, KeyError):
-                cell_line = "Not listed"
-
+            # Get gene identification accession code
             try:
                 gene_identifier_index = int(
                     [x["ns"] for x in annotations].index(
@@ -167,6 +164,7 @@ def describe_screen(session, screen_id):
             except (ValueError, KeyError):
                 gene_identifier = "Not Listed"
 
+            # Get phenotype identification accession code
             try:
                 phenotype_identifier_index = int(
                     [x["ns"] for x in annotations].index('openmicroscopy.org/mapr/phenotype'))
@@ -174,8 +172,6 @@ def describe_screen(session, screen_id):
                     "Phenotype Term Accession"]
             except (ValueError, KeyError):
                 phenotype_identifier = "Not Listed"
-
-            # TODO: add cleaned data for channels (stain and target)
 
             # Build results
             plate_results.append([
@@ -264,7 +260,7 @@ for idx, screen in screen_details_df.iterrows():
 
     # Break here just for quick testing. Will remove
     count += 1
-    if count == 1:
+    if count == 3:
         break
 
 all_plate_results_df = pd.concat(plate_info).reset_index(drop=True)
