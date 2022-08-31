@@ -219,7 +219,7 @@ def describe_screen(session, screen_id):
 
 # Load IDR ids
 data_dir = pathlib.Path(
-    "~/publicly-available-microscopy-data/IDR/data")
+    "~/Documents/publicly-available-microscopy-data/IDR/data")
 id_file = pathlib.Path(data_dir, "idr_ids.tsv")
 id_df = pd.read_csv(id_file, sep="\t")
 
@@ -266,7 +266,7 @@ for idx, screen in screen_details_df.iterrows():
 
     # Break here just for quick testing. Will remove for complete data collection
     count += 1
-    if count == 1:
+    if count == 3:
         break
 
 pool.close()
