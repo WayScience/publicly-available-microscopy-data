@@ -8,8 +8,12 @@
 # Extract this information based on ID and save details.
 
 import pathlib
+import time
 import requests
 import pandas as pd
+import pyarrow as pa
+import pyarrow.parquet as pq
+import multiprocessing
 
 
 def extract_study_info(session, screen_id):
@@ -66,7 +70,7 @@ def describe_screen(session, screen_id):
 
     Returns
     -------
-    pandas.DataFrame() of the following metadate values:
+    pandas.DataFrame() of the following metadata values:
 
         screen_id: IDR ID for the screen
         plate_id: IDR ID for each plate
@@ -84,9 +88,12 @@ def describe_screen(session, screen_id):
     PLATES_URL = f"https://idr.openmicroscopy.org/webclient/api/plates/?id={screen_id}"
     all_plates = session.get(PLATES_URL).json()["plates"]
     study_plates = {x["id"]: x["name"] for x in all_plates}
-    print("Number of plates found: ", len(study_plates))
+    print(f"Number of plates found in screen {screen_id}: ", len(study_plates))
 
+    # Initialize results array
     plate_results = []
+
+    # Iterate through all plates in the study
     for plate in study_plates:
         imageIDs = list()
         plate_name = study_plates[plate]
@@ -210,13 +217,10 @@ def describe_screen(session, screen_id):
 
     return plate_results_df
 
-
-data_dir = pathlib.Path(
-    "/home/parkerhicks/Documents/publicly-available-microscopy-data/IDR/data")
-
 # Load IDR ids
+data_dir = pathlib.Path(
+    "~/publicly-available-microscopy-data/IDR/data")
 id_file = pathlib.Path(data_dir, "idr_ids.tsv")
-
 id_df = pd.read_csv(id_file, sep="\t")
 
 # Create session
@@ -244,27 +248,35 @@ screen_details_df = (
 output_file = pathlib.Path(data_dir, "screen_details.tsv")
 screen_details_df.to_csv(output_file, index=False, sep="\t")
 
+start = time.time()
 plate_info = []
 count = 0
+
+# Initialize Pool object for threading
+pool = multiprocessing.Pool()
 for idx, screen in screen_details_df.iterrows():
     screen_id = screen.screen_id
     print(f"Now processing screen: {screen_id}")
 
     # Pull pertinent details about the screen (plates, wells, channels, cell line, etc.)
-    plate_results_df = describe_screen(session, screen_id=screen_id)
-    print(plate_results_df)
-    print(f"{plate_results_df.shape[0]} images found. Done\n")
+    plate_results_df = pool.apply_async(describe_screen, (session, screen_id,))
 
     # Combine to create full dataframe
     plate_info.append(plate_results_df)
 
-    # Break here just for quick testing. Will remove
+    # Break here just for quick testing. Will remove for complete data collection
     count += 1
-    if count == 3:
+    if count == 1:
         break
 
+pool.close()
+pool.join()
+# print(f"{plate_results_df.shape[0]} images found. Done\n")
 all_plate_results_df = pd.concat(plate_info).reset_index(drop=True)
+print(all_plate_results_df)
 
+
+# TODO: Implement a more effective way to do this
 img_screen_index = dict()
 for index in screen_details_df.itertuples(index=False):
     screenID = index[19]
@@ -274,5 +286,10 @@ for index in screen_details_df.itertuples(index=False):
 all_plate_results_df["imaging_method"] = all_plate_results_df["screen_id"].map(
     img_screen_index)
 
-output_file = pathlib.Path(data_dir, "plate_details_per_screen.tsv")
-all_plate_results_df.to_csv(output_file, index=False, sep="\t")
+print(f'Data collected. Running cost is {(time.time()-start)/60:.1f} min. ', 'Now saving file.')
+
+# output_file = pathlib.Path(data_dir, "plate_details_per_screen.tsv")
+output_file = pathlib.Path(data_dir, "plate_details_per_screen.parquet")
+pq_table = pa.Table.from_pandas(all_plate_results_df)
+pq.write_table(pq_table, output_file)
+# all_plate_results_df.to_csv(output_file, index=False, sep="\t")
