@@ -253,11 +253,8 @@ available_cores = len(os.sched_getaffinity(0))
 pool = multiprocessing.Pool(processes=available_cores)
 print(f"\nNow processing {len(screen_ids)} screens with {available_cores} cpu cores.\n")
 
-indices = [1, 5]
-test_screen_ids = [screen_ids[i] for i in indices]
-
 # Pull pertinent details about the screen (plates, wells, channels, cell line, etc.)
-plate_results_dfs = pool.map(describe_screen, test_screen_ids)
+plate_results_dfs = pool.map(describe_screen, screen_ids)
 
 # Terminate pool processes
 pool.close()
@@ -278,13 +275,10 @@ for index in screen_details_df.itertuples(index=False):
 all_plate_results_df["imaging_method"] = all_plate_results_df["screen_id"].map(
     img_screen_index)
 
-print(f'Data collected. Running cost is {(time.time()-start)/60:.1f} min. ', 'Now saving file.')
+print(f'Metadata collected. Running cost is {(time.time()-start)/60:.1f} min. ', 'Now saving file.')
 
 # TODO: Save data frames separately per IDR accession code
 # Save data frame as a single parquet file
 output_file = pathlib.Path(data_dir, "plate_details_per_screen.parquet")
 pq_table = pa.Table.from_pandas(all_plate_results_df)
 pq.write_table(pq_table, output_file)
-
-df = pd.read_parquet(f'{data_dir}/plate_details_per_screen.parquet', engine='pyarrow')
-print(df)
