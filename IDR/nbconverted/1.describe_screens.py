@@ -9,6 +9,7 @@
 
 import pathlib
 import time
+import os
 import requests
 import pandas as pd
 import pyarrow as pa
@@ -23,8 +24,8 @@ def extract_study_info(session, screen_id):
     ----------
     session: Requests.session()
         Requests session providing access to IDR API
-    screen_id: str
-        Internal indicator of the specific microscopy data set
+    screen_id: int
+        ID of the screen data set
 
     Returns
     -------
@@ -58,15 +59,13 @@ def extract_study_info(session, screen_id):
     return details_
 
 
-def describe_screen(session, screen_id):
+def describe_screen(screen_id):
     """Pull additional metadata info per plate, given screen id
 
     Parameters
     ----------
-    session: Requests.session()
-        Requests session providing access to IDR API
-    screen_id: str
-        Internal indicator of the specific microscopy data set
+    screen_id: int
+        ID of the screen data set
 
     Returns
     -------
@@ -84,14 +83,18 @@ def describe_screen(session, screen_id):
         stain_target: The target protein or media of the stain
         pixel_size_x: Width of the image
         pixel_size_y: Height of the image
+        imaging_method: Method used to collect images (ex: fluorescence microscopy)
     """
+    session = requests.Session()
+
+    # Get number of plates per screen and append to a dictionary
     PLATES_URL = f"https://idr.openmicroscopy.org/webclient/api/plates/?id={screen_id}"
     all_plates = session.get(PLATES_URL).json()["plates"]
     study_plates = {x["id"]: x["name"] for x in all_plates}
     print(f"Number of plates found in screen {screen_id}: ", len(study_plates))
 
-    # Initialize results array
-    plate_results = []
+    # Initialize results list
+    plate_results = list()
 
     # Iterate through all plates in the study
     for plate in study_plates:
@@ -120,6 +123,7 @@ def describe_screen(session, screen_id):
             continue
 
         # TODO: Rewrite to optimize and make consice
+        # TODO: Include cell/tissue label and map IDR accession to each screen
         # Get image details from each image id for each plate
         for id in imageIDs:
             MAP_URL = f"https://idr.openmicroscopy.org/webclient/api/annotations/?type=map&image={id}"
@@ -214,7 +218,6 @@ def describe_screen(session, screen_id):
             "pixel_size_y"
         ]
     )
-
     return plate_results_df
 
 # Load IDR ids
@@ -223,10 +226,8 @@ data_dir = pathlib.Path(
 id_file = pathlib.Path(data_dir, "idr_ids.tsv")
 id_df = pd.read_csv(id_file, sep="\t")
 
-# Create session
+# Create http session
 INDEX_PAGE = "https://idr.openmicroscopy.org/webclient/?experimenter=-1"
-
-# create http session
 with requests.Session() as session:
     request = requests.Request('GET', INDEX_PAGE)
     prepped = session.prepare_request(request)
@@ -236,8 +237,6 @@ with requests.Session() as session:
 
 # Extract summary details for all screens
 screen_ids = id_df.query("category=='Screen'").id.tolist()
-print(f"There are a total of {len(screen_ids)} screens")
-
 screen_details_df = (
     pd.concat([
        extract_study_info(session=session, screen_id=x) for x in screen_ids
@@ -248,33 +247,24 @@ screen_details_df = (
 output_file = pathlib.Path(data_dir, "screen_details.tsv")
 screen_details_df.to_csv(output_file, index=False, sep="\t")
 
-start = time.time()
-plate_info = []
-count = 0
-
 # Initialize Pool object for threading
-pool = multiprocessing.Pool()
-for idx, screen in screen_details_df.iterrows():
-    screen_id = screen.screen_id
-    print(f"Now processing screen: {screen_id}")
+start = time.time()
+available_cores = len(os.sched_getaffinity(0))
+pool = multiprocessing.Pool(processes=available_cores)
+print(f"\nNow processing {len(screen_ids)} screens with {available_cores} cpu cores.\n")
 
-    # Pull pertinent details about the screen (plates, wells, channels, cell line, etc.)
-    plate_results_df = pool.apply_async(describe_screen, (session, screen_id,))
+indices = [1, 5]
+test_screen_ids = [screen_ids[i] for i in indices]
 
-    # Combine to create full dataframe
-    plate_info.append(plate_results_df)
+# Pull pertinent details about the screen (plates, wells, channels, cell line, etc.)
+plate_results_dfs = pool.map(describe_screen, test_screen_ids)
 
-    # Break here just for quick testing. Will remove for complete data collection
-    count += 1
-    if count == 3:
-        break
-
+# Terminate pool processes
 pool.close()
 pool.join()
-# print(f"{plate_results_df.shape[0]} images found. Done\n")
-all_plate_results_df = pd.concat(plate_info).reset_index(drop=True)
-print(all_plate_results_df)
 
+# Combine to create full dataframe
+all_plate_results_df = pd.concat(plate_results_dfs, ignore_index=True)
 
 # TODO: Implement a more effective way to do this
 img_screen_index = dict()
@@ -283,13 +273,18 @@ for index in screen_details_df.itertuples(index=False):
     img_type = index[5]
     img_screen_index[screenID] = img_type
 
+# TODO: Implement a more effective way to do this
+# Map imageing method per screen to the final data frame
 all_plate_results_df["imaging_method"] = all_plate_results_df["screen_id"].map(
     img_screen_index)
 
 print(f'Data collected. Running cost is {(time.time()-start)/60:.1f} min. ', 'Now saving file.')
 
-# output_file = pathlib.Path(data_dir, "plate_details_per_screen.tsv")
+# TODO: Save data frames separately per IDR accession code
+# Save data frame as a single parquet file
 output_file = pathlib.Path(data_dir, "plate_details_per_screen.parquet")
 pq_table = pa.Table.from_pandas(all_plate_results_df)
 pq.write_table(pq_table, output_file)
-# all_plate_results_df.to_csv(output_file, index=False, sep="\t")
+
+df = pd.read_parquet(f'{data_dir}/plate_details_per_screen.parquet', engine='pyarrow')
+print(df)
