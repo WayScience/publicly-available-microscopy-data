@@ -34,7 +34,8 @@ def get_id(json):
 
 
 output_dir = pathlib.Path(
-    "/home/parkerhicks/Documents/publicly-available-microscopy-data/IDR/data")
+    "~/Documents/publicly-available-microscopy-data/IDR/data")
+
 # Load all screens
 INDEX_PAGE = "https://idr.openmicroscopy.org/api/v0/m/screens/"
 
@@ -73,5 +74,3 @@ id_df = pd.concat([screen_df, project_df], axis="rows").reset_index(drop=True)
 # Output to file
 output_file = pathlib.Path(output_dir, "idr_ids.tsv")
 id_df.to_csv(output_file, index=False, sep="\t")
-
-print(id_df.shape)
