@@ -113,8 +113,6 @@ def describe_screen(screen_id):
                 [screen_id, plate, plate_name, None, None, None, None, None])
             continue
 
-        # TODO: Rewrite to optimize and make consice
-        # TODO: Include cell/tissue label and map IDR accession to each screen
         # Get image details from each image id for each plate
         for id in imageIDs:
             MAP_URL = f"https://idr.openmicroscopy.org/webclient/api/annotations/?type=map&image={id}"
@@ -254,21 +252,19 @@ pool.join()
 # Combine to create full dataframe
 all_plate_results_df = pd.concat(plate_results_dfs, ignore_index=True)
 
-# TODO: Implement a more effective way to do this
+# Collect imaging method metadata for each screen
 img_screen_index = dict()
 for index in screen_details_df.itertuples(index=False):
     screenID = index[19]
     img_type = index[5]
     img_screen_index[screenID] = img_type
 
-# TODO: Implement a more effective way to do this
 # Map imageing method per screen to the final data frame
 all_plate_results_df["imaging_method"] = all_plate_results_df["screen_id"].map(
     img_screen_index)
 
 print(f'Metadata collected. Running cost is {(time.time()-start)/60:.1f} min. ', 'Now saving file.')
 
-# TODO: Save data frames separately per IDR accession code
 # Save data frame as a single parquet file
 output_file = pathlib.Path(data_dir, "plate_details_per_screen.parquet")
 pq_table = pa.Table.from_pandas(all_plate_results_df)
