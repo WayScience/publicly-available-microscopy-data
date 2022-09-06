@@ -6,3 +6,4 @@ dependencies:
 - conda-forge::jupyterlab
 - conda-forge::pandas=>1.2
 - conda-forge::plotnine
+- conda-forge::pyarrow
