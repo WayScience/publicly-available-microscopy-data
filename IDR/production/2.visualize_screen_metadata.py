@@ -1,3 +1,15 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# ## Visualize Screen Metadata
+#
+# Each screen is a unique experiment. Visualize the diversity of experimental details in IDR screens.
+#
+# **Note:** This notebook is WIP
+
+# In[1]:
+
+
 import pathlib
 import pandas as pd
 import plotnine as gg
@@ -44,9 +56,17 @@ def describe_df(df, column_name, data_dir_str, gene_phenotype=True):
 
     return df_naOmit
 
+# In[2]:
+
 
 data_dir = pathlib.Path("publicly-available-microscopy-data/IDR/data")
 data_dir_str = "publicly-available-microscopy-data/IDR/data"
+
+
+# ## Load data
+
+# In[3]:
+
 
 # Load IDR ids
 id_file = pathlib.Path(data_dir, "idr_ids.tsv")
@@ -56,6 +76,11 @@ id_df = pd.read_csv(id_file, sep="\t")
 print(id_df.shape)
 id_df.head(2)
 
+
+
+# In[4]:
+
+
 # Load screen details
 screen_file = pathlib.Path(data_dir, "screen_details.tsv")
 screen_df = pd.read_csv(screen_file, sep="\t")
@@ -63,11 +88,19 @@ screen_df = pd.read_csv(screen_file, sep="\t")
 print(screen_df.shape)
 screen_df.head(2)
 
+
+# In[5]:
+
+
 # Load all plates
 plate_file = pathlib.Path(data_dir, "plate_details_per_screen.tsv")
 
 plate_df = pd.read_csv(plate_file, sep="\t").merge(screen_df, on="screen_id", how="left")
 plate_df.n_wells = plate_df.n_wells.astype(str)
+
+print(plate_df.shape)
+plate_df.head(2)
+
 
 # Descriptive Statistics
 column_list = ['gene_identifier', 'phenotype_identifier', 'channels', 'imaging_method']
@@ -130,11 +163,28 @@ print(f"The mean number of plates is: {mean_num_plates}")
 
 # channel_df.head()
 
+
+# In[8]:
+
+
 # channel_df.drop_duplicates("screen_id").channels.unique()
+
+
+# # In[9]:
 
 
 # test = channel_df.query("idr_name=='idr0069-caldera-perturbome/screenA'")
 # print(test)
+
+
+# # In[ ]:
+
+
+
+
+
+# # In[10]:
+
 
 # exclusions = [
 #     "ch00:",
@@ -168,6 +218,10 @@ print(f"The mean number of plates is: {mean_num_plates}")
 
 #     return output
 
+
+# # In[11]:
+
+
 # def curate_channel(group):
 
 #     if group[0] == "Not listed":
@@ -180,8 +234,16 @@ print(f"The mean number of plates is: {mean_num_plates}")
 
 #     return [split_channel_marker(x, exclusions) for x in group]
 
+
+# # In[12]:
+
+
 # full_df = channel_df.assign(curated_channel=[curate_channel(x) for x in channel_df.split_channels])
 # print(full_df)
+
+
+# In[13]:
+
 
 # full_channel_list_df = full_df.curated_channel.apply(pd.Series).stack().reset_index().loc[:, ["level_0", 0]]
 # full_channel_list_df.columns = ["original_index", "channel"]
@@ -189,15 +251,31 @@ print(f"The mean number of plates is: {mean_num_plates}")
 # final_df = full_df.merge(full_channel_list_df, how="right", left_index=True, right_on="original_index")
 # print(final_df.head())
 
+
+# # In[14]:
+
+
 # split_up_df = final_df.channel.str.split(":").apply(pd.Series).loc[:, [0, 1]]
 # split_up_df.columns = ["stain", "mark"]
 # final_full_df = pd.concat([final_df, split_up_df], axis="columns").loc[:, ["screen_id", "plate_name", "idr_name", "channel", "stain", "mark"]]
 # print(final_full_df)
 
+
+# # In[15]:
+
+
 # channel_count_per_screen_df = final_full_df.groupby(["screen_id", "idr_name", "channel", "stain", "mark"]).plate_name.count().reset_index()
 # channel_count_per_screen_df = channel_count_per_screen_df.rename(columns={"plate_name": "plate_count"}).sort_values(by=["channel", "plate_count"], ascending=[True, False]).reset_index(drop=True)
 # print(channel_count_per_screen_df)
 
+
+# # In[16]:
+
+
 # channel_count_per_screen_df.query("idr_name=='idr0080-way-perturbation/screenA'")
+
+
+# # In[17]:
+
 
 # channel_count_per_screen_df.to_csv("publicly-available-microscopy-data/IDR/data/channel_count_per_screen.tsv", sep="\t", index=False)

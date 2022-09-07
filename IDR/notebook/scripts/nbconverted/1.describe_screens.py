@@ -1,3 +1,15 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# # Describe study metadata
+# 
+# Each screen contains an experiment with different parameters and conditions.
+# 
+# Extract this information based on ID and save details.
+
+# In[1]:
+
+
 import pathlib
 import time
 import os
@@ -6,6 +18,9 @@ import pandas as pd
 import pyarrow as pa
 import pyarrow.parquet as pq
 import multiprocessing
+
+
+# In[2]:
 
 
 def extract_study_info(session, screen_id):
@@ -113,6 +128,8 @@ def describe_screen(screen_id):
                 [screen_id, plate, plate_name, None, None, None, None, None])
             continue
 
+        # TODO: Rewrite to optimize and make consice
+        # TODO: Include cell/tissue label and map IDR accession to each screen
         # Get image details from each image id for each plate
         for id in imageIDs:
             MAP_URL = f"https://idr.openmicroscopy.org/webclient/api/annotations/?type=map&image={id}"
@@ -209,11 +226,25 @@ def describe_screen(screen_id):
     )
     return plate_results_df
 
+
+# In[3]:
+
+
+data_dir = pathlib.Path("data")
+
+
+# In[4]:
+
+
 # Load IDR ids
 data_dir = pathlib.Path(
-    "IDR/data")
+    "~/Documents/publicly-available-microscopy-data/IDR/data")
 id_file = pathlib.Path(data_dir, "idr_ids.tsv")
 id_df = pd.read_csv(id_file, sep="\t")
+
+
+# In[5]:
+
 
 # Create http session
 INDEX_PAGE = "https://idr.openmicroscopy.org/webclient/?experimenter=-1"
@@ -223,6 +254,10 @@ with requests.Session() as session:
     response = session.send(prepped)
     if response.status_code != 200:
         response.raise_for_status()
+
+
+# In[6]:
+
 
 # Extract summary details for all screens
 screen_ids = id_df.query("category=='Screen'").id.tolist()
@@ -235,6 +270,10 @@ screen_details_df = (
 
 output_file = pathlib.Path(data_dir, "screen_details.tsv")
 screen_details_df.to_csv(output_file, index=False, sep="\t")
+
+
+# In[7]:
+
 
 # Initialize Pool object for threading
 start = time.time()
@@ -249,22 +288,30 @@ plate_results_dfs = pool.map(describe_screen, screen_ids)
 pool.close()
 pool.join()
 
+
+# In[8]:
+
+
 # Combine to create full dataframe
 all_plate_results_df = pd.concat(plate_results_dfs, ignore_index=True)
 
-# Collect imaging method metadata for each screen
+# TODO: Implement a more effective way to do this
 img_screen_index = dict()
 for index in screen_details_df.itertuples(index=False):
     screenID = index[19]
     img_type = index[5]
     img_screen_index[screenID] = img_type
 
-# Map imaging method per screen to the final data frame
+# TODO: Implement a more effective way to do this
+# Map imageing method per screen to the final data frame
 all_plate_results_df["imaging_method"] = all_plate_results_df["screen_id"].map(
     img_screen_index)
 
 print(f'Metadata collected. Running cost is {(time.time()-start)/60:.1f} min. ', 'Now saving file.')
 
+# TODO: Save data frames separately per IDR accession code
 # Save data frame as a single parquet file
-output_file = pathlib.Path(data_dir, "plate_details_per_screen.parquet.gzip")
-all_plate_results_df.to_parquet(output_file, compression='gzip')
+output_file = pathlib.Path(data_dir, "plate_details_per_screen.parquet")
+pq_table = pa.Table.from_pandas(all_plate_results_df)
+pq.write_table(pq_table, output_file)
+

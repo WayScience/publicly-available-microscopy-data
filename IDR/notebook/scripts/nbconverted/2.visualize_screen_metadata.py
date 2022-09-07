@@ -11,9 +11,9 @@
 
 
 import pathlib
-import re
 import pandas as pd
 import plotnine as gg
+import os
 
 
 # In[2]:
@@ -60,6 +60,67 @@ print(plate_df.shape)
 plate_df.head(2)
 
 
+# In[ ]:
+
+
+def describe_df(df, column_name, data_dir_str, gene_phenotype=True):
+    """Describes the number of entries and unique entries of a Pandas dataframe.
+
+    Parameters
+    ----------
+    df: Pandas dataframe
+
+    column_name: str
+        Name of the dataframe column to be described.
+
+    gene_phenotype: bool
+        True if the user wants to ensure each image has a gene_identifier and corresponding phenotype identifier
+
+    data_dir_str: str
+        Directory to store output .tsv files
+
+    Returns
+    -------
+    Table of the counts and unique entries of the dataframe.
+    """
+
+    print(f'\nVariable: {column_name}')
+    if gene_phenotype:
+        df_naOmit = df.dropna(subset=['gene_identifier', 'phenotype_identifier'])
+    else:
+        df_naOmit = df.dropna(subset=[column_name])
+
+    print(df_naOmit[column_name].describe())
+    print('___________________________')
+
+    sorted_dfs_dir = data_dir_str + "/sorted_dfs"
+
+    if not os.path.exists(sorted_dfs_dir):
+        os.mkdir(sorted_dfs_dir)
+
+    out_file = pathlib.Path(sorted_dfs_dir, f"{column_name}_df_naOmit.tsv")
+    df_naOmit.to_csv(out_file, index=False, sep="\t")
+
+    return df_naOmit
+
+
+# In[ ]:
+
+
+# Descriptive Statistics
+column_list = ['gene_identifier', 'phenotype_identifier', 'channels', 'imaging_method']
+for i in column_list:
+    describe_df(plate_df, i, data_dir_str=data_dir_str, gene_phenotype=True)
+
+plate_df_naOmit = describe_df(plate_df, 'gene_identifier', data_dir_str=data_dir_str, gene_phenotype=True)
+
+# Number of wells per experiment
+print(f"The total number of wells is: {plate_df_naOmit.n_wells.astype(int).sum():,d}")
+
+mean_num_plates = plate_df_naOmit.groupby("idr_name")["screen_id"].count().mean()
+print(f"The mean number of plates is: {mean_num_plates}")
+
+
 # ## Explore visualizations
 
 # In[6]:
@@ -84,6 +145,27 @@ gg.options.figure_size = (6.4, 6.4)
     + gg.xlab("IDR Screen Accession")
     + gg.scale_fill_discrete(name="Plate size")
 )
+
+
+# In[ ]:
+
+
+# Measures number of instances per gene studied
+gene_identifier_plot = (
+    gg.ggplot(plate_df_naOmit, gg.aes(x="gene_identifier"))
+    + gg.geom_bar()
+    + gg.theme_bw()
+    + gg.theme(axis_text_y=gg.element_text(size=4))
+    + gg.coord_flip()
+    + gg.geom_hline(yintercept=mean_num_plates, linetype="dashed")
+    + gg.ylab("Number of Instances")
+    + gg.xlab("Gene Identifier")
+    + gg.ylim(0, 40)
+    + gg.theme(figure_size=(16, 36))
+    + gg.scale_fill_discrete(name="Plate size")
+)
+
+gene_identifier_plot
 
 
 # In[7]:

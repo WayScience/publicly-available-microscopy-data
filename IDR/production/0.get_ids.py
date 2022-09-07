@@ -34,7 +34,7 @@ def get_id(json):
 
 
 output_dir = pathlib.Path(
-    "~/Documents/publicly-available-microscopy-data/IDR/data")
+    "IDR/data")
 
 # Load all screens
 INDEX_PAGE = "https://idr.openmicroscopy.org/api/v0/m/screens/"
