@@ -1,3 +1,4 @@
+from bz2 import compress
 import pathlib
 import time
 import os
@@ -266,6 +267,5 @@ all_plate_results_df["imaging_method"] = all_plate_results_df["screen_id"].map(
 print(f'Metadata collected. Running cost is {(time.time()-start)/60:.1f} min. ', 'Now saving file.')
 
 # Save data frame as a single parquet file
-output_file = pathlib.Path(data_dir, "plate_details_per_screen.parquet")
-pq_table = pa.Table.from_pandas(all_plate_results_df)
-pq.write_table(pq_table, output_file)
+output_file = pathlib.Path(data_dir, "plate_details_per_screen.parquet.gzip")
+all_plate_results_df.to_parquet(output_file, compression='gzip')
