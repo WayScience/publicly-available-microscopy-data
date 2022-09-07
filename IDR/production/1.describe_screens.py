@@ -1,4 +1,3 @@
-from bz2 import compress
 import pathlib
 import time
 import os
