@@ -211,7 +211,7 @@ def describe_screen(screen_id):
 
 # Load IDR ids
 data_dir = pathlib.Path(
-    "~/Documents/publicly-available-microscopy-data/IDR/data")
+    "IDR/data")
 id_file = pathlib.Path(data_dir, "idr_ids.tsv")
 id_df = pd.read_csv(id_file, sep="\t")
 
