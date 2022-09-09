@@ -49,7 +49,7 @@ def get_id(json):
 # In[3]:
 
 
-output_dir = pathlib.Path("data")
+output_dir = pathlib.Path("../data")
 
 
 # In[4]:
