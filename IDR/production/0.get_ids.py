@@ -33,14 +33,13 @@ def get_id(json):
     return (id_, name_, title_, description_, split_detail)
 
 
-output_dir = pathlib.Path(
-    "IDR/data")
+output_dir = pathlib.Path("IDR/data")
 
 # Load all screens
 INDEX_PAGE = "https://idr.openmicroscopy.org/api/v0/m/screens/"
 
 with requests.Session() as screen_session:
-    request = requests.Request('GET', INDEX_PAGE)
+    request = requests.Request("GET", INDEX_PAGE)
     prepped = screen_session.prepare_request(request)
     response = screen_session.send(prepped)
     if response.status_code != 200:
@@ -51,7 +50,7 @@ screen_info = screen_session.get(INDEX_PAGE).json()
 INDEX_PAGE = "https://idr.openmicroscopy.org/api/v0/m/projects/"
 
 with requests.Session() as project_session:
-    request = requests.Request('GET', INDEX_PAGE)
+    request = requests.Request("GET", INDEX_PAGE)
     prepped = project_session.prepare_request(request)
     response = project_session.send(prepped)
     if response.status_code != 200:
@@ -60,13 +59,13 @@ with requests.Session() as project_session:
 project_info = project_session.get(INDEX_PAGE).json()
 screen_df = pd.DataFrame(
     [get_id(x) for x in screen_info["data"]],
-    columns=["id", "name", "title", "description", "category"]
+    columns=["id", "name", "title", "description", "category"],
 )
 
 
 project_df = pd.DataFrame(
     [get_id(x) for x in project_info["data"]],
-    columns=["id", "name", "title", "description", "category"]
+    columns=["id", "name", "title", "description", "category"],
 )
 
 id_df = pd.concat([screen_df, project_df], axis="rows").reset_index(drop=True)
