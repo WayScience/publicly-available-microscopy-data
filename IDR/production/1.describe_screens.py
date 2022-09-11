@@ -246,8 +246,11 @@ available_cores = len(os.sched_getaffinity(0))
 pool = multiprocessing.Pool(processes=available_cores)
 print(f"\nNow processing {len(screen_ids)} screens with {available_cores} cpu cores.\n")
 
+test_indicies = [0, 1, 2, 49]
+test_screen_ids = [screen_ids[i] for i in test_indicies]
+
 # Pull pertinent details about the screen (plates, wells, channels, cell line, etc.)
-plate_results_dfs = pool.map(describe_screen, screen_ids)
+plate_results_dfs = pool.map(describe_screen, test_screen_ids)
 
 # Terminate pool processes
 pool.close()
