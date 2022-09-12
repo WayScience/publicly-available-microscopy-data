@@ -3,8 +3,6 @@ import time
 import os
 import requests
 import pandas as pd
-import pyarrow as pa
-import pyarrow.parquet as pq
 import multiprocessing
 
 
