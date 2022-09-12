@@ -95,7 +95,7 @@ def describe_screen(screen_id):
             pixel_size_x = grid["image_sizes"][0]["x"]
             pixel_size_y = grid["image_sizes"][0]["y"]
 
-            # Get image and well ids
+            # Get image ids
             for image in grid["grid"][0]:
                 # Append IDs to iterable lists
                 thumb_url = image["thumb_url"].rstrip(image["thumb_url"][-1])
@@ -216,6 +216,29 @@ def describe_screen(screen_id):
     )
     return plate_results_df
 
+def collect_metadata(idr_name, data_directory=data_dir, idr_names_dict=idr_names_dict):
+    """
+    
+    
+    """
+    screen_id = idr_names_dict[idr_name]
+    split_name = idr_name.split("/")
+    study_name = split_name[0]
+    screen_name = split_name[1]
+
+    study_dir = pathlib.Path(data_dir, study_name)
+    screen_dir = pathlib.Path(study_dir, screen_name)
+    if study_dir.exits() == False:
+        os.mkdir(study_dir)
+    elif screen_dir.exits() == False:
+        os.mkdir(screen_dir)
+    else:
+        pass
+
+
+    plate_result_df = describe_screen(screen_id=screen_id)
+
+
 
 # Load IDR ids
 data_dir = pathlib.Path("IDR/data")
@@ -263,8 +286,9 @@ all_plate_results_df = pd.concat(plate_results_dfs, ignore_index=True)
 img_screen_index = dict()
 for index in screen_details_df.itertuples(index=False):
     screenID = index[19]
+    study_name = index[18]
     img_type = index[5]
-    img_screen_index[screenID] = img_type
+    img_screen_index[screenID] = [img_type, study_name]
 
 # Map imaging method per screen to the final data frame
 all_plate_results_df["imaging_method"] = all_plate_results_df["screen_id"].map(
