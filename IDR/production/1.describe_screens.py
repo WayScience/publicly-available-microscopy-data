@@ -125,8 +125,6 @@ def describe_screen(screen_id, sample, imaging_method, study_name):
                 stain_target = set()
                 for entry in channels.split(";"):
                     temp_list = entry.split(":")
-                    if len(temp_list) < 2:
-                        print(temp_list)
                     stain.add(temp_list[0])
                     stain_target.add(temp_list[1])
 
@@ -272,18 +270,11 @@ def collect_metadata(idr_name, values_list):
         pass
 
     # Collect data
-    # extra_data = ["imaging_method", "sample"]
     plate_results_df = describe_screen(screen_id=screen_id, sample=sample, imaging_method=imaging_method, study_name=study_name)
-    # for category in extra_data:
-    #     plate_results_df[category] = plate_results_df["screen_id"].map(
-    #     idr_names_dict
-
 
     # Save data per IDR accession name
     output_file = pathlib.Path(screen_dir, f"{study_name}_{screen_name}_{screen_id}.parquet.gzip")
     plate_results_df.to_parquet(output_file, compression="gzip")
-
-
 
 # Load IDR ids
 data_dir = pathlib.Path("IDR/data")
@@ -326,6 +317,7 @@ for index in screen_details_df.itertuples(index=False):
     sample = index[0]
     idr_names_dict[idr_name] = [screenID, img_type, sample]
 
+# Testing studies
 test_dict = dict((k, idr_names_dict[k]) for k in ('idr0080-way-perturbation/screenA', 'idr0001-graml-sysgro/screenA', 'idr0069-caldera-perturbome/screenA'))
 names = ['idr0080-way-perturbation/screenA', 'idr0001-graml-sysgro/screenA', 'idr0069-caldera-perturbome/screenA']
 
@@ -335,19 +327,13 @@ test_list = []
 for key in idr_meta_dict.keys():
     test_list.append((key, idr_meta_dict[key]))
 
-# Pull pertinent details about the screen (plates, wells, channels, cell line, etc.)
-plate_results_dfs = pool.starmap(collect_metadata, test_list)
+# Pull & save pertinent details about the screen (plates, wells, channels, cell line, etc.)
+pool.starmap(collect_metadata, test_list)
 
 # Terminate pool processes
 pool.close()
 pool.join()
 
-# # Combine to create full dataframe
-# all_plate_results_df = pd.concat(plate_results_dfs, ignore_index=True)
-
-
 print(
-    f"Metadata collected. Running cost is {(time.time()-start)/60:.1f} min."
+    f"\nMetadata collected. Running cost is {(time.time()-start)/60:.1f} min."
 )
-
-
