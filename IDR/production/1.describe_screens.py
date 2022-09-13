@@ -305,9 +305,6 @@ available_cores = len(os.sched_getaffinity(0))
 pool = multiprocessing.Pool(processes=available_cores)
 print(f"\nNow processing {len(screen_ids)} screens with {available_cores} cpu cores.\n")
 
-test_indicies = [0, 1, 2, 49]
-test_screen_ids = [screen_ids[i] for i in test_indicies]
-
 # Collect study_names, imaging method metadata for each screen
 idr_names_dict = dict()
 for index in screen_details_df.itertuples(index=False):
@@ -318,10 +315,7 @@ for index in screen_details_df.itertuples(index=False):
     idr_names_dict[idr_name] = [screenID, img_type, sample]
 
 # Testing studies
-test_dict = dict((k, idr_names_dict[k]) for k in ('idr0080-way-perturbation/screenA', 'idr0001-graml-sysgro/screenA', 'idr0069-caldera-perturbome/screenA'))
-names = ['idr0080-way-perturbation/screenA', 'idr0001-graml-sysgro/screenA', 'idr0069-caldera-perturbome/screenA']
-
-idr_meta_dict = test_dict
+idr_meta_dict = dict((k, idr_names_dict[k]) for k in ('idr0080-way-perturbation/screenA', 'idr0001-graml-sysgro/screenA', 'idr0069-caldera-perturbome/screenA'))
 
 test_list = []
 for key in idr_meta_dict.keys():
