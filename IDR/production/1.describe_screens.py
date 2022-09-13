@@ -42,7 +42,7 @@ def extract_study_info(session, screen_id):
     return details_
 
 
-def describe_screen(screen_id):
+def describe_screen(screen_id, sample, imaging_method, study_name):
     """Pull additional metadata info per plate, given screen id
 
     Parameters
@@ -125,10 +125,12 @@ def describe_screen(screen_id):
                 stain_target = set()
                 for entry in channels.split(";"):
                     temp_list = entry.split(":")
+                    if len(temp_list) < 2:
+                        print(temp_list)
                     stain.add(temp_list[0])
                     stain_target.add(temp_list[1])
 
-            except (ValueError, KeyError):
+            except (ValueError, KeyError, IndexError):
                 stain = "Not listed"
                 stain_target = "Not listed"
 
@@ -199,9 +201,12 @@ def describe_screen(screen_id):
             plate_results.append(
                 [
                     screen_id,
+                    study_name,
                     plate,
                     plate_name,
                     id,
+                    imaging_method,
+                    sample,
                     organism,
                     organism_part,
                     cell_line,
@@ -220,9 +225,12 @@ def describe_screen(screen_id):
         plate_results,
         columns=[
             "screen_id",
+            'study_name',
             "plate_id",
             "plate_name",
             "image_id",
+            'imaging_method',
+            'sample',
             "organism",
             "organism_part",
             "cell_line",
@@ -242,7 +250,10 @@ def collect_metadata(idr_name, values_list):
     
     
     """
-    data_dir = pathlib.Path("IDR/data")
+    data_dir = pathlib.Path("IDR/data/metadata")
+    if data_dir.exists() == False:
+        os.mkdir(data_dir)
+
     screen_id = values_list[0]
     imaging_method = values_list[1]
     sample = values_list[2]
@@ -261,16 +272,16 @@ def collect_metadata(idr_name, values_list):
         pass
 
     # Collect data
-    extra_data = ["imaging_method", "sample"]
-    plate_results_df = describe_screen(screen_id=screen_id)
-    for category in extra_data:
-        plate_results_df[category] = all_plate_results_df["screen_id"].map(
-        idr_names_dict
-)
+    # extra_data = ["imaging_method", "sample"]
+    plate_results_df = describe_screen(screen_id=screen_id, sample=sample, imaging_method=imaging_method, study_name=study_name)
+    # for category in extra_data:
+    #     plate_results_df[category] = plate_results_df["screen_id"].map(
+    #     idr_names_dict
+
 
     # Save data per IDR accession name
-    output_file = pathlib.Path(screen_dir, f"{idr_name}_{screen_name}_{screen_id}.parquet.gzip")
-    plate_result_df.to_parquet(output_file, compression="gzip")
+    output_file = pathlib.Path(screen_dir, f"{study_name}_{screen_name}_{screen_id}.parquet.gzip")
+    plate_results_df.to_parquet(output_file, compression="gzip")
 
 
 
@@ -317,6 +328,7 @@ for index in screen_details_df.itertuples(index=False):
 
 test_dict = dict((k, idr_names_dict[k]) for k in ('idr0080-way-perturbation/screenA', 'idr0001-graml-sysgro/screenA', 'idr0069-caldera-perturbome/screenA'))
 names = ['idr0080-way-perturbation/screenA', 'idr0001-graml-sysgro/screenA', 'idr0069-caldera-perturbome/screenA']
+
 idr_meta_dict = test_dict
 
 test_list = []
@@ -338,6 +350,4 @@ print(
     f"Metadata collected. Running cost is {(time.time()-start)/60:.1f} min."
 )
 
-# Save data frame as a single parquet file
-output_file = pathlib.Path(data_dir, "plate_details_per_screen.parquet.gzip")
-all_plate_results_df.to_parquet(output_file, compression="gzip")
+
