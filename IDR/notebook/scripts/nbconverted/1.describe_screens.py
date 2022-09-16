@@ -2,9 +2,9 @@
 # coding: utf-8
 
 # # Describe study metadata
-# 
+#
 # Each screen contains an experiment with different parameters and conditions.
-# 
+#
 # Extract this information based on ID and save details.
 
 # In[8]:
@@ -57,18 +57,13 @@ def extract_study_info(session, screen_id):
 
     return details_
 
+
 def clean_channel_item(channel_item):
-    if bool(
-        channel_item[
-            channel_item.find("(")
-            + 1 : channel_item.rfind(")")
-        ]
-        ):
-        channel_item = re.sub(
-            r"\([^()]*\)", "", channel_item
-        )
+    if bool(channel_item[channel_item.find("(") + 1 : channel_item.rfind(")")]):
+        channel_item = re.sub(r"\([^()]*\)", "", channel_item)
 
     return channel_item.strip()
+
 
 def describe_screen(screen_id, session, sample, imaging_method, study_name):
     """Pull additional metadata info per plate, given screen id
@@ -133,9 +128,9 @@ def describe_screen(screen_id, session, sample, imaging_method, study_name):
             excluded_keys = ["collabels", "rowlabels", "image_sizes"]
             for key in excluded_keys:
                 well_JSON.pop(key, None)
-            for row in range(len(well_JSON['grid'])):
+            for row in range(len(well_JSON["grid"])):
                 for well in well_JSON["grid"][row]:
-                # Append IDs to iterable lists
+                    # Append IDs to iterable lists
                     wellIDs.append(well["wellId"])
 
         except (ValueError, KeyError):
@@ -176,7 +171,7 @@ def describe_screen(screen_id, session, sample, imaging_method, study_name):
                 # Clean channels value and add to stain:target list
                 stains_targets = list()
                 for channel in channels.split(";"):
-                    
+
                     # For channel entries with 'stain:target' format
                     if bool(re.search(r"([\:])+", channel)):
                         # Split stain and target for whitespace trimming
@@ -204,16 +199,16 @@ def describe_screen(screen_id, session, sample, imaging_method, study_name):
 
                         # Append to channel list
                         stains_targets.append(f"{stain_name}:{target_name}")
-                      
+
                     else:
                         raise ValueError(
                             "Channels do not adhere to attribute standardization"
                         )
                 # Sort stain:target entries alphebetically by stain
                 stains_targets.sort()
-                
+
                 # Join sorted entries into single string
-                stains_targets = ';'.join(stains_targets)
+                stains_targets = ";".join(stains_targets)
 
             except (ValueError, KeyError):
                 stains_targets = "Not listed"
@@ -455,4 +450,3 @@ pool.close()
 pool.join()
 
 print(f"\nMetadata collected. Running cost is {(time.time()-start)/60:.1f} min.")
-
