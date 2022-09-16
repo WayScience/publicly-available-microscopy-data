@@ -2,9 +2,9 @@
 # coding: utf-8
 
 # # Describe study metadata
-#
+# 
 # Each screen contains an experiment with different parameters and conditions.
-#
+# 
 # Extract this information based on ID and save details.
 
 # In[8]:
@@ -57,8 +57,20 @@ def extract_study_info(session, screen_id):
 
     return details_
 
+def clean_channel_item(channel_item):
+    if bool(
+        channel_item[
+            channel_item.find("(")
+            + 1 : channel_item.rfind(")")
+        ]
+        ):
+        channel_item = re.sub(
+            r"\([^()]*\)", "", channel_item
+        )
 
-def describe_screen(screen_id, sample, imaging_method, study_name):
+    return channel_item.strip()
+
+def describe_screen(screen_id, session, sample, imaging_method, study_name):
     """Pull additional metadata info per plate, given screen id
 
     Parameters
@@ -80,7 +92,7 @@ def describe_screen(screen_id, sample, imaging_method, study_name):
         study_name: IDR accession name
         plate_id: IDR ID for each plate
         plate_name: Names given to each plate
-        image_id: IDR ID for each image
+        well_id: IDR ID for each well
         sample: Indicates cell or tissue sample
         organism: Genus and species of cells in image
         organism_part: Location of tissue sample
@@ -88,13 +100,11 @@ def describe_screen(screen_id, sample, imaging_method, study_name):
         strain: Strain of the cell line (if specified)
         gene_identifier: Accession code for the gene being perturbed in a well
         phenotype_identifier: Accession code for the phenotype perturbed in a well
-        stain: Set of the stains used in the screen
-        stain_target: The target protein or media of the stain
+        stains_targets: Channels for the well as stain:target
         pixel_size_x: Width of the image
         pixel_size_y: Height of the image
         imaging_method: Method used to collect images (ex: fluorescence microscopy)
     """
-    session = requests.Session()
 
     # Get number of plates per screen and append to a dictionary
     PLATES_URL = f"https://idr.openmicroscopy.org/webclient/api/plates/?id={screen_id}"
@@ -107,24 +117,26 @@ def describe_screen(screen_id, sample, imaging_method, study_name):
 
     # Iterate through all plates in the study
     for plate in study_plates:
-        imageIDs = list()
+        wellIDs = list()
         plate_name = study_plates[plate]
 
-        # Access .json file for the plate ID. Contains image ID (id) numbers
-        # for replicate images per plate.
-        WELLS_IMAGES_URL = f"https://idr.openmicroscopy.org/webgateway/plate/{plate}/"
-        grid = session.get(WELLS_IMAGES_URL).json()
+        # Access .json file for the plate ID. Contains well ID numbers
+        # for each well per plate.
+        PLATES_URL = f"https://idr.openmicroscopy.org/webgateway/plate/{plate}/"
+        well_JSON = session.get(PLATES_URL).json()
 
         try:
-            pixel_size_x = grid["image_sizes"][0]["x"]
-            pixel_size_y = grid["image_sizes"][0]["y"]
+            pixel_size_x = well_JSON["image_sizes"][0]["x"]
+            pixel_size_y = well_JSON["image_sizes"][0]["y"]
 
-            # Get image ids
-            for image in grid["grid"][0]:
+            # Get well ids
+            excluded_keys = ["collabels", "rowlabels", "image_sizes"]
+            for key in excluded_keys:
+                well_JSON.pop(key, None)
+            for row in range(len(well_JSON['grid'])):
+                for well in well_JSON["grid"][row]:
                 # Append IDs to iterable lists
-                thumb_url = image["thumb_url"].rstrip(image["thumb_url"][-1])
-                image_id = thumb_url.split("/")[-1]
-                imageIDs.append(image_id)
+                    wellIDs.append(well["wellId"])
 
         except (ValueError, KeyError):
             plate_results.append(
@@ -148,8 +160,8 @@ def describe_screen(screen_id, sample, imaging_method, study_name):
             continue
 
         # Get image details from each image id for each plate
-        for id in imageIDs:
-            MAP_URL = f"https://idr.openmicroscopy.org/webclient/api/annotations/?type=map&image={id}"
+        for wellID in wellIDs:
+            MAP_URL = f"https://idr.openmicroscopy.org/webclient/api/annotations/?type=map&well={wellID}"
             annotations = session.get(MAP_URL).json()["annotations"]
 
             # Get stain and stain target
@@ -161,53 +173,50 @@ def describe_screen(screen_id, sample, imaging_method, study_name):
                     "Channels"
                 ]
 
-                # Clean channels value and separate into stain and stain target
-                stain = list()
-                stain_target = list()
+                # Clean channels value and add to stain:target list
+                stains_targets = list()
                 for channel in channels.split(";"):
+                    
                     # For channel entries with 'stain:target' format
                     if bool(re.search(r"([\:])+", channel)):
-                        # Separate stain and target
-                        st_list = channel.split(":")
-                        # Add to respective sets
-                        stain.append(st_list[0])
-                        stain_target.append(st_list[1])
+                        # Split stain and target for whitespace trimming
+                        split = channel.split(":")
+
+                        # Trim whitespace
+                        stripped = [s.strip() for s in split]
+
+                        # Redefine variables and append to channel list
+                        stain = stripped[0]
+                        target = stripped[1]
+                        stains_targets.append(f"{stain}:{target}")
 
                     # For channel entries with 'stain (target)' format
                     elif bool(channel[channel.find("(") + 1 : channel.rfind(")")]):
-                        # Search for target name within parentheses
+                        # Search for target and stain names
                         target_name = channel[
                             channel.find("(") + 1 : channel.rfind(")")
                         ]
-                        # Remove parentheses for stain name
                         stain_name = re.sub(r"\([^()]*\)", "", channel)
-                        # Remove redundancies (ie. if (target (abbreviation)) present)
-                        image_attributes = {"target": target_name, "stain": stain_name}
-                        for image_attribute in image_attributes.keys():
-                            image_att_name = image_attributes[image_attribute]
-                            if bool(
-                                image_att_name[
-                                    image_att_name.find("(")
-                                    + 1 : image_att_name.rfind(")")
-                                ]
-                            ):
-                                image_att_name = re.sub(
-                                    r"\([^()]*\)", "", image_att_name
-                                )
-                                # Add to respective lists
-                                if image_attribute == "target":
-                                    stain_target.append(target_name)
-                                elif image_attribute == "stain":
-                                    stain.append(stain_name)
 
+                        # Remove parentheses for stain name
+                        stain_name = clean_channel_item(stain_name)
+                        target_name = clean_channel_item(target_name)
+
+                        # Append to channel list
+                        stains_targets.append(f"{stain_name}:{target_name}")
+                      
                     else:
                         raise ValueError(
                             "Channels do not adhere to attribute standardization"
                         )
+                # Sort stain:target entries alphebetically by stain
+                stains_targets.sort()
+                
+                # Join sorted entries into single string
+                stains_targets = ';'.join(stains_targets)
 
             except (ValueError, KeyError):
-                stain = "Not listed"
-                stain_target = "Not listed"
+                stains_targets = "Not listed"
 
             # Get organism
             try:
@@ -281,7 +290,7 @@ def describe_screen(screen_id, sample, imaging_method, study_name):
                     study_name,
                     plate,
                     plate_name,
-                    id,
+                    wellID,
                     imaging_method,
                     sample,
                     organism,
@@ -290,8 +299,7 @@ def describe_screen(screen_id, sample, imaging_method, study_name):
                     strain,
                     gene_identifier,
                     phenotype_identifier,
-                    stain,
-                    stain_target,
+                    stains_targets,
                     pixel_size_x,
                     pixel_size_y,
                 ]
@@ -305,7 +313,7 @@ def describe_screen(screen_id, sample, imaging_method, study_name):
             "study_name",
             "plate_id",
             "plate_name",
-            "image_id",
+            "well_id",
             "imaging_method",
             "sample",
             "organism",
@@ -314,8 +322,7 @@ def describe_screen(screen_id, sample, imaging_method, study_name):
             "strain",
             "gene_identifier",
             "phenotype_identifier",
-            "stain",
-            "stain_target",
+            "stains_targets",
             "pixel_size_x",
             "pixel_size_y",
         ],
@@ -328,6 +335,7 @@ def describe_screen(screen_id, sample, imaging_method, study_name):
 
 def collect_metadata(idr_name, values_list):
     """Data collection and saving pipeline"""
+    session = requests.Session()
     # Extract names and values
     screen_id = values_list[0]
     imaging_method = values_list[1]
@@ -346,6 +354,7 @@ def collect_metadata(idr_name, values_list):
     # Collect data
     plate_results_df = describe_screen(
         screen_id=screen_id,
+        session=session,
         sample=sample,
         imaging_method=imaging_method,
         study_name=study_name,
@@ -446,3 +455,4 @@ pool.close()
 pool.join()
 
 print(f"\nMetadata collected. Running cost is {(time.time()-start)/60:.1f} min.")
+
