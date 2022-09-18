@@ -2,9 +2,9 @@
 # coding: utf-8
 
 # # Describe study metadata
-# 
+#
 # Each screen contains an experiment with different parameters and conditions.
-# 
+#
 # Extract this information based on ID and save details.
 
 # In[3]:
@@ -57,32 +57,27 @@ def extract_study_info(session, screen_id):
 
     return details_
 
+
 def clean_channel_item(channel_item):
-    """ Remove parentheses and whitespace for channels formatted as stain (target)
+    """Remove parentheses and whitespace for channels formatted as stain (target)
 
     Parameters
     ----------
     channel_item: str
-        Stain or target name 
+        Stain or target name
 
     Returns
     -------
         Stain or target name without parentheses or whitespace
     """
     # If redundant parentheses exist in stain or target name
-    if bool(
-        channel_item[
-            channel_item.find("(")
-            + 1 : channel_item.rfind(")")
-        ]
-        ):
+    if bool(channel_item[channel_item.find("(") + 1 : channel_item.rfind(")")]):
         # Remove parentheses
-        channel_item = re.sub(
-            r"\([^()]*\)", "", channel_item
-        )
+        channel_item = re.sub(r"\([^()]*\)", "", channel_item)
 
     # Return value without whitespace
     return channel_item.strip()
+
 
 def describe_screen(screen_id, session, sample, imaging_method, study_name):
     """Pull additional metadata info per plate, given screen id
@@ -149,9 +144,9 @@ def describe_screen(screen_id, session, sample, imaging_method, study_name):
             excluded_keys = ["collabels", "rowlabels", "image_sizes"]
             for key in excluded_keys:
                 well_JSON.pop(key, None)
-            for row in range(len(well_JSON['grid'])):
+            for row in range(len(well_JSON["grid"])):
                 for well in well_JSON["grid"][row]:
-                # Append IDs to iterable lists
+                    # Append IDs to iterable lists
                     wellIDs.append(well["wellId"])
 
         except (ValueError, KeyError):
@@ -192,12 +187,15 @@ def describe_screen(screen_id, session, sample, imaging_method, study_name):
                 # Clean channels value and add to stain:target list
                 stains_targets = list()
                 for channel in channels.split(";"):
-                    
+
                     # For channel entries with 'stain:target' format
                     if bool(re.search(r"([\:])+", channel)):
 
                         # Split stain and target and trim whitespace
-                        stain, target = [channel_element.strip() for channel_element in channel.split(":")]
+                        stain, target = [
+                            channel_element.strip()
+                            for channel_element in channel.split(":")
+                        ]
 
                         # Redefine variables and append to channel list
                         stains_targets.append(f"{stain}:{target}")
@@ -216,16 +214,16 @@ def describe_screen(screen_id, session, sample, imaging_method, study_name):
 
                         # Append to channel list
                         stains_targets.append(f"{stain_name}:{target_name}")
-                      
+
                     else:
                         raise ValueError(
                             "Channels do not adhere to attribute standardization"
                         )
                 # Sort stain:target entries alphebetically by stain
                 stains_targets.sort()
-                
+
                 # Join sorted entries into single string
-                stains_targets = ';'.join(stains_targets)
+                stains_targets = ";".join(stains_targets)
 
             except (ValueError, KeyError):
                 stains_targets = "Not listed"
@@ -414,10 +412,10 @@ output_file = pathlib.Path(data_dir, "screen_details.tsv")
 screen_details_df.to_csv(output_file, index=False, sep="\t")
 
 
-# In the chunk below, we collect and process a subset of the available IDR screens. The subset contains IDR accession names idr0080, idr0001, and idr0069. 
+# In the chunk below, we collect and process a subset of the available IDR screens. The subset contains IDR accession names idr0080, idr0001, and idr0069.
 
-# The idr0080 dataset was collected by Way et al. (2021) and will be used as a validation set for our statistics pipeline as we already know the image counts and unique attribute counts. 
-# 
+# The idr0080 dataset was collected by Way et al. (2021) and will be used as a validation set for our statistics pipeline as we already know the image counts and unique attribute counts.
+#
 # The remaining two datasets are used for prototyping iterative functionalities of metadata collection and statistics.
 
 # In[9]:
@@ -450,7 +448,7 @@ for name, metadata in zip(idr_names, metadata):
 study_subset = [
     "idr0080-way-perturbation/screenA",
     "idr0001-graml-sysgro/screenA",
-    "idr0069-caldera-perturbome/screenA"
+    "idr0069-caldera-perturbome/screenA",
 ]
 subset_metadata = [idr_names_dict[study] for study in study_subset]
 
@@ -461,7 +459,9 @@ prototype_idr_studies = list(zip(study_subset, subset_metadata))
 start = time.time()
 available_cores = len(os.sched_getaffinity(0))
 pool = multiprocessing.Pool(processes=available_cores)
-print(f"\nNow processing {len(prototype_idr_studies)} screens with {available_cores} cpu cores.\n")
+print(
+    f"\nNow processing {len(prototype_idr_studies)} screens with {available_cores} cpu cores.\n"
+)
 
 # Pull & save pertinent details about the screen (plates, wells, channels, cell line, etc.)
 pool.starmap(collect_metadata, prototype_idr_studies)
@@ -471,4 +471,3 @@ pool.close()
 pool.join()
 
 print(f"\nMetadata collected. Running cost is {(time.time()-start)/60:.1f} min.")
-
