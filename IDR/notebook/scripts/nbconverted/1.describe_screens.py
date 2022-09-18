@@ -2,12 +2,12 @@
 # coding: utf-8
 
 # # Describe study metadata
-#
+# 
 # Each screen contains an experiment with different parameters and conditions.
-#
+# 
 # Extract this information based on ID and save details.
 
-# In[3]:
+# In[8]:
 
 
 import pathlib
@@ -18,7 +18,7 @@ import multiprocessing
 import re
 
 
-# In[4]:
+# In[9]:
 
 
 # Define screen metadata extraction functions
@@ -340,7 +340,7 @@ def describe_screen(screen_id, session, sample, imaging_method, study_name):
     return plate_results_df
 
 
-# In[5]:
+# In[10]:
 
 
 def collect_metadata(idr_name, values_list):
@@ -377,7 +377,7 @@ def collect_metadata(idr_name, values_list):
     plate_results_df.to_parquet(output_file, compression="gzip")
 
 
-# In[6]:
+# In[11]:
 
 
 # Load IDR ids
@@ -386,7 +386,7 @@ id_file = pathlib.Path(data_dir, "idr_ids.tsv")
 id_df = pd.read_csv(id_file, sep="\t")
 
 
-# In[7]:
+# In[12]:
 
 
 # Create http session
@@ -399,7 +399,7 @@ with requests.Session() as session:
         response.raise_for_status()
 
 
-# In[8]:
+# In[13]:
 
 
 # Extract summary details for all screens
@@ -412,13 +412,13 @@ output_file = pathlib.Path(data_dir, "screen_details.tsv")
 screen_details_df.to_csv(output_file, index=False, sep="\t")
 
 
-# In the chunk below, we collect and process a subset of the available IDR screens. The subset contains IDR accession names idr0080, idr0001, and idr0069.
+# In the chunk below, we collect and process a subset of the available IDR screens. The subset contains IDR accession names idr0080, idr0001, and idr0069. 
 
-# The idr0080 dataset was collected by Way et al. (2021) and will be used as a validation set for our statistics pipeline as we already know the image counts and unique attribute counts.
-#
+# The idr0080 dataset was collected by Way et al. (2021) and will be used as a validation set for our statistics pipeline as we already know the image counts and unique attribute counts. 
+# 
 # The remaining two datasets are used for prototyping iterative functionalities of metadata collection and statistics.
 
-# In[9]:
+# In[14]:
 
 
 # Collect study_names and imaging method metadata for each screen
@@ -471,3 +471,4 @@ pool.close()
 pool.join()
 
 print(f"\nMetadata collected. Running cost is {(time.time()-start)/60:.1f} min.")
+
