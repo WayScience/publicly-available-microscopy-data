@@ -63,8 +63,8 @@ def collect_study_stats(
     return results_list
 
 
-def collect_databank_stats(metadata_dir, na_cols=["pixel_size_x", "pixel_size_y"]):
-    """Statistics pipeline for computation accross a databank
+def collect_databank_stats(metadata_directory, na_cols=["pixel_size_x", "pixel_size_y"]):
+    """Statistics pipeline for computation across a databank
 
     Parameters
     ----------
@@ -78,9 +78,8 @@ def collect_databank_stats(metadata_dir, na_cols=["pixel_size_x", "pixel_size_y"
     stat_results_df: pandas dataframe
         Contains all statistics for each image attribute not in na_cols calculated across all studies
     """
-    metadata_directory = pathlib.Path("../data/metadata")
 
-    # Open and concatinate study metadata dataframes from .parquet files
+    # Open and concatenate study metadata dataframes from .parquet files
     databank_metadata = pd.concat(
         [
             pd.read_parquet(study_metadata_file)
@@ -122,26 +121,26 @@ studies_metadata_dir = pathlib.Path("IDR/data/metadata")
 # Collect metadata file paths
 metadata_files = list(walk(studies_metadata_dir))
 
+# Make directories
+stats_dir = pathlib.Path("IDR/data/statistics")
+pathlib.Path.mkdir(stats_dir, exist_ok=True)
+
 # Calculate statistics for each image attribute for individual studies
-all_results_list = list()
+individual_study_stats = list()
 for metadata_path in metadata_files:
-    collect_study_stats(metadata_path, all_results_list)
+    collect_study_stats(metadata_path, individual_study_stats)
+
+stat_results_df = pd.DataFrame(
+    data=individual_study_stats,
+    columns=["Study_Name", "Attribute", "S", "H", "NME", "J", "GC"],
+)
 
 # Save individual stats as parquet file
 output_file = pathlib.Path(stats_dir, f"individual_studies_diversity.parquet.gzip")
 stat_results_df.to_parquet(output_file, compression="gzip")
 
-stat_results_df = pd.DataFrame(
-    data=all_results_list,
-    columns=["Study_Name", "Attribute", "S", "H", "NME", "J", "GC"],
-)
-
-# Make directories
-stats_dir = pathlib.Path("IDR/data/statistics")
-pathlib.Path.mkdir(stats_dir, exist_ok=True)
-
 # Collect databank stats
-databank_stats = collect_databank_stats(metadata_dir=studies_metadata_dir)
+databank_stats = collect_databank_stats(metadata_directory=studies_metadata_dir)
 
 # Save databank stats as parquet file
 output_file = pathlib.Path(stats_dir, f"databank_diversity.parquet.gzip")
