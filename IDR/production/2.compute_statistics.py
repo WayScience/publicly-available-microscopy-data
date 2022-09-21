@@ -1,6 +1,5 @@
 import pandas as pd
 import pathlib
-import multiprocessing
 import time
 from utils.io import walk
 from utils.statistics import stats_pipeline
@@ -116,3 +115,34 @@ def collect_databank_stats(metadata_dir, na_cols=["pixel_size_x", "pixel_size_y"
     )
 
     return stat_results_df
+
+# Define study metadata directory
+studies_metadata_dir = pathlib.Path("../data/metadata")
+
+# Collect metadata file paths
+metadata_files = list(walk(studies_metadata_dir))
+
+# Calculate statistics for each image attribute for individual studies
+all_results_list = list()
+for metadata_path in metadata_files:
+    collect_study_stats(metadata_path, all_results_list)
+
+# Save individual stats as parquet file
+output_file = pathlib.Path(stats_dir, f"individual_studies_diversity.parquet.gzip")
+stat_results_df.to_parquet(output_file, compression="gzip")
+
+stat_results_df = pd.DataFrame(
+    data=all_results_list,
+    columns=["Study_Name", "Attribute", "S", "H", "NME", "J", "GC"],
+)
+
+# Make directories
+stats_dir = pathlib.Path("../data/statistics")
+pathlib.Path.mkdir(stats_dir, exist_ok=True)
+
+# Collect databank stats
+databank_stats = collect_databank_stats(metadata_dir=studies_metadata_dir)
+
+# Save databank stats as parquet file
+output_file = pathlib.Path(stats_dir, f"databank_diversity.parquet.gzip")
+databank_stats.to_parquet(output_file, compression="gzip")
