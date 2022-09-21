@@ -27,11 +27,11 @@ def category_frequencies(attribute_elements):
     return rel_freq_dict, abs_freq_list
 
 
-def h_index(p):
+def h_index(rel_frequencies):
     """Calculates the Shannon Index of a set of unique attribute instances.
     Parameters
     ----------
-    p: dict
+    rel_frequencies: dict
         Dictionary of relative frequencies for each unique element in an attribute column.
     Returns
     -------
@@ -41,7 +41,7 @@ def h_index(p):
         List of each -p_iln(p_i) value to use for Normalized Median Evenness statistic.
     """
     results = list()
-    for entry in p.values():
+    for entry in rel_frequencies.values():
         results.append(entry * ln(entry))
 
     results = np.array(results)
@@ -54,7 +54,7 @@ def pielou(h, s):
     Parameters
     ----------
     h: float
-        Observed Shannon Index calculated by h-index()
+        Observed Shannon Index calculated by h_index()
     s: int
         Observed richness within an image attribute (count of unique entries)
     Returns
