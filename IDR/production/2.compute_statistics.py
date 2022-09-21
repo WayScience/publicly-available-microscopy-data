@@ -2,6 +2,7 @@ import pandas as pd
 import pathlib
 import multiprocessing
 import time
+from utils.io import walk
 
 
 def stats_pipeline(attribute_elements):
