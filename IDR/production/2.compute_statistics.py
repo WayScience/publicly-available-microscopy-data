@@ -117,7 +117,7 @@ def collect_databank_stats(metadata_dir, na_cols=["pixel_size_x", "pixel_size_y"
     return stat_results_df
 
 # Define study metadata directory
-studies_metadata_dir = pathlib.Path("../data/metadata")
+studies_metadata_dir = pathlib.Path("IDR/data/metadata")
 
 # Collect metadata file paths
 metadata_files = list(walk(studies_metadata_dir))
@@ -137,7 +137,7 @@ stat_results_df = pd.DataFrame(
 )
 
 # Make directories
-stats_dir = pathlib.Path("../data/statistics")
+stats_dir = pathlib.Path("IDR/data/statistics")
 pathlib.Path.mkdir(stats_dir, exist_ok=True)
 
 # Collect databank stats
