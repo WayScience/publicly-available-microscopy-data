@@ -62,3 +62,57 @@ def collect_study_stats(
         results_list.append([study_name, attribute, s, h, nme, j, gc])
 
     return results_list
+
+
+def collect_databank_stats(metadata_dir, na_cols=["pixel_size_x", "pixel_size_y"]):
+    """Statistics pipeline for computation accross a databank
+
+    Parameters
+    ----------
+    metadata_dir: PosixPath object
+        Path to the metadata directory containing subdirectories for studies and screens
+    na_cols: list
+        Image attributes excluded from statistical calculations
+
+    Returns
+    -------
+    stat_results_df: pandas dataframe
+        Contains all statistics for each image attribute not in na_cols calculated across all studies
+    """
+    metadata_directory = pathlib.Path("../data/metadata")
+
+    # Open and concatinate study metadata dataframes from .parquet files
+    databank_metadata = pd.concat(
+        [
+            pd.read_parquet(study_metadata_file)
+            for study_metadata_file in walk(metadata_directory)
+        ]
+    )
+
+    # Get image_attribute names
+    attribute_names = databank_metadata.columns.to_list()
+
+    # Remove irrelevant attributes
+    for attribute in na_cols:
+        attribute_names.remove(attribute)
+
+    results_list = list()
+    # Collect statistics for each attribute
+    for attribute in attribute_names:
+        unique_entries = databank_metadata[attribute].unique()
+        attribute_elements = dict()
+        for element in unique_entries:
+            attribute_elements[element] = len(
+                databank_metadata[databank_metadata[attribute] == element]
+            )
+
+        s, h, nme_result, j, gc = stats_pipeline(attribute_elements=attribute_elements)
+
+        # Append stats to attribute_results
+        results_list.append([attribute, s, h, nme_result, j, gc])
+
+    stat_results_df = pd.DataFrame(
+        data=results_list, columns=["Attribute", "S", "H", "NME", "J", "GC"]
+    )
+
+    return stat_results_df
