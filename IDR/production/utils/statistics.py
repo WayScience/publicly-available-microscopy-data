@@ -135,7 +135,7 @@ def stats_pipeline(attribute_elements):
     rel_frequencies, abs_frequencies = category_frequencies(
         attribute_elements=attribute_elements
     )
-    h, pi_list = h_index(p=rel_frequencies)
+    h, pi_list = h_index(rel_frequencies=rel_frequencies)
 
     # Calculate Normalized Median Evenness
     nme = norm_median_evenness(pi_list)
