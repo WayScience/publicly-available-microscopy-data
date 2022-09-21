@@ -22,7 +22,7 @@ def category_frequencies(attribute_elements):
     for image_attribute in attribute_elements.keys():
         abs_freq_list.append(attribute_elements[image_attribute])
         rel_freq_dict[image_attribute] = (
-            attribute_elements[image_attribute] / total_instances
+                attribute_elements[image_attribute] / total_instances
         )
     return rel_freq_dict, abs_freq_list
 
@@ -107,43 +107,43 @@ def gini_coef(absolute_frequencies_list):
     return gc
 
 
-    def stats_pipeline(attribute_elements):
-        """Pipeline to calculate all pertinant diversity statistics
+def stats_pipeline(attribute_elements):
+    """Pipeline to calculate all pertinant diversity statistics
 
-        Parameters
-        ----------
-        attribtute_elements: dict
-            Unique elements of an image attribute as keys and instances of each as values
+    Parameters
+    ----------
+    attribute_elements: dict
+        Unique elements of an image attribute as keys and instances of each as values
 
-        Returns
-        -------
-        s: int
-            Richness
-        h: float
-            Shannon Index
-        nme: float
-            Normalized Median Evenness
-        j: float
-            Pielou's Evenness
-        gc: float
-            Gini coefficient
-        """
-        # Richness
-        s = len(attribute_elements.keys())
+    Returns
+    -------
+    s: int
+        Richness
+    h: float
+        Shannon Index
+    nme: float
+        Normalized Median Evenness
+    j: float
+        Pielou's Evenness
+    gc: float
+        Gini coefficient
+    """
+    # Richness
+    s = len(attribute_elements.keys())
 
-        # Shannon Index
-        rel_frequencies, abs_frequencies = category_frequencies(
-            attribute_elements=attribute_elements
-        )
-        h, pi_list = h_index(p=rel_frequencies)
+    # Shannon Index
+    rel_frequencies, abs_frequencies = category_frequencies(
+        attribute_elements=attribute_elements
+    )
+    h, pi_list = h_index(p=rel_frequencies)
 
-        # Calculate Normalized Median Evenness
-        nme = norm_median_evenness(pi_list)
+    # Calculate Normalized Median Evenness
+    nme = norm_median_evenness(pi_list)
 
-        # Calculate Pielou's evenness
-        j = pielou(h=h, s=s)
+    # Calculate Pielou's evenness
+    j = pielou(h=h, s=s)
 
-        # Calculate Gini coefficient
-        gc = gini_coef(abs_frequencies)
+    # Calculate Gini coefficient
+    gc = gini_coef(abs_frequencies)
 
-        return s, h, nme, j, gc
+    return s, h, nme, j, gc
