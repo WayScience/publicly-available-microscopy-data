@@ -1,15 +1,15 @@
 import re
 
 
-def clean_parentheses(channel_item):
-    if bool(channel_item[channel_item.find("(") + 1: channel_item.rfind(")")]):
+def clear_parentheses(channel_item):
+    if bool(channel_item[channel_item.find("(") + 1 : channel_item.rfind(")")]):
         channel_item = re.sub(r"\([^()]*\)", "", channel_item)
 
     return channel_item.strip()
 
 
 def clean_channel(channels):
-    """ Cleans metadata channels to convert to 'stain:target;stain:target' format
+    """Cleans metadata channels to convert to 'stain:target;stain:target' format
     Parameters
     ----------
     channels: str
@@ -36,16 +36,14 @@ def clean_channel(channels):
             stains_targets.append(f"{stain}:{target}")
 
         # For channel entries with 'stain (target)' format
-        elif bool(channel[channel.find("(") + 1: channel.rfind(")")]):
+        elif bool(channel[channel.find("(") + 1 : channel.rfind(")")]):
             # Search for target and stain names
-            target_name = channel[
-                          channel.find("(") + 1: channel.rfind(")")
-                          ]
+            target_name = channel[channel.find("(") + 1 : channel.rfind(")")]
             stain_name = re.sub(r"\([^()]*\)", "", channel)
 
             # Remove parentheses for stain name
-            stain_name = clean_parentheses(stain_name)
-            target_name = clean_parentheses(target_name)
+            stain_name = clear_parentheses(stain_name)
+            target_name = clear_parentheses(target_name)
 
             # Append to channel list
             stains_targets.append(f"{stain_name}:{target_name}")

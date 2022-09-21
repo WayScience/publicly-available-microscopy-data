@@ -4,6 +4,8 @@ import os
 import requests
 import pandas as pd
 import multiprocessing
+import utils.clean_channels as cc
+import utils.api_access as aa
 
 
 def extract_study_info(session, screen_id):
@@ -102,7 +104,22 @@ def describe_screen(screen_id, sample, imaging_method, study_name):
 
         except (ValueError, KeyError):
             plate_results.append(
-                [screen_id, plate, plate_name, None, None, None, None, None, None, None, None, None, None, None]
+                [
+                    screen_id,
+                    plate,
+                    plate_name,
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                ]
             )
             continue
 
@@ -121,12 +138,7 @@ def describe_screen(screen_id, sample, imaging_method, study_name):
                 ]
 
                 # Clean channels value and separate into stain and stain target
-                stain = set()
-                stain_target = set()
-                for entry in channels.split(";"):
-                    temp_list = entry.split(":")
-                    stain.add(temp_list[0])
-                    stain_target.add(temp_list[1])
+                stains_targets = cc.clean_channel(channels=channels)
 
             except (ValueError, KeyError, IndexError):
                 stain = "Not listed"
@@ -135,11 +147,13 @@ def describe_screen(screen_id, sample, imaging_method, study_name):
             # Get organism
             try:
                 organism_index = int(
-                    [x["ns"] for x in annotations].index("openmicroscopy.org/mapr/organism")
+                    [x["ns"] for x in annotations].index(
+                        "openmicroscopy.org/mapr/organism"
+                    )
                 )
-                organism = {
-                    x[0]: x[1] for x in annotations[organism_index]["values"]
-                }["Organism"]
+                organism = {x[0]: x[1] for x in annotations[organism_index]["values"]}[
+                    "Organism"
+                ]
             except (ValueError, KeyError):
                 organism = "Not listed"
 
@@ -211,8 +225,7 @@ def describe_screen(screen_id, sample, imaging_method, study_name):
                     strain,
                     gene_identifier,
                     phenotype_identifier,
-                    stain,
-                    stain_target,
+                    stains_targets,
                     pixel_size_x,
                     pixel_size_y,
                 ]
@@ -223,31 +236,28 @@ def describe_screen(screen_id, sample, imaging_method, study_name):
         plate_results,
         columns=[
             "screen_id",
-            'study_name',
+            "study_name",
             "plate_id",
             "plate_name",
             "image_id",
-            'imaging_method',
-            'sample',
+            "imaging_method",
+            "sample",
             "organism",
             "organism_part",
             "cell_line",
             "strain",
             "gene_identifier",
             "phenotype_identifier",
-            "stain",
-            "stain_target",
+            "stains_targets",
             "pixel_size_x",
             "pixel_size_y",
         ],
     )
     return plate_results_df
 
+
 def collect_metadata(idr_name, values_list):
-    """
-    
-    
-    """
+    """ """
     data_dir = pathlib.Path("IDR/data/metadata")
     if data_dir.exists() == False:
         os.mkdir(data_dir)
@@ -270,11 +280,19 @@ def collect_metadata(idr_name, values_list):
         pass
 
     # Collect data
-    plate_results_df = describe_screen(screen_id=screen_id, sample=sample, imaging_method=imaging_method, study_name=study_name)
+    plate_results_df = describe_screen(
+        screen_id=screen_id,
+        sample=sample,
+        imaging_method=imaging_method,
+        study_name=study_name,
+    )
 
     # Save data per IDR accession name
-    output_file = pathlib.Path(screen_dir, f"{study_name}_{screen_name}_{screen_id}.parquet.gzip")
+    output_file = pathlib.Path(
+        screen_dir, f"{study_name}_{screen_name}_{screen_id}.parquet.gzip"
+    )
     plate_results_df.to_parquet(output_file, compression="gzip")
+
 
 # Load IDR ids
 data_dir = pathlib.Path("IDR/data")
@@ -315,7 +333,14 @@ for index in screen_details_df.itertuples(index=False):
     idr_names_dict[idr_name] = [screenID, img_type, sample]
 
 # Testing studies
-idr_meta_dict = dict((k, idr_names_dict[k]) for k in ('idr0080-way-perturbation/screenA', 'idr0001-graml-sysgro/screenA', 'idr0069-caldera-perturbome/screenA'))
+idr_meta_dict = dict(
+    (k, idr_names_dict[k])
+    for k in (
+        "idr0080-way-perturbation/screenA",
+        "idr0001-graml-sysgro/screenA",
+        "idr0069-caldera-perturbome/screenA",
+    )
+)
 
 test_list = []
 for key in idr_meta_dict.keys():
@@ -328,6 +353,4 @@ pool.starmap(collect_metadata, test_list)
 pool.close()
 pool.join()
 
-print(
-    f"\nMetadata collected. Running cost is {(time.time()-start)/60:.1f} min."
-)
+print(f"\nMetadata collected. Running cost is {(time.time() - start) / 60:.1f} min.")
