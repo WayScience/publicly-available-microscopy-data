@@ -53,12 +53,14 @@ def pull_metadata(
             pixel_size_x = grid["image_sizes"][0]["x"]
             pixel_size_y = grid["image_sizes"][0]["y"]
 
-            # Get image ids
-            for image in grid["grid"][0]:
-                # Append IDs to iterable lists
-                thumb_url = image["thumb_url"].rstrip(image["thumb_url"][-1])
-                image_id = thumb_url.split("/")[-1]
-                imageIDs.append(image_id)
+            # Get well ids
+            excluded_keys = ["collabels", "rowlabels", "image_sizes"]
+            for key in excluded_keys:
+                well_JSON.pop(key, None)
+            for plate_row in range(len(well_JSON["grid"])):
+                for well in well_JSON["grid"][row]:
+                    # Append IDs to iterable lists
+                    wellIDs.append(well["wellId"])
 
         except (ValueError, KeyError):
             plate_results.append(
@@ -110,7 +112,7 @@ def pull_metadata(
                     study_name,
                     plate,
                     plate_name,
-                    id,
+                    wellID,
                     imaging_method,
                     sample,
                     organism,
