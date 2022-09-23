@@ -8,3 +8,5 @@ dependencies:
 - conda-forge::plotnine=>0.9.0
 - conda-forge::pyarrow=>6.0.1
 - conda-forge::black
+- conda-forge::scipy=>1.8.0
+- conda-forge::scikit-bio=>0.4.2
