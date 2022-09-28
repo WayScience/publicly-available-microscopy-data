@@ -165,9 +165,10 @@ def stats_pipeline(attribute_elements):
     h = skbio.diversity.alpha.shannon(abs_frequencies, base=math.e)
     nme = norm_median_evenness(rel_frequencies)
     j = skbio.diversity.alpha.pielou_e(abs_frequencies)
-    gc = skbio.diversity.alpha.gini_index(abs_frequencies, method="trapezoids")
+    e = skbio.diversity.alpha.simpson_e(abs_frequencies)
+    gc = skbio.diversity.alpha.gini_index(abs_frequencies, method="rectangles")
 
-    return s, h, nme, j, gc
+    return s, h, nme, j, e, gc
 
 
 def collect_study_stats(metadata_file_path, results_list, na_cols=[
@@ -216,10 +217,10 @@ def collect_study_stats(metadata_file_path, results_list, na_cols=[
                 metadata_df[metadata_df[attribute] == element]
             )
 
-        s, h, nme, j, gc = stats_pipeline(attribute_elements=attribute_elements)
+        s, h, nme, j, e, gc = stats_pipeline(attribute_elements=attribute_elements)
 
         # Append stats to attribute_results
-        results_list.append([study_name, attribute, s, h, nme, j, gc])
+        results_list.append([study_name, attribute, s, h, nme, j, e, gc])
 
     return results_list
 
@@ -266,13 +267,13 @@ def collect_databank_stats(metadata_dir, na_cols=["pixel_size_x", "pixel_size_y"
                 databank_metadata[databank_metadata[attribute] == element]
             )
 
-        s, h, nme, j, gc = stats_pipeline(attribute_elements=attribute_elements)
+        s, h, nme, j, e, gc = stats_pipeline(attribute_elements=attribute_elements)
 
         # Append stats to attribute_results
-        results_list.append([attribute, s, h, nme, j, gc])
+        results_list.append([attribute, s, h, nme, j, e, gc])
 
     stat_results_df = pd.DataFrame(
-        data=results_list, columns=["Attribute", "S", "H", "NME", "J", "GC"]
+        data=results_list, columns=["Attribute", "S", "H", "NME", "J", "E", "GC"]
     )
 
     return stat_results_df
