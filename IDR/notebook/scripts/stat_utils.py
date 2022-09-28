@@ -1,9 +1,12 @@
+import importlib
 import numpy as np
 import pandas as pd
 import pathlib
 from .io_utils import walk
 from scipy import ndimage
 from numpy import log as ln
+import skbio
+import math
 
 
 def category_frequencies(attribute_elements):
@@ -16,20 +19,19 @@ def category_frequencies(attribute_elements):
 
     Returns
     -------
-    rel_freq_dict: dict
+    rel_freq_list: list
         Relative frequencies per unique image attribute element
     abs_freq-list: list
         Instance counts of unique image attribute elements
     """
     total_instances = sum(attribute_elements.values())
-    rel_freq_dict = dict()
+    rel_freq_list = list()
     abs_freq_list = list()
     for image_attribute in attribute_elements.keys():
         abs_freq_list.append(attribute_elements[image_attribute])
-        rel_freq_dict[image_attribute] = (
-            attribute_elements[image_attribute] / total_instances
-        )
-    return rel_freq_dict, abs_freq_list
+        rel_freq_list.append(attribute_elements[image_attribute] / total_instances)
+    
+    return rel_freq_list, abs_freq_list
 
 
 def h_index(p):
@@ -75,13 +77,13 @@ def pielou(h, s):
     return j
 
 
-def norm_median_evenness(h_list):
+def norm_median_evenness(rel_freq_list):
     """Calculates Normalized Median Evenness (NME) of Shannon Index summation elements (-p*ln(p))
 
     Parameters
     ----------
-    h_list: list
-        Individual -p*ln(p) values of the Shannon Index summation
+    rel_freq_list: list
+        Relative frequencies of counts for each unique element in an image attribute
 
     Returns
     -------
@@ -89,10 +91,11 @@ def norm_median_evenness(h_list):
         Ratio of median and max -p*ln(p) values
     """
     # Multiply each value in h_list by -1
-    h_values = np.array([-1.0 * h_value for h_value in h_list])
+    h_values = np.array([-1.0 * freq * ln(freq) for freq in rel_freq_list])
 
     # Calculate NME
     nme = ndimage.median(h_values) / h_values.max()
+
     return nme
 
 
@@ -144,20 +147,25 @@ def stats_pipeline(attribute_elements):
     # Richness
     s = len(attribute_elements.keys())
 
-    # Shannon Index
+    # # Shannon Index
     rel_frequencies, abs_frequencies = category_frequencies(
-        attribute_elements=attribute_elements
-    )
-    h, pi_list = h_index(p=rel_frequencies)
+        attribute_elements=attribute_elements)
 
-    # Calculate Normalized Median Evenness
-    nme = norm_median_evenness(pi_list)
+    # h, pi_list = h_index(p=rel_frequencies)
 
-    # Calculate Pielou's evenness
-    j = pielou(h=h, s=s)
+    # # Calculate Normalized Median Evenness
+    # nme = norm_median_evenness(pi_list)
 
-    # Calculate Gini coefficient
-    gc = gini_coef(abs_frequencies)
+    # # Calculate Pielou's evenness
+    # j = pielou(h=h, s=s)
+
+    # # Calculate Gini coefficient
+    # gc = gini_coef(abs_frequencies)
+
+    h = skbio.diversity.alpha.shannon(abs_frequencies, base=math.e)
+    nme = norm_median_evenness(rel_frequencies)
+    j = skbio.diversity.alpha.pielou_e(abs_frequencies)
+    gc = skbio.diversity.alpha.gini_index(abs_frequencies, method="trapezoids")
 
     return s, h, nme, j, gc
 
@@ -237,7 +245,7 @@ def collect_databank_stats(metadata_dir, na_cols=["pixel_size_x", "pixel_size_y"
     databank_metadata = pd.concat(
         [
             pd.read_parquet(study_metadata_file)
-            for study_metadata_file in io_utils.walk(metadata_directory)
+            for study_metadata_file in walk(metadata_directory)
         ]
     )
 
@@ -258,10 +266,10 @@ def collect_databank_stats(metadata_dir, na_cols=["pixel_size_x", "pixel_size_y"
                 databank_metadata[databank_metadata[attribute] == element]
             )
 
-        s, h, nme_result, j, gc = stats_pipeline(attribute_elements=attribute_elements)
+        s, h, nme, j, gc = stats_pipeline(attribute_elements=attribute_elements)
 
         # Append stats to attribute_results
-        results_list.append([attribute, s, h, nme_result, j, gc])
+        results_list.append([attribute, s, h, nme, j, gc])
 
     stat_results_df = pd.DataFrame(
         data=results_list, columns=["Attribute", "S", "H", "NME", "J", "GC"]
