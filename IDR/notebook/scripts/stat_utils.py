@@ -4,6 +4,7 @@ import pandas as pd
 import pathlib
 from .io_utils import walk
 from scipy import ndimage
+from scipy.special import logsumexp
 from numpy import log as ln
 import skbio
 import math
@@ -151,22 +152,14 @@ def stats_pipeline(attribute_elements):
     rel_frequencies, abs_frequencies = category_frequencies(
         attribute_elements=attribute_elements)
 
-    # h, pi_list = h_index(p=rel_frequencies)
-
-    # # Calculate Normalized Median Evenness
-    # nme = norm_median_evenness(pi_list)
-
-    # # Calculate Pielou's evenness
-    # j = pielou(h=h, s=s)
-
-    # # Calculate Gini coefficient
-    # gc = gini_coef(abs_frequencies)
-
     h = skbio.diversity.alpha.shannon(abs_frequencies, base=math.e)
+    if h == -0:
+        h = 0
     nme = norm_median_evenness(rel_frequencies)
     j = skbio.diversity.alpha.pielou_e(abs_frequencies)
     e = skbio.diversity.alpha.simpson_e(abs_frequencies)
-    gc = skbio.diversity.alpha.gini_index(abs_frequencies, method="rectangles")
+    # gc = skbio.diversity.alpha.gini_index(abs_frequencies, method="rectangles")
+    gc = gini_coef(abs_frequencies)
 
     return s, h, nme, j, e, gc
 
