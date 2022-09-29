@@ -2,6 +2,21 @@
 ## Purpose
 Compile and describe publicly available microscopy datasets using alpha and beta diversity measures. We extract metadata for each well and compute diveristy statistics for image attributes including but not limited to `screen id`, `genotype`, `phenotype`, `imaging method`, `cell line`, and `organism`. These measures give us insight into the quality of these datasets for use in image-based profiling methods.
 
+## Dependencies
+- python>=3.8
+- jupyterlab
+- pandas
+- plotnine
+- pyarrow
+- scipy
+
+### Conda Environment
+`cd` to your `publicly-available-microscopy-data` directory and run the following command:
+
+```bash
+conda env create -n microscopy-data
+```
+
 ## Statistics
 * Alpha Diversity
   * Richness (S)
