@@ -242,13 +242,12 @@ def collect_databank_stats(metadata_dir, na_cols=["pixel_size_x", "pixel_size_y"
     stat_results_df: pandas dataframe
         Contains all statistics for each image attribute not in na_cols calculated across all studies
     """
-    metadata_directory = pathlib.Path("../data/metadata")
 
     # Open and concatinate study metadata dataframes from .parquet files
     databank_metadata = pd.concat(
         [
             pd.read_parquet(study_metadata_file)
-            for study_metadata_file in walk(metadata_directory)
+            for study_metadata_file in walk(metadata_dir)
         ]
     )
 
