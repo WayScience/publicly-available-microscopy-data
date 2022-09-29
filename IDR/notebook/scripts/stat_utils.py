@@ -1,12 +1,9 @@
-import importlib
 import numpy as np
 import pandas as pd
 import pathlib
 from .io_utils import walk
 from scipy import ndimage
-from scipy.special import logsumexp
 from numpy import log as ln
-import skbio
 import math
 
 
@@ -40,23 +37,21 @@ def h_index(p):
 
     Parameters
     ----------
-    p: dict
-        Dictionary of relative frequencies for each unique element in an attribute column.
+    p: list
+        Relative frequencies for each unique element in an attribute column.
 
     Returns
     -------
     h: float
         Shannon Index value
-    results: list
+    evenness_values: list
         List of each -p_iln(p_i) value to use for Normalized Median Evenness statistic.
     """
-    results = list()
-    for entry in p.values():
-        results.append(entry * ln(entry))
-
-    results = np.array(results)
-    h = -(sum(results))
-    return h, results
+    evenness_values = np.array([rel_freq * ln(rel_freq) for rel_freq in p])
+    h = -(sum(evenness_values))
+    if h == -0:
+        h = 0
+    return h, evenness_values
 
 
 def pielou(h, s):
@@ -152,9 +147,7 @@ def stats_pipeline(attribute_elements):
     rel_frequencies, abs_frequencies = category_frequencies(
         attribute_elements=attribute_elements)
 
-    h = skbio.diversity.alpha.shannon(abs_frequencies, base=math.e)
-    if h == -0:
-        h = 0
+    h = h_index(rel_frequencies)
     nme = norm_median_evenness(rel_frequencies)
     j = skbio.diversity.alpha.pielou_e(abs_frequencies)
     e = skbio.diversity.alpha.simpson_e(abs_frequencies)
