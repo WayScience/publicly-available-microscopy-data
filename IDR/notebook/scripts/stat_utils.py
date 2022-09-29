@@ -191,15 +191,6 @@ def stats_pipeline(attribute_elements):
 def collect_study_stats(
     metadata_file_path,
     results_list,
-    na_cols=[
-        "screen_id",
-        "study_name",
-        "plate_name",
-        "plate_id",
-        "sample",
-        "pixel_size_x",
-        "pixel_size_y",
-    ],
 ):
 
     """Collecting statistics within a single file
@@ -247,7 +238,7 @@ def collect_study_stats(
     return results_list
 
 
-def collect_databank_stats(metadata_dir, na_cols=["pixel_size_x", "pixel_size_y"]):
+def collect_databank_stats(metadata_dir, na_cols):
     """Statistics pipeline for computation accross a databank
 
     Parameters
