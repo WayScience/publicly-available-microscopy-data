@@ -47,8 +47,7 @@ def h_index(rel_freq_list):
     """
     evenness_values = np.array([rel_freq * ln(rel_freq) for rel_freq in rel_freq_list])
     h = -(sum(evenness_values))
-    if h == -0:
-        h = 0
+
     return h
 
 
@@ -67,10 +66,10 @@ def pielou(h, s):
     j: float
         Pielou's evenness (H_obs / H-max)
     """
-    if s > 1:
-        j = h / ln(s)
-    else:
-        j = None
+    # Prevent division by 0 if richness (S) == 1
+
+    j = h / ln(s)
+
     return j
 
 
@@ -87,25 +86,22 @@ def norm_median_evenness(rel_freq_list):
     nme: float
         Ratio of median and max -p*ln(p) values
     """
-    # 1 causes -plnp = 0 and only 1 element in rel_freq_list --> so nme = 0/0 = None
-    # Prevents RuntimeWarning: invalid value in double scalars
-    if 1 in rel_freq_list:
-        nme = None
-    else:
-        h_values = np.array([-1.0 * freq * ln(freq) for freq in rel_freq_list if 1 not in rel_freq_list])
+    h_values = np.array([-1.0 * freq * ln(freq) for freq in rel_freq_list if 1 not in rel_freq_list])
 
-        # Calculate NME
-        nme = ndimage.median(h_values) / h_values.max()
+    # Calculate NME
+    nme = ndimage.median(h_values) / h_values.max()
 
     return nme
 
-def simpsons_e(rel_freq_list):
+def simpsons_e(rel_freq_list, s):
     """Calculates Simpson's evenness for each unique element per image attribute
 
     Parameters
     ----------
     rel_freq_list: list
         Relative frequencies of counts for each unique element in an image attribute
+    s : int
+        Richness --> number of unique elements in an image attribute
 
     Returns
     -------
@@ -113,8 +109,7 @@ def simpsons_e(rel_freq_list):
         Ratio of inverse of Simpson's dominance of a unique element to image attribute richness
     """
     dominance = sum([p**2 for p in rel_freq_list])
-    richness = len(rel_freq_list)
-    e = (1/dominance) / richness
+    e = (1/dominance) / s
 
     return e
 
@@ -171,10 +166,18 @@ def stats_pipeline(attribute_elements):
     rel_frequencies, abs_frequencies = category_frequencies(
         attribute_elements=attribute_elements)
 
-    h = h_index(rel_freq_list=rel_frequencies)
-    nme = norm_median_evenness(rel_freq_list=rel_frequencies)
-    j = pielou(h=h, s=s)
-    e = simpsons_e(rel_freq_list=rel_frequencies)
+    # If 1 unique element in an image attribute --> rel_frequencies = [1.0]
+    # Causes h = -0 and division by 0 in norm_median_evenness and pielou
+    if s == 1:
+        h = 0
+        nme = None
+        j = None
+    else:
+        h = h_index(rel_freq_list=rel_frequencies)
+        nme = norm_median_evenness(rel_freq_list=rel_frequencies)
+        j = pielou(h=h, s=s)
+
+    e = simpsons_e(rel_freq_list=rel_frequencies, s=s)
     gc = gini_coef(absolute_frequencies_list=abs_frequencies)
 
     return s, h, nme, j, e, gc
