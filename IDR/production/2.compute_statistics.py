@@ -1,6 +1,5 @@
 import pandas as pd
 import pathlib
-import time
 from utils.io import walk
 from utils.statistics import stats_pipeline
 
