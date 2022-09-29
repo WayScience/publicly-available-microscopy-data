@@ -94,8 +94,17 @@ def norm_median_evenness(rel_freq_list):
     return nme
 
 def simpsons_e(rel_freq_list):
-    """
-    
+    """Calculates Simpson's evenness for each unique element per image attribute
+
+    Parameters
+    ----------
+    rel_freq_list: list
+        Relative frequencies of counts for each unique element in an image attribute
+
+    Returns
+    -------
+    e: float
+        Ratio of inverse of Simpson's dominance of a unique element to image attribute richness
     """
     dominance = sum([p**2 for p in rel_freq_list])
     richness = len(rel_freq_list)
