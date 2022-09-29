@@ -26,7 +26,7 @@ def category_frequencies(attribute_elements):
     for image_attribute_instances in attribute_elements.values():
         abs_freq_list.append(image_attribute_instances)
         rel_freq_list.append(image_attribute_instances / total_instances)
-    
+
     return rel_freq_list, abs_freq_list
 
 
@@ -86,12 +86,15 @@ def norm_median_evenness(rel_freq_list):
     nme: float
         Ratio of median and max -p*ln(p) values
     """
-    h_values = np.array([-1.0 * freq * ln(freq) for freq in rel_freq_list if 1 not in rel_freq_list])
+    h_values = np.array(
+        [-1.0 * freq * ln(freq) for freq in rel_freq_list if 1 not in rel_freq_list]
+    )
 
     # Calculate NME
     nme = ndimage.median(h_values) / h_values.max()
 
     return nme
+
 
 def simpsons_e(rel_freq_list, s):
     """Calculates Simpson's evenness for each unique element per image attribute
@@ -109,9 +112,10 @@ def simpsons_e(rel_freq_list, s):
         Ratio of inverse of Simpson's dominance of a unique element to image attribute richness
     """
     dominance = sum([p**2 for p in rel_freq_list])
-    e = (1/dominance) / s
+    e = (1 / dominance) / s
 
     return e
+
 
 def gini_coef(absolute_frequencies_list):
     """Calculates the Gini coefficient of inequality across unique elements per image attribute
@@ -164,7 +168,8 @@ def stats_pipeline(attribute_elements):
 
     # # Shannon Index
     rel_frequencies, abs_frequencies = category_frequencies(
-        attribute_elements=attribute_elements)
+        attribute_elements=attribute_elements
+    )
 
     # If 1 unique element in an image attribute --> rel_frequencies = [1.0]
     # Causes h = -0 and division by 0 in norm_median_evenness and pielou
@@ -183,14 +188,19 @@ def stats_pipeline(attribute_elements):
     return s, h, nme, j, e, gc
 
 
-def collect_study_stats(metadata_file_path, results_list, na_cols=[
+def collect_study_stats(
+    metadata_file_path,
+    results_list,
+    na_cols=[
         "screen_id",
         "study_name",
         "plate_name",
         "plate_id",
         "sample",
         "pixel_size_x",
-        "pixel_size_y"]):
+        "pixel_size_y",
+    ],
+):
 
     """Collecting statistics within a single file
 

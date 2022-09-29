@@ -1,5 +1,6 @@
 import pathlib
 
+
 def walk(path):
     """Collects paths for files in path parameter
 
