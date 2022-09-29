@@ -11,6 +11,7 @@ Compiling and describing publicly available microscopy datasets
       * $H'=-\sum\limits_{i=1}^S p_{i}lnp_{i}$
   * Normalized Median Evenness (NME)
       * Normalized estimate of evenness taken from the median $-p_iln(p_i)$ value from Shannon Index calculations
+      * Described by [Gauthier and Derome (2021)](https://journals.asm.org/doi/pdf/10.1128/msphere.01019-20)
       * $NME = \frac{median(-p_{i}lnp_{i})}{max(-p_{i}lnp_{i})}$
   * Pielou's Evenness (J')
       * Ratio of observed H' to the maximum possible H' given a sample
