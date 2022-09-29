@@ -1,8 +1,8 @@
 import numpy as np
 import pandas as pd
-import pathlib
 from .io_utils import walk
 from scipy import ndimage
+from scipy.special import logsumexp
 from numpy import log as ln
 
 
@@ -24,9 +24,9 @@ def category_frequencies(attribute_elements):
     total_instances = sum(attribute_elements.values())
     rel_freq_list = list()
     abs_freq_list = list()
-    for image_attribute in attribute_elements.keys():
-        abs_freq_list.append(attribute_elements[image_attribute])
-        rel_freq_list.append(attribute_elements[image_attribute] / total_instances)
+    for image_attribute_instances in attribute_elements.values():
+        abs_freq_list.append(image_attribute_instances)
+        rel_freq_list.append(image_attribute_instances / total_instances)
     
     return rel_freq_list, abs_freq_list
 
@@ -50,7 +50,7 @@ def h_index(rel_freq_list):
     h = -(sum(evenness_values))
     if h == -0:
         h = 0
-    return h, evenness_values
+    return h
 
 
 def pielou(h, s):
@@ -68,7 +68,10 @@ def pielou(h, s):
     j: float
         Pielou's evenness (H_obs / H-max)
     """
-    j = h / ln(s)
+    if s > 1:
+        j = h / ln(s)
+    else:
+        j = None
     return j
 
 
@@ -85,11 +88,15 @@ def norm_median_evenness(rel_freq_list):
     nme: float
         Ratio of median and max -p*ln(p) values
     """
-    # Multiply each value in h_list by -1
-    h_values = np.array([-1.0 * freq * ln(freq) for freq in rel_freq_list])
+    # 1 causes -plnp = 0 and only 1 element in rel_freq_list --> so nme = 0/0 = None
+    # Prevents RuntimeWarning: invalid value in double scalars
+    if 1 in rel_freq_list:
+        nme = None
+    else:
+        h_values = np.array([-1.0 * freq * ln(freq) for freq in rel_freq_list if 1 not in rel_freq_list])
 
-    # Calculate NME
-    nme = ndimage.median(h_values) / h_values.max()
+        # Calculate NME
+        nme = ndimage.median(h_values) / h_values.max()
 
     return nme
 
@@ -133,6 +140,7 @@ def gini_coef(absolute_frequencies_list):
         total += np.sum(np.abs(abs_freq - absolute_frequencies[count:]))
 
     gc = total / (len(absolute_frequencies) ** 2 * np.mean(absolute_frequencies))
+
     return gc
 
 
