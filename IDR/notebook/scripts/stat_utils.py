@@ -4,7 +4,6 @@ import pathlib
 from .io_utils import walk
 from scipy import ndimage
 from numpy import log as ln
-import math
 
 
 def category_frequencies(attribute_elements):
