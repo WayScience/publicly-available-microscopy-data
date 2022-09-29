@@ -17,6 +17,12 @@ Compile and describe publicly available microscopy datasets using alpha and beta
 conda env create -n microscopy-data
 ```
 
+Activate the environment:
+
+```bash
+conda activate microscopy-data
+```
+
 ## Statistics
 * Alpha Diversity
   * Richness (S)
