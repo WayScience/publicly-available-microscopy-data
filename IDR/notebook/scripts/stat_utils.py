@@ -94,6 +94,15 @@ def norm_median_evenness(rel_freq_list):
 
     return nme
 
+def simpsons_e(rel_freq_list):
+    """
+    
+    """
+    dominance = sum([p**2 for p in rel_freq_list])
+    richness = len(rel_freq_list)
+    e = (1/dominance) / richness
+
+    return e
 
 def gini_coef(absolute_frequencies_list):
     """Calculates the Gini coefficient of inequality across unique elements per image attribute
@@ -149,9 +158,8 @@ def stats_pipeline(attribute_elements):
 
     h = h_index(rel_frequencies)
     nme = norm_median_evenness(rel_frequencies)
-    j = skbio.diversity.alpha.pielou_e(abs_frequencies)
-    e = skbio.diversity.alpha.simpson_e(abs_frequencies)
-    # gc = skbio.diversity.alpha.gini_index(abs_frequencies, method="rectangles")
+    j = pielou(abs_frequencies)
+    e = simpsons_e(rel_frequencies)
     gc = gini_coef(abs_frequencies)
 
     return s, h, nme, j, e, gc
