@@ -31,7 +31,7 @@ def category_frequencies(attribute_elements):
     return rel_freq_list, abs_freq_list
 
 
-def h_index(p):
+def h_index(rel_freq_list):
     """Calculates the Shannon Index of a set of unique attribute instances.
 
     Parameters
@@ -46,7 +46,7 @@ def h_index(p):
     evenness_values: list
         List of each -p_iln(p_i) value to use for Normalized Median Evenness statistic.
     """
-    evenness_values = np.array([rel_freq * ln(rel_freq) for rel_freq in p])
+    evenness_values = np.array([rel_freq * ln(rel_freq) for rel_freq in rel_freq_list])
     h = -(sum(evenness_values))
     if h == -0:
         h = 0
@@ -164,11 +164,11 @@ def stats_pipeline(attribute_elements):
     rel_frequencies, abs_frequencies = category_frequencies(
         attribute_elements=attribute_elements)
 
-    h = h_index(rel_frequencies)
-    nme = norm_median_evenness(rel_frequencies)
-    j = pielou(abs_frequencies)
-    e = simpsons_e(rel_frequencies)
-    gc = gini_coef(abs_frequencies)
+    h = h_index(rel_freq_list=rel_frequencies)
+    nme = norm_median_evenness(rel_freq_list=rel_frequencies)
+    j = pielou(h=h, s=s)
+    e = simpsons_e(rel_freq_list=rel_frequencies)
+    gc = gini_coef(absolute_frequencies_list=abs_frequencies)
 
     return s, h, nme, j, e, gc
 
