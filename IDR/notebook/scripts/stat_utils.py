@@ -2,7 +2,6 @@ import numpy as np
 import pandas as pd
 from .io_utils import walk
 from scipy import ndimage
-from scipy.special import logsumexp
 from numpy import log as ln
 
 
