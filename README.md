@@ -7,6 +7,8 @@ We extract metadata for each well and compute diveristy statistics for image att
 These measures give us insight into the quality of these datasets for use in image-based profiling methods.
 
 ## Conda Environment
+For package dependencies please see `environment.yml`.
+
 `cd` to your `publicly-available-microscopy-data` directory and run the following command:
 
 ```bash
