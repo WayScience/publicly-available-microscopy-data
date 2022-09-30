@@ -6,15 +6,7 @@ We extract metadata for each well and compute diveristy statistics for image att
 
 These measures give us insight into the quality of these datasets for use in image-based profiling methods.
 
-## Dependencies
-- python>=3.8
-- jupyterlab
-- pandas
-- plotnine
-- pyarrow
-- scipy
-
-### Conda Environment
+## Conda Environment
 `cd` to your `publicly-available-microscopy-data` directory and run the following command:
 
 ```bash
