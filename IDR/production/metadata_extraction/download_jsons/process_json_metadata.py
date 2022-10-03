@@ -39,7 +39,7 @@ def pull_metadata_from_json(
     }
 
     for plate in study_plates:
-        imageIDs = list()
+        wellIDs = list()
         plate_name = study_plates[plate]
 
         # Access .json file for the plate ID. Contains image ID (id) numbers
@@ -170,3 +170,6 @@ def collect_metadata(idr_name, values_list):
         screen_dir, f"{study_name}_{screen_name}_{screen_id}.parquet.gzip"
     )
     plate_results_df.to_parquet(output_file, compression="gzip")
+
+if __name__ == "__main__":
+    print("Extraction method under development")
