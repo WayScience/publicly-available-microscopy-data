@@ -106,12 +106,14 @@ def pull_metadata_from_api(
                         ATTRIBUTE_URL
                     )
                     image_attribute_value = {
-                        x[0]: x[1] for x in annotations[attribute_index]["values"]
-                    }[image_attribute]
-
-                except (ValueError, KeyError):
-                    image_attribute_value = "Not Listed"
-
+                        x[0]: x[1] for x in annotations[attribute_index]["values"]    # Create http session
+    INDEX_PAGE = "https://idr.openmicroscopy.org/webclient/?experimenter=-1"
+    with requests.Session() as session:
+        request = requests.Request("GET", INDEX_PAGE)
+        prepped = session.prepare_request(request)
+        response = session.send(prepped)
+        if response.status_code != 200:
+            response.raise_for_status()
             # Build results
             plate_results.append(
                 [
@@ -133,3 +135,15 @@ def pull_metadata_from_api(
                     pixel_size_y
                 ]
             )
+
+if __name__ == "__main__":
+        # Create http session
+    INDEX_PAGE = "https://idr.openmicroscopy.org/webclient/?experimenter=-1"
+    with requests.Session() as session:
+        request = requests.Request("GET", INDEX_PAGE)
+        prepped = session.prepare_request(request)
+        response = session.send(prepped)
+        if response.status_code != 200:
+            response.raise_for_status()
+
+    print("Extraction workflow in development")
