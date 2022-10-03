@@ -3,11 +3,10 @@ import time
 import sys
 import os
 import requests
+from subprocess import Popen
 import pandas as pd
 import multiprocessing
 import utils.clean_channels as cc
-from IDR.production.metadata_extraction.api_access import extract_api_metadata
-from IDR.production.metadata_extraction.download_jsons import get_json_files, process_json_metadata
 from utils.args import *
 
 
@@ -53,19 +52,35 @@ if __name__ == "__main__":
     # Specify where to extract metadata from
     file_type = args.metadata_fileType
 
+    if file_type == "downloaded_json":
+        json_metadata_dir = pathlib.Path("IDR/data/json_metadata")
+        if json_metadata_dir.exists() == False:
+            # Download JSON metadata
+            print("Downloading JSON metadata from IDR API \n WARNING: This process can take an ungodly amount of time. \n")
+            answer = input("Do you wish to download JSON metadata? \n\n y/n:")
+            if answer == "y":
+                Popen("./metadata_extraction/download_jsons/get_json_files.py", shell=True)
+            else:
+                exit()
+
+        elif json_metadata_dir.exists() == True:
+            # Extract metadata from downloaded JSON files
+            Popen("./metadata_extraction/download_jsons/process_json_metadata.py", shell=True)
+
+    elif file_type == "api_access":
+            # Download JSON metadata
+            print("Downloading JSON metadata from IDR API \n WARNING: This process can take an ungodly amount of time. \n")
+            answer = input("Do you wish to download JSON metadata? \n\n y/n:")
+            if answer == "y":
+                Popen("./metadata_extraction/api_access/extract_api_metadata.py", shell=True)
+
+    elif file_type == "git_csv":
+        print("Extraction workflow in development.")
+
     # Load IDR ids
     data_dir = pathlib.Path("IDR/data")
     id_file = pathlib.Path(data_dir, "idr_ids.tsv")
     id_df = pd.read_csv(id_file, sep="\t")
-
-    # Create http session
-    INDEX_PAGE = "https://idr.openmicroscopy.org/webclient/?experimenter=-1"
-    with requests.Session() as session:
-        request = requests.Request("GET", INDEX_PAGE)
-        prepped = session.prepare_request(request)
-        response = session.send(prepped)
-        if response.status_code != 200:
-            response.raise_for_status()
 
     # Extract summary details for all screens
     screen_ids = id_df.query("category=='Screen'").id.tolist()
