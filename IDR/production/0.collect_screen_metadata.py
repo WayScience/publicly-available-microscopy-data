@@ -1,11 +1,14 @@
 import pathlib
 import time
+import sys
 import os
 import requests
 import pandas as pd
 import multiprocessing
 import utils.clean_channels as cc
-import utils.api_access as aa
+import IDR.production.metadata_extraction.api_access.api_access as aa
+from utils.args import *
+
 
 def extract_study_info(session, screen_id):
     """Pull metadata info per screen, given screen id
@@ -43,6 +46,11 @@ def extract_study_info(session, screen_id):
     return details_
 
 if __name__ == "__main__":
+    # Define arguments
+    args = collect_screen_metadata_parser().parse_args(sys.argv[1:])
+
+    # Specify where to extract metadata from
+    file_type = args.metadata_fileType
 
     # Load IDR ids
     data_dir = pathlib.Path("IDR/data")
