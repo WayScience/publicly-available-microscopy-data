@@ -6,7 +6,8 @@ import requests
 import pandas as pd
 import multiprocessing
 import utils.clean_channels as cc
-import IDR.production.metadata_extraction.api_access.api_access as aa
+from IDR.production.metadata_extraction.api_access import extract_api_metadata
+from IDR.production.metadata_extraction.download_jsons import get_json_files, process_json_metadata
 from utils.args import *
 
 
