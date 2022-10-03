@@ -9,3 +9,4 @@ dependencies:
 - conda-forge::pyarrow
 - conda-forge::black
 - conda-forge::scipy
+- conda-forge::tqdm
