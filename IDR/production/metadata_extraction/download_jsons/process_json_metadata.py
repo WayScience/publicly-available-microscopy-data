@@ -1,6 +1,7 @@
 import pathlib
 import json
 import pandas as pd
+from utils.io import walk
 
 
 def pull_metadata_from_json(
@@ -170,6 +171,22 @@ def collect_metadata(idr_name, values_list):
         screen_dir, f"{study_name}_{screen_name}_{screen_id}.parquet.gzip"
     )
     plate_results_df.to_parquet(output_file, compression="gzip")
+    
 
 if __name__ == "__main__":
+
+    # Load IDR IDs and screen details
+    data_dir = pathlib.Path("IDR/data")
+    id_file = pathlib.Path(data_dir, "idr_screen_ids.parquet")
+    screen_details_file = pathlib.Path(data_dir, "screen_details.parquet")
+
+    # Load IDR IDs and screen details as pandas df
+    id_df = pd.read_parquet(id_file)
+    screen_details_df = pd.read_parquet(screen_details_file)
+
+    # Create iterable list of json metadata files
+    json_metadata_dir = pathlib.Path("IDR/data/json_metadata")
+    json_metadata_files = list(walk(json_metadata_dir))
+
+
     print("Extraction method under development")
