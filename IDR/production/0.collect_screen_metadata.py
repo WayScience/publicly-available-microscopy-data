@@ -1,9 +1,10 @@
+from asyncio import subprocess
 import pathlib
 import time
 import sys
 import os
 import requests
-from subprocess import Popen
+import subprocess
 import pandas as pd
 import multiprocessing
 import utils.clean_channels as cc
@@ -59,72 +60,74 @@ if __name__ == "__main__":
             print("Downloading JSON metadata from IDR API \n WARNING: This process can take an ungodly amount of time. \n")
             answer = input("Do you wish to download JSON metadata? \n\n y/n:")
             if answer == "y":
-                Popen("./metadata_extraction/download_jsons/get_json_files.py", shell=True)
-            else:
+                subprocess.Popen(args=["python3", "IDR/production/metadata_extraction/download_jsons/get_json_files.py"])
+            elif answer == "n":
                 exit()
 
         elif json_metadata_dir.exists() == True:
             # Extract metadata from downloaded JSON files
-            Popen("./metadata_extraction/download_jsons/process_json_metadata.py", shell=True)
+            subprocess.Popen(args=["python", "IDR/production/metadata_extraction/download_jsons/process_json_metadata.py"])
 
     elif file_type == "api_access":
             # Download JSON metadata
             print("Downloading JSON metadata from IDR API \n WARNING: This process can take an ungodly amount of time. \n")
             answer = input("Do you wish to download JSON metadata? \n\n y/n:")
             if answer == "y":
-                Popen("./metadata_extraction/api_access/extract_api_metadata.py", shell=True)
+                subprocess.Popen(args=["python3", "IDR/production/metadata_extraction/api_access/extract_api_metadata.py"])
+            elif answer == "n":
+                exit()
 
     elif file_type == "git_csv":
-        print("Extraction workflow in development.")
+        print("\nThis metadata extraction workflow in development.\n")
 
-    # Load IDR ids
-    data_dir = pathlib.Path("IDR/data")
-    id_file = pathlib.Path(data_dir, "idr_ids.tsv")
-    id_df = pd.read_csv(id_file, sep="\t")
+    # # Load IDR ids
+    # data_dir = pathlib.Path("IDR/data")
+    # id_file = pathlib.Path(data_dir, "idr_ids.tsv")
+    # id_df = pd.read_csv(id_file, sep="\t")
 
-    # Extract summary details for all screens
-    screen_ids = id_df.query("category=='Screen'").id.tolist()
-    screen_details_df = pd.concat(
-        [extract_study_info(session=session, screen_id=x) for x in screen_ids], axis="rows"
-    ).reset_index(drop=True)
+    # # Extract summary details for all screens
+    # screen_ids = id_df.query("category=='Screen'").id.tolist()
+    # screen_details_df = pd.concat(
+    #     [extract_study_info(session=session, screen_id=x) for x in screen_ids], axis="rows"
+    # ).reset_index(drop=True)
 
-    output_file = pathlib.Path(data_dir, "screen_details.tsv")
-    screen_details_df.to_csv(output_file, index=False, sep="\t")
+    # output_file = pathlib.Path(data_dir, "screen_details.tsv")
+    # screen_details_df.to_csv(output_file, index=False, sep="\t")
 
-    # Initialize Pool object for threading
-    start = time.time()
-    available_cores = len(os.sched_getaffinity(0))
-    pool = multiprocessing.Pool(processes=available_cores)
-    print(f"\nNow processing {len(screen_ids)} screens with {available_cores} cpu cores.\n")
+    # # Initialize Pool object for threading
+    # start = time.time()
+    # available_cores = len(os.sched_getaffinity(0))
+    # pool = multiprocessing.Pool(processes=available_cores)
+    # print(f"\nNow processing {len(screen_ids)} screens with {available_cores} cpu cores.\n")
 
-    # Collect study_names, imaging method metadata for each screen
-    idr_names_dict = dict()
-    for index in screen_details_df.itertuples(index=False):
-        screenID = index[19]
-        idr_name = index[18]
-        img_type = index[5]
-        sample = index[0]
-        idr_names_dict[idr_name] = [screenID, img_type, sample]
+    # # Collect study_names, imaging method metadata for each screen
+    # idr_names_dict = dict()
+    # for index in screen_details_df.itertuples(index=False):
+    #     screenID = index[19]
+    #     idr_name = index[18]
+    #     img_type = index[5]
+    #     sample = index[0]
+    #     idr_names_dict[idr_name] = [screenID, img_type, sample]
 
-    # Testing studies
-    idr_meta_dict = dict(
-        (k, idr_names_dict[k])
-        for k in (
-            "idr0080-way-perturbation/screenA",
-            "idr0001-graml-sysgro/screenA",
-            "idr0069-caldera-perturbome/screenA",
-        )
-    )
+    # # Testing studies
+    # idr_meta_dict = dict(
+    #     (k, idr_names_dict[k])
+    #     for k in (
+    #         "idr0080-way-perturbation/screenA",
+    #         "idr0001-graml-sysgro/screenA",
+    #         "idr0069-caldera-perturbome/screenA",
+    #     )
+    # )
 
-    test_list = []
-    for key in idr_meta_dict.keys():
-        test_list.append((key, idr_meta_dict[key]))
+    # test_list = []
+    # for key in idr_meta_dict.keys():
+    #     test_list.append((key, idr_meta_dict[key]))
 
-    # Pull & save pertinent details about the screen (plates, wells, channels, cell line, etc.)
-    pool.starmap(collect_metadata, test_list)
+    # # Pull & save pertinent details about the screen (plates, wells, channels, cell line, etc.)
+    # pool.starmap(collect_metadata, test_list)
 
-    # Terminate pool processes
-    pool.close()
-    pool.join()
+    # # Terminate pool processes
+    # pool.close()
+    # pool.join()
 
-    print(f"\nMetadata collected. Running cost is {(time.time() - start) / 60:.1f} min.")
+    # print(f"\nMetadata collected. Running cost is {(time.time() - start) / 60:.1f} min.")
