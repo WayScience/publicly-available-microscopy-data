@@ -71,5 +71,5 @@ project_df = pd.DataFrame(
 id_df = pd.concat([screen_df, project_df], axis="rows").reset_index(drop=True)
 
 # Output to file
-output_file = pathlib.Path(output_dir, "idr_ids.tsv")
-id_df.to_csv(output_file, index=False, sep="\t")
+output_file = pathlib.Path(output_dir, "idr_screen_ids.parquet")
+id_df.to_parquet(output_file, index=False, sep="\t")
