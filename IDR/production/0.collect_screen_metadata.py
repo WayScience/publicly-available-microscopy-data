@@ -54,13 +54,15 @@ if __name__ == "__main__":
     file_type = args.metadata_fileType
 
     if file_type == "downloaded_json":
+        ####### Run get_idr_ids.py first
         json_metadata_dir = pathlib.Path("IDR/data/json_metadata")
         if json_metadata_dir.exists() == False:
             # Download JSON metadata
             print("Downloading JSON metadata from IDR API \n WARNING: This process can take an ungodly amount of time. \n")
             answer = input("Do you wish to download JSON metadata? \n\n y/n:")
             if answer == "y":
-                subprocess.Popen(args=["python3", "IDR/production/metadata_extraction/download_jsons/get_json_files.py"])
+                get_json_files = subprocess.Popen(args=["python3", "IDR/production/metadata_extraction/download_jsons/get_json_files.py"])
+                get_json_files.wait()
             elif answer == "n":
                 exit()
 
