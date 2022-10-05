@@ -26,8 +26,6 @@ def clean_channel(channels):
         if bool(re.search(r"(:)+", channel)):
             # Split stain and target for whitespace trimming
             split = channel.split(":")
-
-            # Trim whitespace
             stripped = [s.strip() for s in split]
 
             # Redefine variables and append to channel list
@@ -48,4 +46,4 @@ def clean_channel(channels):
             # Append to channel list
             stains_targets.append(f"{stain_name}:{target_name}")
 
-        return stains_targets
+    return stains_targets
