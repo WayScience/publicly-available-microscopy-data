@@ -97,8 +97,10 @@ def collect_databank_stats(metadata_directory, na_cols=["pixel_size_x", "pixel_s
 
     # Remove irrelevant attributes
     for attribute in na_cols:
-        attribute_names.remove(attribute)
-
+        if attribute in attribute_names:
+            attribute_names.remove(attribute)
+        else:
+            pass
     results_list = list()
     # Collect statistics for each attribute
     for attribute in attribute_names:
