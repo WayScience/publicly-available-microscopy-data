@@ -1,7 +1,10 @@
 import pandas as pd
-import pathlib
-from utils.io import walk
+import pathlib, sys
 from utils.statistics import stats_pipeline
+
+parent_dir = str(pathlib.Path(__file__).parents[1])
+sys.path.append(parent_dir)
+from metadata_extraction.extraction_utils.io import walk
 
 
 def collect_study_stats(
@@ -43,7 +46,10 @@ def collect_study_stats(
 
     # Remove irrelevant attributes
     for attribute in na_cols:
-        attribute_names.remove(attribute)
+        if attribute in attribute_names:
+            attribute_names.remove(attribute)
+        else:
+            pass
 
     # Collect statistics for each attribute
     for attribute in attribute_names:
@@ -54,10 +60,10 @@ def collect_study_stats(
                 metadata_df[metadata_df[attribute] == element]
             )
 
-        s, h, nme, j, gc = stats_pipeline(attribute_elements=attribute_elements)
+        s, h, nme, j, e, gc = stats_pipeline(attribute_elements=attribute_elements)
 
         # Append stats to attribute_results
-        results_list.append([study_name, attribute, s, h, nme, j, gc])
+        results_list.append([study_name, attribute, s, h, nme, j, e, gc])
 
     return results_list
 
@@ -103,13 +109,13 @@ def collect_databank_stats(metadata_directory, na_cols=["pixel_size_x", "pixel_s
                 databank_metadata[databank_metadata[attribute] == element]
             )
 
-        s, h, nme_result, j, gc = stats_pipeline(attribute_elements=attribute_elements)
+        s, h, nme_result, j, e, gc = stats_pipeline(attribute_elements=attribute_elements)
 
         # Append stats to attribute_results
-        results_list.append([attribute, s, h, nme_result, j, gc])
+        results_list.append([attribute, s, h, nme_result, j, e, gc])
 
     stat_results_df = pd.DataFrame(
-        data=results_list, columns=["Attribute", "S", "H", "NME", "J", "GC"]
+        data=results_list, columns=["Attribute", "S", "H", "NME", "J", "E", "GC"]
     )
 
     return stat_results_df
@@ -131,7 +137,7 @@ for metadata_path in metadata_files:
 
 stat_results_df = pd.DataFrame(
     data=individual_study_stats,
-    columns=["Study_Name", "Attribute", "S", "H", "NME", "J", "GC"],
+    columns=["Study_Name", "Attribute", "S", "H", "NME", "J", "E","GC"],
 )
 
 # Save individual stats as parquet file
