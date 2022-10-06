@@ -1,6 +1,10 @@
 import numpy as np
 import pandas as pd
-from .io_utils import walk
+import pathlib, sys
+
+parent_dir = str(pathlib.Path(__file__).parents[1])
+sys.path.append(parent_dir)
+from metadata_extraction.extraction_utils.io import walk
 from scipy import ndimage
 from numpy import log as ln
 
