@@ -181,18 +181,10 @@ def stats_pipeline(attribute_elements):
 def collect_study_stats(
     metadata_file_path,
     results_list,
-    na_cols=[
-        "screen_id",
-        "study_name",
-        "plate_name",
-        "plate_id",
-        "sample",
-        "pixel_size_x",
-        "pixel_size_y",
-    ],
+    na_cols,
 ):
-
     """Collecting statistics within a single file
+
     Parameters
     ----------
     metadata_file_path: PosixPath object
@@ -201,6 +193,7 @@ def collect_study_stats(
         Outside instantiated list to append study statistics
     na_cols: list
         Image attributes excluded from statistical calculations
+
     Returns
     -------
     results_list: list
@@ -216,7 +209,10 @@ def collect_study_stats(
 
     # Remove irrelevant attributes
     for attribute in na_cols:
-        attribute_names.remove(attribute)
+        if attribute in attribute_names:
+            attribute_names.remove(attribute)
+        else:
+            pass
 
     # Collect statistics for each attribute
     for attribute in attribute_names:
@@ -235,25 +231,26 @@ def collect_study_stats(
     return results_list
 
 
-def collect_databank_stats(metadata_dir, na_cols=["pixel_size_x", "pixel_size_y"]):
-    """Statistics pipeline for computation accross a databank
+def collect_databank_stats(metadata_directory, na_cols):
+    """Statistics pipeline for computation across a databank
+
     Parameters
     ----------
     metadata_dir: PosixPath object
         Path to the metadata directory containing subdirectories for studies and screens
     na_cols: list
         Image attributes excluded from statistical calculations
+
     Returns
     -------
     stat_results_df: pandas dataframe
         Contains all statistics for each image attribute not in na_cols calculated across all studies
     """
-
-    # Open and concatinate study metadata dataframes from .parquet files
+    # Open and concatenate study metadata dataframes from .parquet files
     databank_metadata = pd.concat(
         [
             pd.read_parquet(study_metadata_file)
-            for study_metadata_file in walk(metadata_dir)
+            for study_metadata_file in walk(metadata_directory)
         ]
     )
 
@@ -262,7 +259,10 @@ def collect_databank_stats(metadata_dir, na_cols=["pixel_size_x", "pixel_size_y"
 
     # Remove irrelevant attributes
     for attribute in na_cols:
-        attribute_names.remove(attribute)
+        if attribute in attribute_names:
+            attribute_names.remove(attribute)
+        else:
+            pass
 
     results_list = list()
     # Collect statistics for each attribute
@@ -274,10 +274,10 @@ def collect_databank_stats(metadata_dir, na_cols=["pixel_size_x", "pixel_size_y"
                 databank_metadata[databank_metadata[attribute] == element]
             )
 
-        s, h, nme, j, e, gc = stats_pipeline(attribute_elements=attribute_elements)
+        s, h, nme_result, j, e, gc = stats_pipeline(attribute_elements=attribute_elements)
 
         # Append stats to attribute_results
-        results_list.append([attribute, s, h, nme, j, e, gc])
+        results_list.append([attribute, s, h, nme_result, j, e, gc])
 
     stat_results_df = pd.DataFrame(
         data=results_list, columns=["Attribute", "S", "H", "NME", "J", "E", "GC"]
