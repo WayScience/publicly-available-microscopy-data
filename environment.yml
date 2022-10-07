@@ -10,3 +10,4 @@ dependencies:
 - conda-forge::black
 - conda-forge::scipy
 - conda-forge::tqdm
+- conda-forge::matplotlib==3.5.3
