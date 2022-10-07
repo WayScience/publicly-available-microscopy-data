@@ -2,7 +2,7 @@ import pandas as pd
 import pathlib, sys
 from utils.statistics import collect_databank_stats, collect_study_stats
 
-# Set path to utils directory
+# Define path to extraction_utils directory
 parent_dir = str(pathlib.Path(__file__).parents[1])
 sys.path.append(parent_dir)
 from metadata_extraction.extraction_utils.io import walk
@@ -36,12 +36,12 @@ if __name__ == "__main__":
     )
 
     # Save individual stats as parquet file
-    output_file = pathlib.Path(stats_dir, f"individual_studies_diversity.parquet.gzip")
-    stat_results_df.to_parquet(output_file, compression="gzip")
+    indv_studies_output_file = pathlib.Path(stats_dir, f"individual_studies_diversity.parquet")
+    stat_results_df.to_parquet(indv_studies_output_file)
 
     # Collect databank stats
     databank_stats = collect_databank_stats(metadata_directory=studies_metadata_dir, na_cols=[])
 
     # Save databank stats as parquet file
-    output_file = pathlib.Path(stats_dir, f"databank_diversity.parquet.gzip")
-    databank_stats.to_parquet(output_file, compression="gzip")
+    databank_output_file = pathlib.Path(stats_dir, f"databank_diversity.parquet")
+    databank_stats.to_parquet(databank_output_file)
