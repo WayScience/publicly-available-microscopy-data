@@ -5,61 +5,12 @@ import sys, os
 import pandas as pd
 import multiprocessing
 
-# Set path to utils file
+# Define path to extraction_utils dir
 parent_dir = str(pathlib.Path(__file__).parents[1])
 sys.path.append(parent_dir)
 from extraction_utils.io import walk
 from extraction_utils.clean_channels import clean_channel
-
-
-def flatten_list(list_):
-    """Concatenates sublists into single list
-
-    Parameters
-    ----------
-    List_: list
-        Metadata from "values" key for each sub-dict in annotations
-
-    Returns
-    -------
-    List_ sublists concatenated into single list
-    """
-    return [item for sublist in list_ for item in sublist]
-
-def nested_list_to_dict(nested_list):
-    """Converts nested list into dictionary
-
-    Parameters
-    ----------
-    nested_list: list
-        List with dimension=2 
-        Example: [["Gene Identifier", "gene1"], ["Phenotype Identifier", "phenotype1"]]
-
-    Returns
-    -------
-    Dictionary with sublist[0] as key and sublist[1] as value 
-    Example: {"Gene Identifier": "gene1", "Phenotype Identifier": "phenotype1"}
-    
-    """
-    return {k[0]: k[1:][0] for k in nested_list}
-
-def iterate_through_values(annotations):
-    """Converts values from annotations[subdict]["values"] into dictionary for subdict in annotations
-
-    Parameters
-    ----------
-    annotations: dict
-        Dictionary from json.load(metadata_file)["annotations"]
-
-    Returns
-    -------
-    values_dict: dict
-        Output from nested_list_to_dict
-    """
-    values_list = [sub_dict['values'] for sub_dict in annotations]
-    flattened_list = flatten_list(values_list)
-    values_dict = nested_list_to_dict(flattened_list)
-    return values_dict
+from extraction_utils.list_modifications import iterate_through_values
 
 
 def pull_json_well_metadata(
@@ -118,7 +69,6 @@ def pull_json_well_metadata(
     return well_results_dict
 
 
-
 def collect_metadata(screen_id, idr_name, imaging_method, sample):
     """Extract metadata per well from downloaded IDR json annotation files. 
     
@@ -140,22 +90,22 @@ def collect_metadata(screen_id, idr_name, imaging_method, sample):
     -------
     Saves extracted metadata as .parquet file
     """
-    data_dir = pathlib.Path("IDR/data/metadata")
-    if data_dir.exists() == False:
-        pathlib.mkdir(data_dir)
+    metadata_dir = pathlib.Path("IDR/data/metadata")
+    if metadata_dir.exists() == False:
+        pathlib.mkdir(metadata_dir)
 
     split_idr_name = idr_name.split("/")
     study_name = split_idr_name[0]
     screen_name = split_idr_name[1]
 
     # Make metadata subdirectories
-    study_dir = pathlib.Path(data_dir, study_name)
+    study_dir = pathlib.Path(metadata_dir, study_name)
     screen_dir = pathlib.Path(study_dir, screen_name)
     pathlib.Path.mkdir(study_dir, exist_ok=True)
     pathlib.Path.mkdir(screen_dir, exist_ok=True)
 
-    # Create iterable list of json metadata files
-    json_metadata_screen_dir = pathlib.Path("IDR/data/json_metadata")
+    # Create iterable list of json metadata files per screen
+    json_metadata_screen_dir = pathlib.Path(f"IDR/data/json_metadata/{screen_id}")
     json_metadata_files = list(walk(json_metadata_screen_dir))
 
     image_attributes=["Channels",
@@ -177,16 +127,19 @@ def collect_metadata(screen_id, idr_name, imaging_method, sample):
         for image_attribute in well_results_dict.keys():
             screen_results_dict[image_attribute].append(well_results_dict[image_attribute])
 
+    # Convert results dict to pd.DataFrame
     screen_results_df = pd.DataFrame.from_dict(screen_results_dict)
-    # Append Imaging Method and Sample values per screen
-    screen_results_df['Imaging Method'] = pd.Series([imaging_method for x in range(len(screen_results_df.index))])
-    screen_results_df['Sample'] = pd.Series([sample for x in range(len(screen_results_df.index))])
+
+    # Append external metadata values per screen
+    external_metadata = {"screen_id": screen_id, "Imaging Method": imaging_method, "Sample": sample}
+    for image_attribute in external_metadata.keys():
+        screen_results_df[image_attribute] = pd.Series([external_metadata[image_attribute] for index_ in range(len(screen_results_df.index))])
         
     # Save data per IDR accession name
     output_file = pathlib.Path(
-        screen_dir, f"{study_name}_{screen_name}_{screen_id}.parquet.gzip"
+        screen_dir, f"{study_name}_{screen_name}_{screen_id}.parquet"
     )
-    screen_results_df.to_parquet(output_file, compression="gzip")
+    screen_results_df.to_parquet(output_file)
     
 
 if __name__ == "__main__":
@@ -198,8 +151,17 @@ if __name__ == "__main__":
     # Load pertinant columns of screen details as pandas df
     screen_details_df = pd.read_parquet(screen_details_file)[["screen_id", "idr_name", "Imaging Method", "Sample Type"]]
 
-    # Generate iterable list for multiprocessing
+    # Get available downloaded json screens
+    json_metadata_dir = pathlib.Path("IDR/data/json_metadata")
+    available_screens = list()
+    for screen_path in json_metadata_dir.iterdir():
+        split_path = str(screen_path).split("/")
+        available_screens.append(int(split_path[-1]))
+
     study_metadata = list(screen_details_df.itertuples(index=False, name=None))
+
+    # Remove screens that are not downloaded
+    study_metadata = [metadata for metadata in study_metadata if metadata[0] in available_screens]
 
     # Construct multiprocessing Pool object
     multiprocessing_iterable = list()
@@ -214,4 +176,4 @@ if __name__ == "__main__":
     # Close multiprocess pool
     pool.close()
     pool.join()
-    print(f"\\nMetadata collected. Running cost is {(time.time()-start)/60:.1f} min.")
+    print(f"\nMetadata collected. Running cost is {(time.time()-start)/60:.1f} min.")
