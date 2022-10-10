@@ -2,7 +2,6 @@ import pandas as pd
 from plotnine import *
 import pathlib
 from sigfig import round
-import matplotlib.pyplot as plt
 
 
 if __name__ == "__main__":
