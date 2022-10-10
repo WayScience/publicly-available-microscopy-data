@@ -64,7 +64,10 @@ if __name__ == "__main__":
 
         elif json_metadata_dir.exists() == True:
             # Extract metadata from downloaded JSON files
-            subprocess.Popen(args=["python", "IDR/production/metadata_extraction/download_jsons/process_json_metadata.py"])
+            extract_metadata = subprocess.Popen(args=["python", "IDR/production/metadata_extraction/download_jsons/process_json_metadata.py"])
+            extract_metadata.wait()
+            compute_stats = subprocess.Popen(args=["python", "IDR/production/1.compute_statistics.py"])
+            compute_stats.wait()
 
     elif file_type == "api_access":
             # Download JSON metadata
