@@ -34,7 +34,8 @@ if __name__ == "__main__":
 
         ps = (ggplot(data=study_stats, mapping=aes(x="Attribute", y=attribute)) + 
         geom_jitter(na_rm=True, stat='identity', position='jitter') +
-        theme(axis_text_x=element_text(rotation=90)))
+        theme(axis_text_x=element_text(rotation=90)) + 
+        ylim(0, max(study_stats[attribute])))
 
         db_output_file = pathlib.Path(databank_imgs_dir, f"{attribute}.png")
         p.save(db_output_file)
