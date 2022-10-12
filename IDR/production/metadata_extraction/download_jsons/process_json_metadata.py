@@ -119,6 +119,7 @@ def collect_metadata(screen_id, idr_name, imaging_method, sample):
         "Oraganism Part",
         "Strain",
         "Gene Identifier",
+        "Gene Symbol",
         "Phenotype Identifier",
         "plate_id",
         "well_id",
