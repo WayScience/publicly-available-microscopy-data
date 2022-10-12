@@ -31,7 +31,7 @@ if __name__ == "__main__":
 
     attributes_to_graph = ["H", "J", "NME", "E", "GC", "S"]
     for attribute in attributes_to_graph:
-        p = (
+        databank_plot = (
             ggplot(data=databank_stats, mapping=aes(x="Attribute", y=attribute))
             + geom_col(na_rm=True, stat="identity", position="dodge")
             + theme(axis_text_x=element_text(rotation=90))
@@ -44,15 +44,15 @@ if __name__ == "__main__":
             )
         )
 
-        ps = (
+        studies_plot = (
             ggplot(data=study_stats, mapping=aes(x="Attribute", y=attribute))
             + geom_jitter(na_rm=True, stat="identity", position="jitter")
             + theme(axis_text_x=element_text(rotation=90))
             + ylim(0, max(study_stats[attribute]))
         )
 
-        db_output_file = pathlib.Path(databank_imgs_dir, f"{attribute}.png")
-        p.save(db_output_file)
+        databank_output_file = pathlib.Path(databank_imgs_dir, f"{attribute}.png")
+        databank_plot.save(databank_output_file)
 
-        st_output_file = pathlib.Path(study_imgs_dir, f"{attribute}.png")
-        ps.save(st_output_file)
+        studies_output_file = pathlib.Path(study_imgs_dir, f"{attribute}.png")
+        studies_plot.save(studies_output_file)
