@@ -42,9 +42,9 @@ if __name__ == "__main__":
     # Convert unique_elements_and_counts dict to Pandas.DataFrame
     unique_elements_and_counts_df = pd.DataFrame.from_dict(
         {
-            (study, elements_counts): user_dict[study][elements_counts]
-            for study in user_dict.keys()
-            for elements_counts in user_dict[study].keys()
+            (study, elements_counts): unique_elements_and_counts[study][elements_counts]
+            for study in unique_elements_and_counts.keys()
+            for elements_counts in unique_elements_and_counts[study].keys()
         },
         orient="index",
     )
