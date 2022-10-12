@@ -17,7 +17,8 @@ def clean_channel(channels):
 
     Returns
     -------
-
+    combined_sorted_stains_targets: str
+        Single string in stain:target;stain:target format sorted in alphebetical order by stain
     """
     stains_targets = list()
     for channel in channels.split(";"):
@@ -25,12 +26,12 @@ def clean_channel(channels):
         # For channel entries with 'stain:target' format
         if bool(re.search(r"(:)+", channel)):
             # Split stain and target for whitespace trimming
-            split = channel.split(":")
-            stripped = [s.strip() for s in split]
+            split_channel = channel.split(":")
+            stripped_channel = [s.strip() for s in split]
 
             # Redefine variables and append to channel list
-            stain = stripped[0]
-            target = stripped[1]
+            stain = split_channel[0]
+            target = stripped_channel[1]
             stains_targets.append(f"{stain}:{target}")
 
         # For channel entries with 'stain (target)' format
