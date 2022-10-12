@@ -92,10 +92,12 @@ def collect_metadata(screen_id, idr_name, imaging_method, sample):
     -------
     Saves extracted metadata as .parquet file
     """
+    # Make metadata directory
     metadata_dir = pathlib.Path("IDR/data/metadata")
     if metadata_dir.exists() == False:
         pathlib.mkdir(metadata_dir)
 
+    # Get study and screen names
     split_idr_name = idr_name.split("/")
     study_name = split_idr_name[0]
     screen_name = split_idr_name[1]
@@ -179,6 +181,7 @@ if __name__ == "__main__":
         split_path = str(screen_path).split("/")
         available_screens.append(int(split_path[-1]))
 
+    # Get external metadata not found in well.json files
     study_metadata = list(screen_details_df.itertuples(index=False, name=None))
 
     # Remove screens that are not downloaded
@@ -187,7 +190,6 @@ if __name__ == "__main__":
     ]
 
     # Construct multiprocessing Pool object
-    multiprocessing_iterable = list()
     available_cores = len(os.sched_getaffinity(0))
     pool = multiprocessing.Pool(processes=available_cores)
 
