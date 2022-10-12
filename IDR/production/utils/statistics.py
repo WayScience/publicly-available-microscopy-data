@@ -207,6 +207,7 @@ def collect_study_stats(
     results_list,
     na_cols,
     study_name,
+    screen_id,
 ):
     """Collecting statistics within a single file
 
@@ -228,7 +229,6 @@ def collect_study_stats(
     metadata_df = pd.read_parquet(metadata_file_path)
 
     # Extract metadata from file name and dataframe
-    metadata_pq = metadata_file_path.name
     attribute_names = metadata_df.columns.to_list()
 
     # Remove irrelevant attributes
@@ -238,6 +238,7 @@ def collect_study_stats(
         else:
             pass
 
+    attribute_elements_all = dict()
     # Get unique entries for each attribute
     for attribute in attribute_names:
         attribute_elements = get_unique_entries(
@@ -250,7 +251,11 @@ def collect_study_stats(
         # Append stats to attribute_results
         results_list.append([study_name, attribute, s, h, nme, j, e, gc])
 
-    return results_list, attribute_elements
+        attribute_elements_all[attribute] = attribute_elements
+
+    final_dict = {screen_id: attribute_elements_all}
+
+    return results_list, final_dict
 
 
 def collect_databank_stats(metadata_directory, na_cols):
