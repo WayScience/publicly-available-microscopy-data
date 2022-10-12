@@ -83,22 +83,3 @@ if __name__ == "__main__":
                 args=["python", "IDR/production/1.compute_statistics.py"]
             )
             compute_stats.wait()
-
-    elif file_type == "api_access":
-        # Download JSON metadata
-        print(
-            "Downloading JSON metadata from IDR API \n WARNING: This process can take multiple days to execute. \n"
-        )
-        answer = input("Do you wish to download JSON metadata? \n\n y/n:")
-        if answer == "y":
-            subprocess.Popen(
-                args=[
-                    "python3",
-                    "IDR/production/metadata_extraction/api_access/extract_api_metadata.py",
-                ]
-            )
-        elif answer == "n":
-            exit()
-
-    elif file_type == "git_csv":
-        print("\nThis metadata extraction workflow in development.\n")
