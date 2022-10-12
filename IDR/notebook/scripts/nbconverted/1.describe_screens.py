@@ -2,12 +2,12 @@
 # coding: utf-8
 
 # # Describe study metadata
-# 
+#
 # Each screen contains an experiment with different parameters and conditions.
-# 
+#
 # Extract this information based on ID and save details.
 
-# In[8]:
+# In[1]:
 
 
 import pathlib
@@ -20,7 +20,7 @@ import pyarrow.parquet as pq
 import multiprocessing
 
 
-# In[9]:
+# In[2]:
 
 
 def extract_study_info(session, screen_id):
@@ -232,7 +232,7 @@ def describe_screen(screen_id):
     return plate_results_df
 
 
-# In[10]:
+# In[3]:
 
 
 # Load IDR ids
@@ -241,7 +241,7 @@ id_file = pathlib.Path(data_dir, "idr_ids.tsv")
 id_df = pd.read_csv(id_file, sep="\t")
 
 
-# In[11]:
+# In[4]:
 
 
 # Create http session
@@ -254,7 +254,7 @@ with requests.Session() as session:
         response.raise_for_status()
 
 
-# In[12]:
+# In[5]:
 
 
 # Extract summary details for all screens
@@ -267,7 +267,7 @@ output_file = pathlib.Path(data_dir, "screen_details.tsv")
 screen_details_df.to_csv(output_file, index=False, sep="\t")
 
 
-# In[13]:
+# In[6]:
 
 
 # Initialize Pool object for threading
@@ -288,7 +288,7 @@ pool.close()
 pool.join()
 
 
-# In[14]:
+# In[7]:
 
 
 # Combine to create full dataframe
@@ -314,4 +314,3 @@ print(
 # Save data frame as a single parquet file
 output_file = pathlib.Path(data_dir, "plate_details_per_screen.parquet.gzip")
 all_plate_results_df.to_parquet(output_file, compression="gzip")
-

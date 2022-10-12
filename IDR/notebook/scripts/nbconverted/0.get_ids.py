@@ -2,7 +2,7 @@
 # coding: utf-8
 
 # # Obtain details for all screens and projects on Image Data Resource
-# 
+#
 # https://idr.openmicroscopy.org/
 
 # In[1]:
@@ -106,4 +106,3 @@ id_df.to_csv(output_file, index=False, sep="\t")
 
 print(id_df.shape)
 id_df.head(3)
-
