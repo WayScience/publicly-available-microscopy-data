@@ -36,7 +36,7 @@ if __name__ == "__main__":
     for stat in stats_to_graph:
         databank_plot = (
             ggplot(data=databank_stats, mapping=aes(x="Attribute", y=stat))
-            + geom_col(na_rm=True, stat="identity", position="identity")
+            + geom_col(na_rm=True, stat="identity", position="dodge")
             + geom_text(
                 aes(label=stat),
                 position=dodge_text,
