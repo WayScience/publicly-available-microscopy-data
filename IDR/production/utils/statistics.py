@@ -206,6 +206,7 @@ def collect_study_stats(
     metadata_file_path,
     results_list,
     na_cols,
+    study_name,
 ):
     """Collecting statistics within a single file
 
@@ -228,7 +229,6 @@ def collect_study_stats(
 
     # Extract metadata from file name and dataframe
     metadata_pq = metadata_file_path.name
-    study_name = (metadata_pq.split(".")[0]).split("_")[0]
     attribute_names = metadata_df.columns.to_list()
 
     # Remove irrelevant attributes
@@ -248,7 +248,7 @@ def collect_study_stats(
         # Append stats to attribute_results
         results_list.append([study_name, attribute, s, h, nme, j, e, gc])
 
-    return results_list
+    return results_list, attribute_elements
 
 
 def collect_databank_stats(metadata_directory, na_cols):
