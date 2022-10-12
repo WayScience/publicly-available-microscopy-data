@@ -79,7 +79,3 @@ if __name__ == "__main__":
                 ]
             )
             extract_metadata.wait()
-            compute_stats = subprocess.Popen(
-                args=["python", "IDR/production/1.compute_statistics.py"]
-            )
-            compute_stats.wait()
