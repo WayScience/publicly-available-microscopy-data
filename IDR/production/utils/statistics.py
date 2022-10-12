@@ -2,11 +2,37 @@ import numpy as np
 import pandas as pd
 import pathlib, sys
 
+# Define path to extraction_utils directory
 parent_dir = str(pathlib.Path(__file__).parents[1])
 sys.path.append(parent_dir)
 from metadata_extraction.extraction_utils.io import walk
 from scipy import ndimage
 from numpy import log as ln
+
+
+def get_unique_entries(metadata_df, attribute):
+    """Identifies unique entries and the number of instances for each in a column of a Pandas.DataFrame
+    Parameters
+    ----------
+    metadata_df: Pandas.DataFrame
+        Contains metadata entries for a single study with each index representing a well
+    
+    attribute: str
+        Attribute name (column of metadata_df) 
+
+    Returns
+    -------
+    attribute_elements: dict
+        Unique entries and counts for a given attribute (dataframe column)
+    """
+    unique_entries = metadata_df[attribute].unique()
+    attribute_elements = dict()
+    for element in unique_entries:
+        attribute_elements[element] = len(
+            metadata_df[metadata_df[attribute] == element]
+        )
+    
+    return attribute_elements
 
 
 def category_frequencies(attribute_elements):
@@ -64,8 +90,6 @@ def pielou(h, s):
     j: float
         Pielou's evenness (H_obs / H-max)
     """
-    # Prevent division by 0 if richness (S) == 1
-
     j = h / ln(s)
 
     return j
@@ -162,7 +186,7 @@ def stats_pipeline(attribute_elements):
     )
 
     # If 1 unique element in an image attribute --> rel_frequencies = [1.0]
-    # Causes h = -0 and division by 0 in norm_median_evenness and pielou
+    # Causes h = -0 and division by 0 in norm_median_evenness() and pielou()
     if s == 1:
         h = 0
         nme = None
@@ -214,15 +238,11 @@ def collect_study_stats(
         else:
             pass
 
-    # Collect statistics for each attribute
+    # Get unique entries for each attribute
     for attribute in attribute_names:
-        unique_entries = metadata_df[attribute].unique()
-        attribute_elements = dict()
-        for element in unique_entries:
-            attribute_elements[element] = len(
-                metadata_df[metadata_df[attribute] == element]
-            )
+        attribute_elements = get_unique_entries(metadata_df=metadata_df, attribute=attribute)
 
+        # Collect statistics for each attribute
         s, h, nme, j, e, gc = stats_pipeline(attribute_elements=attribute_elements)
 
         # Append stats to attribute_results
@@ -264,23 +284,18 @@ def collect_databank_stats(metadata_directory, na_cols):
         else:
             pass
 
-    results_list = list()
+    stat_results_list = list()
     # Collect statistics for each attribute
     for attribute in attribute_names:
-        unique_entries = databank_metadata[attribute].unique()
-        attribute_elements = dict()
-        for element in unique_entries:
-            attribute_elements[element] = len(
-                databank_metadata[databank_metadata[attribute] == element]
-            )
+        attribute_elements = get_unique_entries(metadata_df=databank_metadata, attribute=attribute)
 
         s, h, nme_result, j, e, gc = stats_pipeline(attribute_elements=attribute_elements)
 
         # Append stats to attribute_results
-        results_list.append([attribute, s, h, nme_result, j, e, gc])
+        stat_results_list.append([attribute, s, h, nme_result, j, e, gc])
 
     stat_results_df = pd.DataFrame(
-        data=results_list, columns=["Attribute", "S", "H", "NME", "J", "E", "GC"]
+        data=stat_results_list, columns=["Attribute", "S", "H", "NME", "J", "E", "GC"]
     )
 
     return stat_results_df
