@@ -17,7 +17,7 @@ def nested_dict_pairs_iterator(elements_and_counts_dict):
     elements_and_counts_dict: dict
         Nested dictionary of all combinations of all unique entries of a metadata file
         E.g. {study_name: {screen_id: {image_attribute: {unique_element: count}}}}
-    
+
     Returns
     -------
     All possible combinations of tuples for a nested dictionary
@@ -28,7 +28,7 @@ def nested_dict_pairs_iterator(elements_and_counts_dict):
         # Check if value is of dict type
         if isinstance(value, dict):
             # If value is dict then iterate over all its values
-            for pair in  nested_dict_pairs_iterator(value):
+            for pair in nested_dict_pairs_iterator(value):
                 yield (key, *pair)
         else:
             # If value is not dict type then yield the value
@@ -58,25 +58,21 @@ if __name__ == "__main__":
         _, attribute_elements = collect_study_stats(
             metadata_path,
             individual_study_stats,
-            na_cols=[
-                "screen_id",
-                "study_name",
-                "plate_name",
-                "plate_id",
-                "well_id"
-            ],
+            na_cols=["screen_id", "study_name", "plate_name", "plate_id", "well_id"],
             study_name=study_name,
-            screen_id = screen_id
+            screen_id=screen_id,
         )
 
         unique_elements_and_counts[study_name] = attribute_elements
 
     # Convert unique_elements_and_counts dict to Pandas.DataFrame
-    unique_elements_and_counts_list = list(nested_dict_pairs_iterator(unique_elements_and_counts))
+    unique_elements_and_counts_list = list(
+        nested_dict_pairs_iterator(unique_elements_and_counts)
+    )
 
     # Generate output dataframes
     unique_elements_and_counts_df = pd.DataFrame(
-        data=unique_elements_and_counts_list, 
+        data=unique_elements_and_counts_list,
         columns=["Study", "Screen", "Attribute", "Element", "n"],
     )
     stat_results_df = pd.DataFrame(
