@@ -17,7 +17,7 @@ def collect_screen_metadata_parser():
         dest="metadata_fileType",
         help="REQUIRED: File type for IDR metadata",
         required=True,
-        choices=["downloaded_json", "api_access", "git_csv"],
+        choices=["downloaded_json"],
     )
 
     return parser
