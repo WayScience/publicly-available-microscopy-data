@@ -294,12 +294,12 @@ def collect_databank_stats(metadata_directory, na_cols):
         )
 
         # Collect statistics for each attribute
-        s, h, nme_result, j, e, gc = stats_pipeline(
+        s, h, nme, j, e, gc = stats_pipeline(
             attribute_elements=attribute_elements
         )
 
         # Append stats to attribute_results
-        stat_results_list.append([attribute, s, h, nme_result, j, e, gc])
+        stat_results_list.append([attribute, s, h, nme, j, e, gc])
 
     stat_results_df = pd.DataFrame(
         data=stat_results_list, columns=["Attribute", "S", "H", "NME", "J", "E", "GC"]
