@@ -50,6 +50,8 @@ if __name__ == "__main__":
     # Calculate statistics for each image attribute for individual studies
     individual_study_stats = list()
     unique_elements_and_counts = dict()
+
+    # Iterate through each study/screen/well.json metadata file
     for metadata_path in metadata_files:
         study_name = ((str(metadata_path).split("/")[-1]).split(".")[0]).split("_")[0]
         screen_id = ((str(metadata_path).split("/")[-1]).split(".")[0]).split("_")[-1]
