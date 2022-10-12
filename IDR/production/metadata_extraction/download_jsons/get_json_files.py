@@ -55,11 +55,14 @@ if __name__ == "__main__":
             for wellID in wellIDs:
                 MAP_URL = f"https://idr.openmicroscopy.org/webclient/api/annotations/?type=map&well={wellID}"
 
+                # Connect to IDR API
                 well_metadata = session.get(MAP_URL).json()
 
+                # Make directories for each screen ID and plate ID
                 output_dir = pathlib.Path(f"IDR/data/json_metadata/{screen_id}/{plate}")
                 pathlib.Path.mkdir(output_dir, exist_ok=True, parents=True)
 
+                # Download the json files
                 output_file = pathlib.Path(output_dir, f"{wellID}.json")
                 with open(output_file, "w", encoding="utf-8") as f:
                     json.dump(well_metadata, f, ensure_ascii=False, indent=4)
