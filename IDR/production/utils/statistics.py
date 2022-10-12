@@ -289,6 +289,7 @@ def collect_databank_stats(metadata_directory, na_cols):
     for attribute in attribute_names:
         attribute_elements = get_unique_entries(metadata_df=databank_metadata, attribute=attribute)
 
+        # Collect statistics for each attribute
         s, h, nme_result, j, e, gc = stats_pipeline(attribute_elements=attribute_elements)
 
         # Append stats to attribute_results
