@@ -101,7 +101,6 @@ if __name__ == "__main__":
         columns=["id", "name", "title", "description", "category"],
     )
 
-
     project_df = pd.DataFrame(
         [get_id(x) for x in project_info["data"]],
         columns=["id", "name", "title", "description", "category"],
@@ -112,9 +111,12 @@ if __name__ == "__main__":
     # Extract summary details for all screens
     screen_ids = id_df.query("category=='Screen'").id.tolist()
     screen_details_df = pd.concat(
-        [extract_study_info(session=requests.Session(), screen_id=x) for x in screen_ids], axis="rows"
+        [
+            extract_study_info(session=requests.Session(), screen_id=x)
+            for x in screen_ids
+        ],
+        axis="rows",
     ).reset_index(drop=True)
-
 
     # Output idr_ids as parquet file
     output_file = pathlib.Path(data_dir, "idr_screen_ids.parquet")

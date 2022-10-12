@@ -19,17 +19,21 @@ if __name__ == "__main__":
 
     # Load idr screen ids
     idr_ids_file = pathlib.Path("IDR/data/idr_ids.tsv")
-    screen_ids = pd.read_csv(idr_ids_file, sep='\t').id.values.tolist()
+    screen_ids = pd.read_csv(idr_ids_file, sep="\t").id.values.tolist()
 
     # Get plate ids
     for screen_id in tqdm(screen_ids):
-        PLATES_IN_SCREEN_URL = f"https://idr.openmicroscopy.org/webclient/api/plates/?id={screen_id}"
+        PLATES_IN_SCREEN_URL = (
+            f"https://idr.openmicroscopy.org/webclient/api/plates/?id={screen_id}"
+        )
         all_plates = session.get(PLATES_IN_SCREEN_URL).json()["plates"]
         study_plates = {x["id"]: x["name"] for x in all_plates}
 
         # Get well ids
         for plate in study_plates:
-            WELLS_IN_PLATES_URL = f"https://idr.openmicroscopy.org/webgateway/plate/{plate}"
+            WELLS_IN_PLATES_URL = (
+                f"https://idr.openmicroscopy.org/webgateway/plate/{plate}"
+            )
             wellIDs = list()
             plate_name = study_plates[plate]
 
@@ -48,14 +52,14 @@ if __name__ == "__main__":
                     else:
                         pass
 
-            for wellID in wellIDs:        
+            for wellID in wellIDs:
                 MAP_URL = f"https://idr.openmicroscopy.org/webclient/api/annotations/?type=map&well={wellID}"
 
                 well_metadata = session.get(MAP_URL).json()
-                
+
                 output_dir = pathlib.Path(f"IDR/data/json_metadata/{screen_id}/{plate}")
                 pathlib.Path.mkdir(output_dir, exist_ok=True, parents=True)
 
-                output_file = pathlib.Path(output_dir, f'{wellID}.json')
-                with open(output_file, 'w', encoding='utf-8') as f:
+                output_file = pathlib.Path(output_dir, f"{wellID}.json")
+                with open(output_file, "w", encoding="utf-8") as f:
                     json.dump(well_metadata, f, ensure_ascii=False, indent=4)

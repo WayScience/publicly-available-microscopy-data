@@ -16,9 +16,9 @@ def get_unique_entries(metadata_df, attribute):
     ----------
     metadata_df: Pandas.DataFrame
         Contains metadata entries for a single study with each index representing a well
-    
+
     attribute: str
-        Attribute name (column of metadata_df) 
+        Attribute name (column of metadata_df)
 
     Returns
     -------
@@ -31,7 +31,7 @@ def get_unique_entries(metadata_df, attribute):
         attribute_elements[element] = len(
             metadata_df[metadata_df[attribute] == element]
         )
-    
+
     return attribute_elements
 
 
@@ -240,7 +240,9 @@ def collect_study_stats(
 
     # Get unique entries for each attribute
     for attribute in attribute_names:
-        attribute_elements = get_unique_entries(metadata_df=metadata_df, attribute=attribute)
+        attribute_elements = get_unique_entries(
+            metadata_df=metadata_df, attribute=attribute
+        )
 
         # Collect statistics for each attribute
         s, h, nme, j, e, gc = stats_pipeline(attribute_elements=attribute_elements)
@@ -287,10 +289,14 @@ def collect_databank_stats(metadata_directory, na_cols):
     stat_results_list = list()
     # Collect statistics for each attribute
     for attribute in attribute_names:
-        attribute_elements = get_unique_entries(metadata_df=databank_metadata, attribute=attribute)
+        attribute_elements = get_unique_entries(
+            metadata_df=databank_metadata, attribute=attribute
+        )
 
         # Collect statistics for each attribute
-        s, h, nme_result, j, e, gc = stats_pipeline(attribute_elements=attribute_elements)
+        s, h, nme_result, j, e, gc = stats_pipeline(
+            attribute_elements=attribute_elements
+        )
 
         # Append stats to attribute_results
         stat_results_list.append([attribute, s, h, nme_result, j, e, gc])

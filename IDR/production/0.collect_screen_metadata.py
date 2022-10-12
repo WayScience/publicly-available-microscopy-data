@@ -42,6 +42,7 @@ def extract_study_info(session, screen_id):
 
     return details_
 
+
 if __name__ == "__main__":
     # Define arguments
     args = collect_screen_metadata_parser().parse_args(sys.argv[1:])
@@ -54,29 +55,50 @@ if __name__ == "__main__":
         json_metadata_dir = pathlib.Path("IDR/data/json_metadata")
         if json_metadata_dir.exists() == False:
             # Download JSON metadata
-            print("Downloading JSON metadata from IDR API \n WARNING: This process can take multiple days to execute. \n")
+            print(
+                "Downloading JSON metadata from IDR API \n WARNING: This process can take multiple days to execute. \n"
+            )
             answer = input("Do you wish to download JSON metadata? \n\n y/n:")
             if answer == "y":
-                get_json_files = subprocess.Popen(args=["python3", "IDR/production/metadata_extraction/download_jsons/get_json_files.py"])
+                get_json_files = subprocess.Popen(
+                    args=[
+                        "python3",
+                        "IDR/production/metadata_extraction/download_jsons/get_json_files.py",
+                    ]
+                )
                 get_json_files.wait()
             elif answer == "n":
                 exit()
 
         elif json_metadata_dir.exists() == True:
             # Extract metadata from downloaded JSON files
-            extract_metadata = subprocess.Popen(args=["python", "IDR/production/metadata_extraction/download_jsons/process_json_metadata.py"])
+            extract_metadata = subprocess.Popen(
+                args=[
+                    "python",
+                    "IDR/production/metadata_extraction/download_jsons/process_json_metadata.py",
+                ]
+            )
             extract_metadata.wait()
-            compute_stats = subprocess.Popen(args=["python", "IDR/production/1.compute_statistics.py"])
+            compute_stats = subprocess.Popen(
+                args=["python", "IDR/production/1.compute_statistics.py"]
+            )
             compute_stats.wait()
 
     elif file_type == "api_access":
-            # Download JSON metadata
-            print("Downloading JSON metadata from IDR API \n WARNING: This process can take multiple days to execute. \n")
-            answer = input("Do you wish to download JSON metadata? \n\n y/n:")
-            if answer == "y":
-                subprocess.Popen(args=["python3", "IDR/production/metadata_extraction/api_access/extract_api_metadata.py"])
-            elif answer == "n":
-                exit()
+        # Download JSON metadata
+        print(
+            "Downloading JSON metadata from IDR API \n WARNING: This process can take multiple days to execute. \n"
+        )
+        answer = input("Do you wish to download JSON metadata? \n\n y/n:")
+        if answer == "y":
+            subprocess.Popen(
+                args=[
+                    "python3",
+                    "IDR/production/metadata_extraction/api_access/extract_api_metadata.py",
+                ]
+            )
+        elif answer == "n":
+            exit()
 
     elif file_type == "git_csv":
         print("\nThis metadata extraction workflow in development.\n")

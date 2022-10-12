@@ -57,7 +57,9 @@ def pull_json_well_metadata(
         if image_attribute in annotation_values:
             # Clean channels
             if image_attribute == "Channels":
-                well_results_dict[image_attribute] = clean_channel(annotation_values[image_attribute])
+                well_results_dict[image_attribute] = clean_channel(
+                    annotation_values[image_attribute]
+                )
             else:
                 well_results_dict[image_attribute] = annotation_values[image_attribute]
         else:
@@ -65,13 +67,13 @@ def pull_json_well_metadata(
 
     well_results_dict["plate_id"] = plate_id
     well_results_dict["well_id"] = well_id
-    
+
     return well_results_dict
 
 
 def collect_metadata(screen_id, idr_name, imaging_method, sample):
-    """Extract metadata per well from downloaded IDR json annotation files. 
-    
+    """Extract metadata per well from downloaded IDR json annotation files.
+
     Parameters
     ----------
     screen_id: int
@@ -108,39 +110,56 @@ def collect_metadata(screen_id, idr_name, imaging_method, sample):
     json_metadata_screen_dir = pathlib.Path(f"IDR/data/json_metadata/{screen_id}")
     json_metadata_files = list(walk(json_metadata_screen_dir))
 
-    image_attributes=["Channels",
-                "Organism",
-                "Cell Line",
-                "Oraganism Part",
-                "Strain",
-                "Gene Identifier",
-                "Phenotype Identifier",
-                "plate_id",
-                "well_id",]
+    image_attributes = [
+        "Channels",
+        "Organism",
+        "Cell Line",
+        "Oraganism Part",
+        "Strain",
+        "Gene Identifier",
+        "Phenotype Identifier",
+        "plate_id",
+        "well_id",
+    ]
 
     # Collect data
-    screen_results_dict = {image_attribute: list() for image_attribute in image_attributes}
+    screen_results_dict = {
+        image_attribute: list() for image_attribute in image_attributes
+    }
     # Iterate through all well json metadata files
     for well_json_metadata in json_metadata_files:
-        well_results_dict = pull_json_well_metadata(well_metadata_file=well_json_metadata, image_attributes=image_attributes)
+        well_results_dict = pull_json_well_metadata(
+            well_metadata_file=well_json_metadata, image_attributes=image_attributes
+        )
         # Add metadata values per well to final results dictionary
         for image_attribute in well_results_dict.keys():
-            screen_results_dict[image_attribute].append(well_results_dict[image_attribute])
+            screen_results_dict[image_attribute].append(
+                well_results_dict[image_attribute]
+            )
 
     # Convert results dict to pd.DataFrame
     screen_results_df = pd.DataFrame.from_dict(screen_results_dict)
 
     # Append external metadata values per screen
-    external_metadata = {"screen_id": screen_id, "Imaging Method": imaging_method, "Sample": sample}
+    external_metadata = {
+        "screen_id": screen_id,
+        "Imaging Method": imaging_method,
+        "Sample": sample,
+    }
     for image_attribute in external_metadata.keys():
-        screen_results_df[image_attribute] = pd.Series([external_metadata[image_attribute] for index_ in range(len(screen_results_df.index))])
-        
+        screen_results_df[image_attribute] = pd.Series(
+            [
+                external_metadata[image_attribute]
+                for index_ in range(len(screen_results_df.index))
+            ]
+        )
+
     # Save data per IDR accession name
     output_file = pathlib.Path(
         screen_dir, f"{study_name}_{screen_name}_{screen_id}.parquet"
     )
     screen_results_df.to_parquet(output_file)
-    
+
 
 if __name__ == "__main__":
 
@@ -149,7 +168,9 @@ if __name__ == "__main__":
     screen_details_file = pathlib.Path(data_dir, "screen_details.parquet")
 
     # Load pertinant columns of screen details as pandas df
-    screen_details_df = pd.read_parquet(screen_details_file)[["screen_id", "idr_name", "Imaging Method", "Sample Type"]]
+    screen_details_df = pd.read_parquet(screen_details_file)[
+        ["screen_id", "idr_name", "Imaging Method", "Sample Type"]
+    ]
 
     # Get available downloaded json screens
     json_metadata_dir = pathlib.Path("IDR/data/json_metadata")
@@ -161,7 +182,9 @@ if __name__ == "__main__":
     study_metadata = list(screen_details_df.itertuples(index=False, name=None))
 
     # Remove screens that are not downloaded
-    study_metadata = [metadata for metadata in study_metadata if metadata[0] in available_screens]
+    study_metadata = [
+        metadata for metadata in study_metadata if metadata[0] in available_screens
+    ]
 
     # Construct multiprocessing Pool object
     multiprocessing_iterable = list()
