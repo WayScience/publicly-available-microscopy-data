@@ -1,13 +1,13 @@
 import numpy as np
 import pandas as pd
 import pathlib, sys
+from scipy import ndimage
+from numpy import log as ln
 
 # Define path to extraction_utils directory
 parent_dir = str(pathlib.Path(__file__).parents[1])
 sys.path.append(parent_dir)
 from metadata_extraction.extraction_utils.io import walk
-from scipy import ndimage
-from numpy import log as ln
 
 
 def get_unique_entries(metadata_df, attribute):
@@ -228,7 +228,7 @@ def collect_study_stats(
 
     # Extract metadata from file name and dataframe
     metadata_pq = metadata_file_path.name
-    study_name = metadata_pq.split(".")[0]
+    study_name = (metadata_pq.split(".")[0]).split("_")[0]
     attribute_names = metadata_df.columns.to_list()
 
     # Remove irrelevant attributes
