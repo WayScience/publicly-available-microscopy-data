@@ -33,15 +33,15 @@ if __name__ == "__main__":
     for attribute in attributes_to_graph:
         databank_plot = (
             ggplot(data=databank_stats, mapping=aes(x="Attribute", y=attribute))
-            + geom_col(na_rm=True, stat="identity", position="dodge")
-            + theme(axis_text_x=element_text(rotation=90))
+            + geom_col(na_rm=True, stat="identity", position="identity")
             + geom_text(
                 aes(label=attribute),
                 position=dodge_text,
                 color="gray",
                 size=8,
-                va="bottom",
+                ha="left",
             )
+            + coord_flip()
         )
 
         studies_plot = (
