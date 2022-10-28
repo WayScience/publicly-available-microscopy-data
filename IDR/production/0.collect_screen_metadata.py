@@ -73,7 +73,7 @@ if __name__ == "__main__":
             elif answer == "n":
                 exit()
 
-        elif json_metadata_dir.exists() == True:
+        elif json_metadata_dir.exists():
             # Extract metadata from downloaded JSON files
             extract_metadata = subprocess.Popen(
                 args=[
