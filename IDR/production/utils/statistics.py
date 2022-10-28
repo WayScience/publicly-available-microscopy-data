@@ -1,8 +1,10 @@
+import pathlib
+import sys
+
 import numpy as np
 import pandas as pd
-import pathlib, sys
-from scipy import ndimage
 from numpy import log as ln
+from scipy import ndimage
 
 # Define path to extraction_utils directory
 parent_dir = str(pathlib.Path(__file__).parents[1])
@@ -71,8 +73,12 @@ def h_index(rel_freq_list):
     evenness_values: list
         List of each -p_iln(p_i) value to use for Normalized Median Evenness statistic.
     """
-    evenness_values = np.array([rel_freq * ln(rel_freq) for rel_freq in rel_freq_list])
-    h = -(sum(evenness_values))
+    if 1 in rel_freq_list:
+        h = 0
+
+    else:
+        evenness_values = np.array([rel_freq * ln(rel_freq) for rel_freq in rel_freq_list])
+        h = -(sum(evenness_values))
 
     return h
 
@@ -106,12 +112,16 @@ def norm_median_evenness(rel_freq_list):
     nme: float
         Ratio of median and max -p*ln(p) values
     """
-    h_values = np.array(
-        [-1.0 * freq * ln(freq) for freq in rel_freq_list if 1 not in rel_freq_list]
-    )
+    if 1 in rel_freq_list:
+        nme = None
+    
+    else:
+        h_values = np.array(
+            [-1.0 * freq * ln(freq) for freq in rel_freq_list]
+        )
 
-    # Calculate NME
-    nme = ndimage.median(h_values) / h_values.max()
+        # Calculate NME
+        nme = ndimage.median(h_values) / h_values.max()
 
     return nme
 
