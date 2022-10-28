@@ -1,6 +1,7 @@
+import pathlib
+
 import pandas as pd
 from plotnine import *
-import pathlib
 from sigfig import round
 
 
