@@ -1,5 +1,7 @@
+import pathlib
+import sys
+
 import pandas as pd
-import pathlib, sys
 from tqdm import tqdm
 from utils.statistics import collect_databank_stats, collect_study_stats
 
@@ -41,7 +43,6 @@ if __name__ == "__main__":
 
     # Collect metadata file paths
     metadata_files = list(walk(studies_metadata_dir))
-    metadata_files = metadata_files[0:5]
 
     # Make directories
     stats_dir = pathlib.Path("IDR/data/statistics")
@@ -51,8 +52,10 @@ if __name__ == "__main__":
     individual_study_stats = list()
     unique_elements_and_counts = dict()
 
+    print(f"\nComputing statistics for {len(metadata_files)} screens.\n")
+    
     # Iterate through each study/screen/well.json metadata file
-    for metadata_path in metadata_files:
+    for metadata_path in tqdm(metadata_files):
         study_name = ((str(metadata_path).split("/")[-1]).split(".")[0]).split("_")[0]
         screen_id = ((str(metadata_path).split("/")[-1]).split(".")[0]).split("_")[-1]
         _, attribute_elements = collect_study_stats(
@@ -73,8 +76,13 @@ if __name__ == "__main__":
     # Generate output dataframes
     unique_elements_and_counts_df = pd.DataFrame(
         data=unique_elements_and_counts_list,
-        columns=["Study", "Screen", "Attribute", "Element", "n"],
+        columns=["Study", "Screen", "Attribute", "Element", "Count"],
     )
+    
+    unique_elements_and_counts_df["Element"] = unique_elements_and_counts_df["Element"].apply(
+            lambda x: str(x)
+        )
+
     stat_results_df = pd.DataFrame(
         data=individual_study_stats,
         columns=["Study_Name", "Attribute", "S", "H", "NME", "J", "E", "GC"],
