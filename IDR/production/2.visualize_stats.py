@@ -65,7 +65,7 @@ if __name__ == "__main__":
         )
 
         databank_output_file = pathlib.Path(databank_imgs_dir, f"{stat}.png")
-        databank_plot.save(databank_output_file)
+        databank_plot.save(databank_output_file, dpi=500)
 
         studies_output_file = pathlib.Path(study_imgs_dir, f"{stat}.png")
-        studies_plot.save(studies_output_file)
+        studies_plot.save(studies_output_file, dpi=500)
