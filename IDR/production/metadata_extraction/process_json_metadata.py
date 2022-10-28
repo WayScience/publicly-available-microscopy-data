@@ -1,15 +1,17 @@
-import pathlib
 import json
-import time
-import sys, os
-import pandas as pd
 import multiprocessing
+import os
+import pathlib
+import sys
+import time
+
+import pandas as pd
 
 # Define path to extraction_utils dir
 parent_dir = str(pathlib.Path(__file__).parents[1])
 sys.path.append(parent_dir)
-from extraction_utils.io import walk
 from extraction_utils.clean_channels import clean_channel
+from extraction_utils.io import walk
 from extraction_utils.list_modifications import iterate_through_values
 
 
@@ -116,7 +118,7 @@ def collect_metadata(screen_id, idr_name, imaging_method, sample):
         "Channels",
         "Organism",
         "Cell Line",
-        "Oraganism Part",
+        "Organism Part",
         "Strain",
         "Gene Identifier",
         "Gene Symbol",
