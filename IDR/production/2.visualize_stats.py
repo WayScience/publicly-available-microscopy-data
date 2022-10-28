@@ -32,6 +32,11 @@ if __name__ == "__main__":
     study_imgs_dir = pathlib.Path("IDR/data/statistics/imgs/study_stat_imgs")
     databank_imgs_dir = pathlib.Path("IDR/data/statistics/imgs/databank_stat_imgs")
 
+    atts_to_remove = ["well_id", "plate_id", "Sample", "Oraganism Part", "Phenotype Identifier"]
+    for att in atts_to_remove:
+        databank_stats.drop(databank_stats[databank_stats["Attribute"] == att].index, inplace=True)
+        study_stats.drop(study_stats[study_stats["Attribute"] == att].index, inplace=True)
+
     # Plot stats for databank and individual study stats
     stats_to_graph = ["H", "J", "NME", "E", "GC", "S"]
     for stat in stats_to_graph:
