@@ -40,9 +40,11 @@ if __name__ == "__main__":
     # Plot stats for databank and individual study stats
     stats_to_graph = ["H", "J", "NME", "E", "GC", "S"]
     for stat in stats_to_graph:
+        databank_stats_sorted = databank_stats.sort_values(by=[stat], ascending=True, na_position='last')
+        stats_list = databank_stats_sorted['Attribute'].value_counts().index.tolist()
         databank_plot = (
-            ggplot(data=databank_stats, mapping=aes(x="Attribute", y=stat))
-            + geom_col(na_rm=True, stat="identity", position="dodge")
+            ggplot(data=databank_stats_sorted, mapping=aes(x="Attribute", y=stat))
+            + geom_bar(na_rm=True, stat="identity", position="dodge")
             + geom_text(
                 aes(label=stat),
                 position=dodge_text,
@@ -50,6 +52,8 @@ if __name__ == "__main__":
                 size=8,
                 ha="left",
             )
+            + scale_x_discrete(limits=stats_list)
+            + ylim(0, (1.1 * max(databank_stats[stat])))
             + coord_flip()
         )
 
