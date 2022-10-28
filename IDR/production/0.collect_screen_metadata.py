@@ -1,10 +1,10 @@
-from asyncio import subprocess
 import pathlib
-import sys
-import requests
 import subprocess
+import sys
+from asyncio import subprocess
+
 import pandas as pd
-from utils.args import *
+from utils.args import collect_screen_metadata_parser
 
 
 def extract_study_info(session, screen_id):
