@@ -66,7 +66,7 @@ if __name__ == "__main__":
                 get_json_files = subprocess.Popen(
                     args=[
                         "python3",
-                        "IDR/production/metadata_extraction/download_jsons/get_json_files.py",
+                        "IDR/production/metadata_extraction/get_json_files.py",
                     ]
                 )
                 get_json_files.wait()
@@ -78,7 +78,7 @@ if __name__ == "__main__":
             extract_metadata = subprocess.Popen(
                 args=[
                     "python",
-                    "IDR/production/metadata_extraction/download_jsons/process_json_metadata.py",
+                    "IDR/production/metadata_extraction/process_json_metadata.py",
                 ]
             )
             extract_metadata.wait()
