@@ -3,7 +3,7 @@ import requests
 import pandas as pd
 
 
-def get_id(json):
+def get_id_from_json(json):
     """Clean json details in preparation for IDR screen detail storage
 
     Parameters
