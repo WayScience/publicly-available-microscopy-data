@@ -56,8 +56,9 @@ if __name__ == "__main__":
     
     # Iterate through each study/screen/well.json metadata file
     for metadata_path in tqdm(metadata_files):
-        study_name = ((str(metadata_path).split("/")[-1]).split(".")[0]).split("_")[0]
-        screen_id = ((str(metadata_path).split("/")[-1]).split(".")[0]).split("_")[-1]
+        parsed_data_path = ((str(metadata_path).split("/")[-1]).split(".")[0]).split("_")
+        study_name = parsed_data_path[0]
+        screen_id = parsed_data_path[-1]
         _, attribute_elements = collect_study_stats(
             metadata_path,
             individual_study_stats,
