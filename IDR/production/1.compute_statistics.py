@@ -61,7 +61,7 @@ if __name__ == "__main__":
         _, attribute_elements = collect_study_stats(
             metadata_path,
             individual_study_stats,
-            na_cols=["screen_id", "study_name", "plate_name", "plate_id", "well_id"],
+            na_cols=["screen_id", "study_name", "plate_name", "plate_id", "well_id", "Organism Part"],
             study_name=study_name,
             screen_id=screen_id,
         )
@@ -102,7 +102,7 @@ if __name__ == "__main__":
 
     # Collect databank stats
     databank_stats = collect_databank_stats(
-        metadata_directory=studies_metadata_dir, na_cols=[]
+        metadata_directory=studies_metadata_dir, na_cols=["screen_id", "study_name", "plate_name", "plate_id", "well_id", "Organism Part"]
     )
 
     # Save databank stats as parquet file
