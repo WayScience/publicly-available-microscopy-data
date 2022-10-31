@@ -30,7 +30,7 @@ def clean_channel(channels):
             stripped_channel = [s.strip() for s in split_channel]
 
             # Redefine variables and append to channel list
-            stain = split_channel[0]
+            stain = stripped_channel[0]
             target = stripped_channel[1]
             stains_targets.append(f"{stain}:{target}")
 
