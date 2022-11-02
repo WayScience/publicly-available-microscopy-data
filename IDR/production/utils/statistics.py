@@ -77,7 +77,9 @@ def h_index(rel_freq_list):
         h = 0
 
     else:
-        evenness_values = np.array([rel_freq * ln(rel_freq) for rel_freq in rel_freq_list])
+        evenness_values = np.array(
+            [rel_freq * ln(rel_freq) for rel_freq in rel_freq_list]
+        )
         h = -(sum(evenness_values))
 
     return h
@@ -114,11 +116,9 @@ def norm_median_evenness(rel_freq_list):
     """
     if 1 in rel_freq_list:
         nme = None
-    
+
     else:
-        h_values = np.array(
-            [-1.0 * freq * ln(freq) for freq in rel_freq_list]
-        )
+        h_values = np.array([-1.0 * freq * ln(freq) for freq in rel_freq_list])
 
         # Calculate NME
         nme = ndimage.median(h_values) / h_values.max()
