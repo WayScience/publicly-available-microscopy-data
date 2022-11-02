@@ -91,7 +91,7 @@ if __name__ == "__main__":
 
     unique_elements_and_counts_df["Element"] = unique_elements_and_counts_df[
         "Element"
-    ].apply(lambda x: str(x))
+    ].astype("str")
 
     stat_results_df = pd.DataFrame(
         data=individual_study_stats,
