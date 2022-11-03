@@ -62,6 +62,14 @@ def pull_json_well_metadata(
                 well_results_dict[image_attribute] = clean_channel(
                     annotation_values[image_attribute]
                 )
+
+            elif image_attribute == "Phenotype":
+                well_results_dict[image_attribute] = annotation_values[image_attribute]
+
+            elif image_attribute == "Phenotype Term Name":
+                # Account for different annotation terms for phenotype
+                well_results_dict["Phenotype"] = annotation_values[image_attribute]
+
             else:
                 well_results_dict[image_attribute] = annotation_values[image_attribute]
         else:
@@ -122,7 +130,10 @@ def collect_metadata(screen_id, idr_name, imaging_method, sample):
         "Strain",
         "Gene Identifier",
         "Gene Symbol",
-        "Phenotype Identifier",
+        "Phenotype",
+        "Phenotype Term Name",
+        "Compound Name",
+        "siRNA Identifier",
         "plate_id",
         "well_id",
     ]
