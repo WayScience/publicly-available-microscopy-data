@@ -97,12 +97,12 @@ if __name__ == "__main__":
     project_info = project_session.get(PROJECT_INDEX_PAGE).json()
 
     screen_df = pd.DataFrame(
-        [get_id(x) for x in screen_info["data"]],
+        [get_id_from_json(x) for x in screen_info["data"]],
         columns=["id", "name", "title", "description", "category"],
     )
 
     project_df = pd.DataFrame(
-        [get_id(x) for x in project_info["data"]],
+        [get_id_from_json(x) for x in project_info["data"]],
         columns=["id", "name", "title", "description", "category"],
     )
 
