@@ -32,17 +32,37 @@ if __name__ == "__main__":
     study_imgs_dir = pathlib.Path("IDR/data/statistics/imgs/study_stat_imgs")
     databank_imgs_dir = pathlib.Path("IDR/data/statistics/imgs/databank_stat_imgs")
 
-    atts_to_remove = ["well_id", "plate_id", "Sample", "Organism Part", "Phenotype Identifier", "Oraganism Part"]
+    atts_to_remove = [
+        "well_id",
+        "plate_id",
+        "Sample",
+        "Organism Part",
+        "Phenotype Identifier",
+        "Oraganism Part",
+    ]
     for att in atts_to_remove:
-        databank_stats.drop(databank_stats[databank_stats["Attribute"] == att].index, inplace=True)
-        study_stats.drop(study_stats[study_stats["Attribute"] == att].index, inplace=True)
+        databank_stats.drop(
+            databank_stats[databank_stats["Attribute"] == att].index, inplace=True
+        )
+        study_stats.drop(
+            study_stats[study_stats["Attribute"] == att].index, inplace=True
+        )
 
     # Plot stats for databank and individual study stats
     stats_to_graph = ["H", "J", "NME", "E", "GC", "S"]
-    stat_titles = {"H": "Shannon Index (H')", "J": "Pielou's Evenness (J')", "NME": "Normalized Median Evenness (NME)", "E": "Simpson's Evenness (E)", "GC": "Gini Coefficient (GC)", "S": "Richness (S)"}
+    stat_titles = {
+        "H": "Shannon Index (H')",
+        "J": "Pielou's Evenness (J')",
+        "NME": "Normalized Median Evenness (NME)",
+        "E": "Simpson's Evenness (E)",
+        "GC": "Gini Coefficient (GC)",
+        "S": "Richness (S)",
+    }
     for stat in stats_to_graph:
-        databank_stats_sorted = databank_stats.sort_values(by=[stat], ascending=True, na_position='last')
-        stats_list = databank_stats_sorted['Attribute'].value_counts().index.tolist()
+        databank_stats_sorted = databank_stats.sort_values(
+            by=[stat], ascending=True, na_position="last"
+        )
+        stats_list = databank_stats_sorted["Attribute"].value_counts().index.tolist()
         databank_plot = (
             ggplot(data=databank_stats_sorted, mapping=aes(x="Attribute", y=stat))
             + geom_bar(na_rm=True, stat="identity", position="dodge")

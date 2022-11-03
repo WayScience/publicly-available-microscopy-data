@@ -53,16 +53,25 @@ if __name__ == "__main__":
     unique_elements_and_counts = dict()
 
     print(f"\nComputing statistics for {len(metadata_files)} screens.\n")
-    
+
     # Iterate through each study/screen/well.json metadata file
     for metadata_path in tqdm(metadata_files):
-        parsed_data_path = ((str(metadata_path).split("/")[-1]).split(".")[0]).split("_")
+        parsed_data_path = ((str(metadata_path).split("/")[-1]).split(".")[0]).split(
+            "_"
+        )
         study_name = parsed_data_path[0]
         screen_id = parsed_data_path[-1]
         _, attribute_elements = collect_study_stats(
             metadata_path,
             individual_study_stats,
-            na_cols=["screen_id", "study_name", "plate_name", "plate_id", "well_id", "Organism Part"],
+            na_cols=[
+                "screen_id",
+                "study_name",
+                "plate_name",
+                "plate_id",
+                "well_id",
+                "Organism Part",
+            ],
             study_name=study_name,
             screen_id=screen_id,
         )
@@ -79,10 +88,10 @@ if __name__ == "__main__":
         data=unique_elements_and_counts_list,
         columns=["Study", "Screen", "Attribute", "Element", "Count"],
     )
-    
-    unique_elements_and_counts_df["Element"] = unique_elements_and_counts_df["Element"].apply(
-            lambda x: str(x)
-        )
+
+    unique_elements_and_counts_df["Element"] = unique_elements_and_counts_df[
+        "Element"
+    ].astype("str")
 
     stat_results_df = pd.DataFrame(
         data=individual_study_stats,
@@ -103,7 +112,15 @@ if __name__ == "__main__":
 
     # Collect databank stats
     databank_stats = collect_databank_stats(
-        metadata_directory=studies_metadata_dir, na_cols=["screen_id", "study_name", "plate_name", "plate_id", "well_id", "Organism Part"]
+        metadata_directory=studies_metadata_dir,
+        na_cols=[
+            "screen_id",
+            "study_name",
+            "plate_name",
+            "plate_id",
+            "well_id",
+            "Organism Part",
+        ],
     )
 
     # Save databank stats as parquet file
