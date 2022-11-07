@@ -68,7 +68,7 @@ def pull_json_well_metadata(
 
             elif image_attribute == "Phenotype Term Name":
                 # Account for different annotation terms for phenotype
-                well_results_dict["Phenotype"] = annotation_values[image_attribute]
+                well_results_dict[image_attribute] = annotation_values[image_attribute]
 
             else:
                 well_results_dict[image_attribute] = annotation_values[image_attribute]
