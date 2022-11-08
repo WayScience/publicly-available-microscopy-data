@@ -1,7 +1,6 @@
 import pathlib
 import subprocess
 import sys
-from asyncio import subprocess
 
 import pandas as pd
 from utils.args import collect_screen_metadata_parser
@@ -51,6 +50,7 @@ if __name__ == "__main__":
     file_type = args.metadata_fileType
 
     # Get IDR IDs
+    print("\nExtracting screen ids from IDR\n")
     get_idr_ids = subprocess.Popen(args=["python3", "IDR/production/utils/get_ids.py"])
     get_idr_ids.wait()
 
