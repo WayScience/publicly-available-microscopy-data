@@ -68,7 +68,7 @@ if __name__ == "__main__":
             )
             attribute_df_processed = pd.concat(
                 [attribute_df_processed, alternative_phenotype_df]
-            ).reset_index()
+            ).reset_index(drop=True)
 
         # Save attribute counts as individual csv files
         element_counts_dir = pathlib.Path("IDR/data/Element_Counts")
