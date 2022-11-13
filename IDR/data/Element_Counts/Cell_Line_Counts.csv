@@ -1,0 +1,232 @@
+,Study,Attribute,Element,Count
+0,idr0016-wawer-bioactivecompoundprofiling,Cell Line,u2os,155722
+1,idr0010-doil-dnadamage,Cell Line,u2os,56832
+2,idr0069-caldera-perturbome,Cell Line,mcf 10a,47616
+3,idr0088-cox-phenomicprofiling,Cell Line,hepg2,42538
+4,idr0015-colin-taraoceans,Cell Line,not listed,32776
+5,idr0003-breker-plasticity,Cell Line,not listed,32640
+6,idr0009-simpson-secretion,Cell Line,hela,26810
+7,idr0088-cox-phenomicprofiling,Cell Line,a549,26206
+8,idr0093-mueller-perturbation,Cell Line,hela,25945
+9,idr0133-dahlin-cellpainting,Cell Line,u2os,23111
+10,idr0088-cox-phenomicprofiling,Cell Line,wpmy-1,22033
+11,idr0078-mattiazziusaj-endocyticcomp,Cell Line,not listed,21504
+12,idr0012-fuchs-cellmorph,Cell Line,hela,21396
+13,idr0001-graml-sysgro,Cell Line,not listed,18432
+14,idr0006-fong-nuclearbodies,Cell Line,hela,15547
+15,idr0094-ellinger-sarscov2,Cell Line,caco-2,9792
+16,idr0013-neumann-mitocheck,Cell Line,hela,9627
+17,idr0036-gustafsdottir-cellpainting,Cell Line,u2os,7680
+18,idr0022-koedoot-cellmigration,Cell Line,mdamb231,7296
+19,idr0022-koedoot-cellmigration,Cell Line,hs578t,7296
+20,idr0128-georgi-influenza,Cell Line,a549,6144
+21,idr0129-georgi-rhinovirus,Cell Line,hela,6144
+22,idr0081-georgi-adenovirus,Cell Line,a549,6144
+23,idr0072-schormann-subcellref,Cell Line,nmumg,5464
+24,idr0033-rohban-pathways,Cell Line,u2os,4608
+25,idr0056-stojic-lncrnas,Cell Line,hela,3837
+26,idr0008-rohn-actinome,Cell Line,hela,3802
+27,idr0004-thorpe-rad52,Cell Line,not listed,3765
+28,idr0035-caie-drugresponse,Cell Line,mcf-7,3300
+29,idr0030-sero-yap,Cell Line,mcf 10a,3076
+30,idr0017-breinig-drugscreen,Cell Line,104-009,3072
+31,idr0017-breinig-drugscreen,Cell Line,par001,3072
+32,idr0017-breinig-drugscreen,Cell Line,02-030,3072
+33,idr0017-breinig-drugscreen,Cell Line,104-004,3072
+34,idr0017-breinig-drugscreen,Cell Line,02-008,3072
+35,idr0017-breinig-drugscreen,Cell Line,02-006,3072
+36,idr0017-breinig-drugscreen,Cell Line,104-001,3072
+37,idr0017-breinig-drugscreen,Cell Line,104-008,3072
+38,idr0017-breinig-drugscreen,Cell Line,02-031,3072
+39,idr0017-breinig-drugscreen,Cell Line,par007,3072
+40,idr0017-breinig-drugscreen,Cell Line,02-004,3072
+41,idr0017-breinig-drugscreen,Cell Line,104-007,3072
+42,idr0061-wolf-spindlepositioning,Cell Line,hela,2976
+43,idr0080-way-perturbation,Cell Line,hcc44,2304
+44,idr0080-way-perturbation,Cell Line,es2,2304
+45,idr0080-way-perturbation,Cell Line,a549,2304
+46,idr0005-toret-adhesion,Cell Line,decad-s2,1728
+47,idr0028-pascualvargas-rhogtpases,Cell Line,mdamb231,1516
+48,idr0012-fuchs-cellmorph,Cell Line,not listed,1451
+49,idr0112-verzat-motorneurons,Cell Line,spinal cord motor neuron,1402
+50,idr0020-barr-chtog,Cell Line,hela,1232
+51,idr0007-srikumar-sumo,Cell Line,not listed,1152
+52,idr0002-heriche-condensation,Cell Line,hela,904
+53,idr0130-olszewski-herpes,Cell Line,a549,768
+54,idr0097-reicher-proteintag,Cell Line,hap1,720
+55,idr0037-vigilante-hipsci,Cell Line,a1atd-ipsc patient 1,573
+56,idr0090-ashdown-malaria,Cell Line,not listed,544
+57,idr0064-goglia-erkdynamics,Cell Line,not listed,450
+58,idr0006-fong-nuclearbodies,Cell Line,not listed,308
+59,idr0025-stadler-proteinatlas,Cell Line,u2os,288
+60,idr0002-heriche-condensation,Cell Line,not listed,248
+61,idr0092-ostrop-organoid,Cell Line,not listed,176
+62,idr0019-sero-nfkappab,Cell Line,hcc1954,98
+63,idr0019-sero-nfkappab,Cell Line,hs578t,98
+64,idr0019-sero-nfkappab,Cell Line,t47d,98
+65,idr0019-sero-nfkappab,Cell Line,mcf-7,98
+66,idr0019-sero-nfkappab,Cell Line,hep3b,98
+67,idr0019-sero-nfkappab,Cell Line,sum149pt,98
+68,idr0019-sero-nfkappab,Cell Line,mdamb453,98
+69,idr0019-sero-nfkappab,Cell Line,au565,98
+70,idr0019-sero-nfkappab,Cell Line,skbr3,98
+71,idr0019-sero-nfkappab,Cell Line,hela,98
+72,idr0019-sero-nfkappab,Cell Line,hcc70,98
+73,idr0019-sero-nfkappab,Cell Line,mdamb157,98
+74,idr0019-sero-nfkappab,Cell Line,mcf 10a,98
+75,idr0019-sero-nfkappab,Cell Line,zr751,98
+76,idr0019-sero-nfkappab,Cell Line,mdamb231,98
+77,idr0019-sero-nfkappab,Cell Line,jimt-1,98
+78,idr0019-sero-nfkappab,Cell Line,ag1573,98
+79,idr0019-sero-nfkappab,Cell Line,bt474,98
+80,idr0019-sero-nfkappab,Cell Line,hcc1143,98
+81,idr0019-sero-nfkappab,Cell Line,sum159pt,98
+82,idr0019-sero-nfkappab,Cell Line,cama1,98
+83,idr0019-sero-nfkappab,Cell Line,mcf12a,98
+84,idr0120-german-immunologicalsynapse,Cell Line,not listed,90
+85,idr0009-simpson-secretion,Cell Line,not listed,70
+86,idr0037-vigilante-hipsci,Cell Line,hpsi0913i-gedo_33,45
+87,idr0037-vigilante-hipsci,Cell Line,hpsi0813i-ffdm_3,42
+88,idr0037-vigilante-hipsci,Cell Line,ctrm_205,36
+89,idr0037-vigilante-hipsci,Cell Line,hpsi0713i-kaks_2,36
+90,idr0037-vigilante-hipsci,Cell Line,hpsi0513i-golb_2,36
+91,idr0034-kilpinen-hipsci,Cell Line,hpsi0313i-airc_2,36
+92,idr0034-kilpinen-hipsci,Cell Line,hpsi0313i-airc_3,36
+93,idr0037-vigilante-hipsci,Cell Line,hpsi0613i-vorx_2,36
+94,idr0037-vigilante-hipsci,Cell Line,hpsi1013i-aetc_1,36
+95,idr0037-vigilante-hipsci,Cell Line,hpsi1213i-nekd_1,36
+96,idr0037-vigilante-hipsci,Cell Line,hpsi0613i-auim_2,36
+97,idr0037-vigilante-hipsci,Cell Line,hpsi0613i-giuo_5,36
+98,idr0034-kilpinen-hipsci,Cell Line,hpsi0713i-kaks_2,36
+99,idr0034-kilpinen-hipsci,Cell Line,hpsi0713i-darw_2,36
+100,idr0037-vigilante-hipsci,Cell Line,hpsi0413i-yuze_1,36
+101,idr0037-vigilante-hipsci,Cell Line,hpsi0513i-golb_1,36
+102,idr0037-vigilante-hipsci,Cell Line,hpsi0313i-airc_3,36
+103,idr0034-kilpinen-hipsci,Cell Line,hpsi0613i-auim_2,36
+104,idr0037-vigilante-hipsci,Cell Line,hpsi0313i-airc_2,36
+105,idr0037-vigilante-hipsci,Cell Line,hpsi0413i-xekf_1,36
+106,idr0037-vigilante-hipsci,Cell Line,hpsi0713i-darw_2,36
+107,idr0037-vigilante-hipsci,Cell Line,hpsi0413i-coxy_33,35
+108,idr0037-vigilante-hipsci,Cell Line,hpsi0613i-qanu_2,28
+109,idr0037-vigilante-hipsci,Cell Line,hpsi0813i-iicq_1,27
+110,idr0034-kilpinen-hipsci,Cell Line,hpsi0813i-meqo_2,27
+111,idr0037-vigilante-hipsci,Cell Line,hpsi0613i-qanu_1,27
+112,idr0037-vigilante-hipsci,Cell Line,hpsi0813i-fpdl_1,27
+113,idr0037-vigilante-hipsci,Cell Line,hpsi0614i-eavo_1,27
+114,idr0037-vigilante-hipsci,Cell Line,hpsi0813i-fpdk_2,27
+115,idr0034-kilpinen-hipsci,Cell Line,hpsi0713i-darw_1,27
+116,idr0034-kilpinen-hipsci,Cell Line,hpsi0713i-ruyv_1,27
+117,idr0037-vigilante-hipsci,Cell Line,hpsi0913i-gedo_3,27
+118,idr0037-vigilante-hipsci,Cell Line,hpsi0713i-darw_1,27
+119,idr0034-kilpinen-hipsci,Cell Line,hpsi0513i-leeh_2,27
+120,idr0037-vigilante-hipsci,Cell Line,hpsi0913i-ffdl_1,27
+121,idr0037-vigilante-hipsci,Cell Line,hpsi0413i-ougl_1,27
+122,idr0034-kilpinen-hipsci,Cell Line,hpsi0513i-cuau_2,27
+123,idr0037-vigilante-hipsci,Cell Line,hpsi0613i-oomz_22,27
+124,idr0037-vigilante-hipsci,Cell Line,hpsi0813i-meqo_3,27
+125,idr0037-vigilante-hipsci,Cell Line,hpsi0813i-fpdm_2,27
+126,idr0037-vigilante-hipsci,Cell Line,hpsi0513i-cuau_3,27
+127,idr0037-vigilante-hipsci,Cell Line,hpsi0513i-huls_3,27
+128,idr0037-vigilante-hipsci,Cell Line,hpsi0813i-iicq_3,27
+129,idr0037-vigilante-hipsci,Cell Line,hpsi1213i-nekd_2,27
+130,idr0034-kilpinen-hipsci,Cell Line,hpsi0813i-meqo_3,27
+131,idr0037-vigilante-hipsci,Cell Line,hpsi0513i-cuau_2,27
+132,idr0037-vigilante-hipsci,Cell Line,hpsi0513i-golb_3,27
+133,idr0037-vigilante-hipsci,Cell Line,hpsi0713i-darw_3,27
+134,idr0037-vigilante-hipsci,Cell Line,hpsi1113i-wetu_2,27
+135,idr0037-vigilante-hipsci,Cell Line,hpsi0513i-oogu_2,27
+136,idr0037-vigilante-hipsci,Cell Line,hpsi0413i-coxy_3,27
+137,idr0037-vigilante-hipsci,Cell Line,hpsi1113i-zuta_1,27
+138,idr0037-vigilante-hipsci,Cell Line,hpsi1113i-nibo_2,27
+139,idr0037-vigilante-hipsci,Cell Line,hpsi0613i-oefg_2,27
+140,idr0037-vigilante-hipsci,Cell Line,hpsi1213i-nekd_3,27
+141,idr0034-kilpinen-hipsci,Cell Line,hpsi0413i-ougl_1,27
+142,idr0034-kilpinen-hipsci,Cell Line,hpsi0713i-qimz_1,27
+143,idr0037-vigilante-hipsci,Cell Line,hpsi0413i-ougl_3,27
+144,idr0037-vigilante-hipsci,Cell Line,hpsi1013i-cups_3,27
+145,idr0037-vigilante-hipsci,Cell Line,hpsi1013i-pamv_1,27
+146,idr0037-vigilante-hipsci,Cell Line,hpsi1013i-pamv_3,27
+147,idr0037-vigilante-hipsci,Cell Line,hpsi0913i-vopm_2,27
+148,idr0037-vigilante-hipsci,Cell Line,hpsi0613i-funp_3,27
+149,idr0037-vigilante-hipsci,Cell Line,hpsi0613i-zisa_3,27
+150,idr0034-kilpinen-hipsci,Cell Line,hpsi0613i-riiv_1,27
+151,idr0037-vigilante-hipsci,Cell Line,hpsi0613i-funp_2,27
+152,idr0037-vigilante-hipsci,Cell Line,hpsi0513i-huls_1,27
+153,idr0037-vigilante-hipsci,Cell Line,hpsi0613i-zisa_33,27
+154,idr0037-vigilante-hipsci,Cell Line,hpsi0513i-leeh_2,27
+155,idr0037-vigilante-hipsci,Cell Line,hpsi0613i-focm_1,27
+156,idr0037-vigilante-hipsci,Cell Line,hpsi0713i-qimz_1,27
+157,idr0037-vigilante-hipsci,Cell Line,hpsi0613i-vorx_1,27
+158,idr0037-vigilante-hipsci,Cell Line,hpsi0813i-ffdc_11,27
+159,idr0037-vigilante-hipsci,Cell Line,hpsi0513i-coio_2,27
+160,idr0037-vigilante-hipsci,Cell Line,hpsi0513i-euir_1,27
+161,idr0034-kilpinen-hipsci,Cell Line,hpsi0713i-ruyv_3,27
+162,idr0037-vigilante-hipsci,Cell Line,hpsi0714i-gibe_2,27
+163,idr0037-vigilante-hipsci,Cell Line,hpsi0613i-riiv_1,27
+164,idr0037-vigilante-hipsci,Cell Line,hpsi0913i-ffdz_2,27
+165,idr0037-vigilante-hipsci,Cell Line,hpsi0913i-kojv_2,27
+166,idr0034-kilpinen-hipsci,Cell Line,hpsi0513i-coio_1,27
+167,idr0034-kilpinen-hipsci,Cell Line,hpsi0513i-coio_2,27
+168,idr0037-vigilante-hipsci,Cell Line,hpsi0513i-uoxz_5,27
+169,idr0037-vigilante-hipsci,Cell Line,hpsi0813i-meqo_2,27
+170,idr0037-vigilante-hipsci,Cell Line,hpsi0713i-ruyv_1,27
+171,idr0037-vigilante-hipsci,Cell Line,hpsi0713i-ruyv_3,27
+172,idr0034-kilpinen-hipsci,Cell Line,hpsi0513i-euir_1,27
+173,idr0037-vigilante-hipsci,Cell Line,hpsi0513i-oeoo_2,27
+174,idr0037-vigilante-hipsci,Cell Line,hpsi0613i-liun_22,27
+175,idr0037-vigilante-hipsci,Cell Line,hpsi1014i-suok_4,27
+176,idr0034-kilpinen-hipsci,Cell Line,hpsi0413i-ougl_3,27
+177,idr0037-vigilante-hipsci,Cell Line,hpsi0513i-coio_1,27
+178,idr0037-vigilante-hipsci,Cell Line,hpsi0613i-hikj_1,26
+179,idr0011-ledesmafernandez-dad4,Cell Line,not listed,25
+180,idr0037-vigilante-hipsci,Cell Line,hpsi0413i-uahf_3,24
+181,idr0037-vigilante-hipsci,Cell Line,hpsi0813i-fpdl_2,24
+182,idr0037-vigilante-hipsci,Cell Line,hpsi0613i-oomz_2,24
+183,idr0037-vigilante-hipsci,Cell Line,spc clone 2,24
+184,idr0028-pascualvargas-rhogtpases,Cell Line,not listed,20
+185,idr0037-vigilante-hipsci,Cell Line,hpsi0513i-xegx_1,19
+186,idr0037-vigilante-hipsci,Cell Line,hpsi0313i-cesj_1,18
+187,idr0034-kilpinen-hipsci,Cell Line,hpsi0513i-leeh_3,18
+188,idr0034-kilpinen-hipsci,Cell Line,hpsi0513i-euir_2,18
+189,idr0034-kilpinen-hipsci,Cell Line,hpsi0713i-kaks_3,18
+190,idr0037-vigilante-hipsci,Cell Line,hpsi0713i-qimz_2,18
+191,idr0034-kilpinen-hipsci,Cell Line,hpsi0513i-cuau_1,18
+192,idr0034-kilpinen-hipsci,Cell Line,hpsi0713i-qimz_2,18
+193,idr0037-vigilante-hipsci,Cell Line,hpsi0813i-ffdr_3,18
+194,idr0037-vigilante-hipsci,Cell Line,hpsi0913i-ffdl_2,18
+195,idr0037-vigilante-hipsci,Cell Line,hpsi0813i-voas_2,18
+196,idr0037-vigilante-hipsci,Cell Line,hpsi0613i-jorr_1,18
+197,idr0037-vigilante-hipsci,Cell Line,hpsi0713i-kaks_3,18
+198,idr0037-vigilante-hipsci,Cell Line,hpsi0513i-iasn_3,18
+199,idr0037-vigilante-hipsci,Cell Line,ctr,18
+200,idr0037-vigilante-hipsci,Cell Line,hpsi0513i-cehw_3,18
+201,idr0037-vigilante-hipsci,Cell Line,hpsi0513i-leeh_3,18
+202,idr0037-vigilante-hipsci,Cell Line,hpsi0513i-cuau_1,18
+203,idr0037-vigilante-hipsci,Cell Line,hpsi0913i-gooj_1,18
+204,idr0037-vigilante-hipsci,Cell Line,hpsi0513i-euir_2,18
+205,idr0037-vigilante-hipsci,Cell Line,hpsi0813i-ffdj_1,12
+206,idr0037-vigilante-hipsci,Cell Line,hpsi0813i-fpdr_2,12
+207,idr0037-vigilante-hipsci,Cell Line,hpsi0813i-fpdj_3,12
+208,idr0037-vigilante-hipsci,Cell Line,hpsi1113i-waus_1,9
+209,idr0037-vigilante-hipsci,Cell Line,hpsi1213i-foqj_2,9
+210,idr0037-vigilante-hipsci,Cell Line,hpsi0513i-debk_7,9
+211,idr0037-vigilante-hipsci,Cell Line,hpsi0813i-piun_3,9
+212,idr0037-vigilante-hipsci,Cell Line,hpsi0913i-lofv_3,9
+213,idr0037-vigilante-hipsci,Cell Line,hpsi0513i-xegx_2,9
+214,idr0037-vigilante-hipsci,Cell Line,hpsi0413i-iakz_1,9
+215,idr0037-vigilante-hipsci,Cell Line,hpsi1213i-nusw_2,9
+216,idr0037-vigilante-hipsci,Cell Line,hpsi0213i-koun_2,9
+217,idr0037-vigilante-hipsci,Cell Line,hpsi0613i-auim_3,9
+218,idr0037-vigilante-hipsci,Cell Line,hpsi1113i-fumb_2,9
+219,idr0037-vigilante-hipsci,Cell Line,hpsi1113i-eofe_1,9
+220,idr0037-vigilante-hipsci,Cell Line,hpsi0613i-riiv_3,9
+221,idr0037-vigilante-hipsci,Cell Line,hpsi0513i-kesz_1,9
+222,idr0037-vigilante-hipsci,Cell Line,hpsi0613i-dium_1,9
+223,idr0037-vigilante-hipsci,Cell Line,hpsi0413i-iakz_2,9
+224,idr0034-kilpinen-hipsci,Cell Line,hpsi0613i-auim_3,9
+225,idr0034-kilpinen-hipsci,Cell Line,hpsi0613i-riiv_3,9
+226,idr0037-vigilante-hipsci,Cell Line,hpsi1014i-suok_3,9
+227,idr0034-kilpinen-hipsci,Cell Line,hpsi0413i-iakz_2,9
+228,idr0034-kilpinen-hipsci,Cell Line,hpsi0413i-iakz_1,9
+229,idr0037-vigilante-hipsci,Cell Line,hpsi0513i-debk_9,9
+230,idr0030-sero-yap,Cell Line,not listed,4

@@ -1,0 +1,415 @@
+,index,Study,Attribute,Element,Count
+0,0,idr0016-wawer-bioactivecompoundprofiling,Phenotype,not listed,155722
+1,1,idr0088-cox-phenomicprofiling,Phenotype,not listed,90777
+2,2,idr0010-doil-dnadamage,Phenotype,not listed,56771
+3,3,idr0069-caldera-perturbome,Phenotype,not listed,47616
+4,4,idr0017-breinig-drugscreen,Phenotype,not listed,36864
+5,5,idr0015-colin-taraoceans,Phenotype,not listed,32776
+6,6,idr0093-mueller-perturbation,Phenotype,not listed,23687
+7,7,idr0133-dahlin-cellpainting,Phenotype,not listed,23111
+8,8,idr0078-mattiazziusaj-endocyticcomp,Phenotype,not listed,21504
+9,9,idr0012-fuchs-cellmorph,Phenotype,not listed,21027
+10,10,idr0009-simpson-secretion,Phenotype,not listed,21013
+11,11,idr0006-fong-nuclearbodies,Phenotype,not listed,15530
+12,12,idr0001-graml-sysgro,Phenotype,not listed,14753
+13,13,idr0022-koedoot-cellmigration,Phenotype,not listed,14592
+14,14,idr0003-breker-plasticity,Phenotype,gfp localization: cytosol,13044
+15,15,idr0094-ellinger-sarscov2,Phenotype,not listed,9792
+16,16,idr0013-neumann-mitocheck,Phenotype,not listed,8154
+17,17,idr0036-gustafsdottir-cellpainting,Phenotype,not listed,7360
+18,18,idr0080-way-perturbation,Phenotype,not listed,6912
+19,19,idr0081-georgi-adenovirus,Phenotype,not listed,6144
+20,20,idr0129-georgi-rhinovirus,Phenotype,not listed,6144
+21,21,idr0128-georgi-influenza,Phenotype,not listed,6144
+22,22,idr0003-breker-plasticity,Phenotype,not listed,5990
+23,23,idr0009-simpson-secretion,Phenotype,strong inhibition of secretion,5867
+24,24,idr0072-schormann-subcellref,Phenotype,not listed,5464
+25,25,idr0003-breker-plasticity,Phenotype,gfp localization: below threshold,4527
+26,26,idr0056-stojic-lncrnas,Phenotype,not listed,3837
+27,27,idr0033-rohban-pathways,Phenotype,not listed,3696
+28,28,idr0004-thorpe-rad52,Phenotype,not listed,3694
+29,29,idr0037-vigilante-hipsci,Phenotype,not listed,3303
+30,30,idr0035-caie-drugresponse,Phenotype,not listed,3300
+31,31,idr0008-rohn-actinome,Phenotype,not listed,3265
+32,32,idr0003-breker-plasticity,Phenotype,gfp localization: nucleus,3241
+33,33,idr0061-wolf-spindlepositioning,Phenotype,not listed,2976
+34,34,idr0001-graml-sysgro,Phenotype,abnormal microtubule cytoskeleton morphology during mitotic interphase,2447
+35,35,idr0093-mueller-perturbation,Phenotype,increased or decreased total rna production rate,2258
+36,36,idr0019-sero-nfkappab,Phenotype,not listed,2156
+37,37,idr0003-breker-plasticity,Phenotype,gfp localization: mitochondria,1735
+38,38,idr0003-breker-plasticity,Phenotype,gfp localization: punctate,1561
+39,39,idr0112-verzat-motorneurons,Phenotype,not listed,1402
+40,40,idr0020-barr-chtog,Phenotype,not listed,1140
+41,41,idr0028-pascualvargas-rhogtpases,Phenotype,not listed,1005
+42,42,idr0005-toret-adhesion,Phenotype,not listed,922
+43,43,idr0007-srikumar-sumo,Phenotype,not listed,881
+44,44,idr0012-fuchs-cellmorph,Phenotype,other phenotype,877
+45,45,idr0002-heriche-condensation,Phenotype,not listed,848
+46,46,idr0005-toret-adhesion,Phenotype,defective cell-cell aggregation,806
+47,47,idr0130-olszewski-herpes,Phenotype,not listed,768
+48,48,idr0030-sero-yap,Phenotype,not listed,762
+49,49,idr0003-breker-plasticity,Phenotype,gfp localization: er,757
+50,50,idr0097-reicher-proteintag,Phenotype,not listed,720
+51,51,idr0034-kilpinen-hipsci,Phenotype,not listed,684
+52,52,idr0001-graml-sysgro,Phenotype,viable vegetative cell with abnormal cell shape,606
+53,53,idr0090-ashdown-malaria,Phenotype,not listed,544
+54,54,idr0064-goglia-erkdynamics,Phenotype,not listed,450
+55,55,idr0013-neumann-mitocheck,Phenotype,polylobed (automatic),433
+56,56,idr0030-sero-yap,Phenotype,low yap/taz ratio (mouse santa cruz),393
+57,57,idr0030-sero-yap,Phenotype,high neighbor fraction,362
+58,58,idr0030-sero-yap,Phenotype,low total yap/taz,340
+59,59,idr0036-gustafsdottir-cellpainting,Phenotype,cellular response to chemical stimulus,320
+60,60,idr0013-neumann-mitocheck,Phenotype,mitotic delay/arrest (automatic),306
+61,61,idr0003-breker-plasticity,Phenotype,gfp localization: bud neck,300
+62,62,idr0003-breker-plasticity,Phenotype,gfp localization: nucleolus,294
+63,63,idr0003-breker-plasticity,Phenotype,gfp localization: cell periphery,291
+64,64,idr0013-neumann-mitocheck,Phenotype,binuclear (automatic),256
+65,65,idr0028-pascualvargas-rhogtpases,Phenotype,low total yap/taz in nuclear and ring regions normalised to nuclear area,244
+66,66,idr0003-breker-plasticity,Phenotype,gfp localization: nuclear periphery,220
+67,67,idr0013-neumann-mitocheck,Phenotype,strange nuclear shape (manual),212
+68,68,idr0003-breker-plasticity,Phenotype,gfp localization: vacuole membrane,210
+69,69,idr0003-breker-plasticity,Phenotype,gfp localization: technical problem,201
+70,70,idr0033-rohban-pathways,Phenotype,normal cell density,191
+71,71,idr0003-breker-plasticity,Phenotype,gfp localization: vacuole,186
+72,72,idr0030-sero-yap,Phenotype,large cells,179
+73,73,idr0001-graml-sysgro,Phenotype,paa reduced,179
+74,74,idr0092-ostrop-organoid,Phenotype,not listed,176
+75,75,idr0025-stadler-proteinatlas,Phenotype,not listed,168
+76,76,idr0002-heriche-condensation,Phenotype,shorter prophase,164
+77,77,idr0030-sero-yap,Phenotype,high local density,156
+78,78,idr0001-graml-sysgro,Phenotype,viable stubby vegetative cell,150
+79,79,idr0006-fong-nuclearbodies,Phenotype,protein localized in nucleolus,148
+80,80,idr0002-heriche-condensation,Phenotype,longer prophase,140
+81,81,idr0013-neumann-mitocheck,Phenotype,metaphase delay/arrest (manual),132
+82,82,idr0030-sero-yap,Phenotype,low nuclear roundness,123
+83,83,idr0001-graml-sysgro,Phenotype,long cytoplasmic microtubules,119
+84,84,idr0008-rohn-actinome,Phenotype,cell shape bipolar or elongated,114
+85,85,idr0030-sero-yap,Phenotype,large nuclei,112
+86,86,idr0030-sero-yap,Phenotype,high yap/taz ratio (mouse santa cruz),110
+87,87,idr0028-pascualvargas-rhogtpases,Phenotype,spindly,104
+88,88,idr0030-sero-yap,Phenotype,high total yap/taz,102
+89,89,idr0012-fuchs-cellmorph,Phenotype,proliferating cells,100
+90,90,idr0030-sero-yap,Phenotype,doughnut nuclei,96
+91,91,idr0033-rohban-pathways,Phenotype,de-enriched for extremely elongated,96
+92,92,idr0012-fuchs-cellmorph,Phenotype,elongated cells,91
+93,93,idr0012-fuchs-cellmorph,Phenotype,high actin ratio cells,91
+94,94,idr0120-german-immunologicalsynapse,Phenotype,not listed,90
+95,95,idr0033-rohban-pathways,Phenotype,enriched for slightly large,84
+96,96,idr0033-rohban-pathways,Phenotype,enriched for apoptotic,84
+97,97,idr0003-breker-plasticity,Phenotype,gfp localization: ambiguous,83
+98,98,idr0012-fuchs-cellmorph,Phenotype,metaphase cells,78
+99,99,idr0013-neumann-mitocheck,Phenotype,nuclei stay close together (manual),74
+100,100,idr0033-rohban-pathways,Phenotype,de-enriched for multi-nucleate,72
+101,101,idr0033-rohban-pathways,Phenotype,enriched for huge,72
+102,102,idr0004-thorpe-rad52,Phenotype,increased level of spontaneous rad52-yfp foci,71
+103,103,idr0030-sero-yap,Phenotype,high nucleus/cell area,71
+104,104,idr0012-fuchs-cellmorph,Phenotype,lamellipodia cells,67
+105,105,idr0006-fong-nuclearbodies,Phenotype,protein localized in an uncharacterized nuclear subcompartment,64
+106,106,idr0028-pascualvargas-rhogtpases,Phenotype,"large, spread",61
+107,107,idr0012-fuchs-cellmorph,Phenotype,low eccentricity cells,60
+108,108,idr0033-rohban-pathways,Phenotype,low cell density,60
+109,109,idr0033-rohban-pathways,Phenotype,enriched for multi-nucleate,60
+110,110,idr0012-fuchs-cellmorph,Phenotype,actin fiber cells,59
+111,111,idr0007-srikumar-sumo,Phenotype,the smt3allr mutant displays gfp foci not detected in wt cells,58
+112,112,idr0030-sero-yap,Phenotype,low yap/taz ratio (rabbit novus),58
+113,113,idr0020-barr-chtog,Phenotype,enhancement of ch-tog multipolar spindle phenotype,58
+114,114,idr0012-fuchs-cellmorph,Phenotype,small cells,58
+115,115,idr0010-doil-dnadamage,Phenotype,increased dna damage,57
+116,116,idr0030-sero-yap,Phenotype,low local density,56
+117,117,idr0008-rohn-actinome,Phenotype,increased number of filopodia,56
+118,118,idr0008-rohn-actinome,Phenotype,loss of cell monolayer,55
+119,119,idr0030-sero-yap,Phenotype,low neighbor fraction,51
+120,120,idr0030-sero-yap,Phenotype,high yap/taz ratio (rabbit novus),51
+121,121,idr0012-fuchs-cellmorph,Phenotype,big cells,51
+122,122,idr0012-fuchs-cellmorph,Phenotype,bl phenotype (large cells and bright nuclei),49
+123,123,idr0033-rohban-pathways,Phenotype,de-enriched for slightly large,48
+124,124,idr0008-rohn-actinome,Phenotype,increased number of cortical actin stress fibres,47
+125,125,idr0008-rohn-actinome,Phenotype,increased number of multinucleate cells,44
+126,126,idr0012-fuchs-cellmorph,Phenotype,cells with protrusions,43
+127,127,idr0013-neumann-mitocheck,Phenotype,grape (automatic),40
+128,128,idr0007-srikumar-sumo,Phenotype,the smt3allr mutant population displays an increased number of cells with foci,40
+129,129,idr0012-fuchs-cellmorph,Phenotype,elongated cells with protrusions,38
+130,130,idr0006-fong-nuclearbodies,Phenotype,protein localized in pml bodies,38
+131,131,idr0028-pascualvargas-rhogtpases,Phenotype,high nuclear yap/taz,37
+132,132,idr0012-fuchs-cellmorph,Phenotype,large nuclei,36
+133,133,idr0033-rohban-pathways,Phenotype,enriched for disjoint bright mitochondria,36
+134,134,idr0033-rohban-pathways,Phenotype,enriched for telophase/late telophase,36
+135,135,idr0012-fuchs-cellmorph,Phenotype,large cells,35
+136,136,idr0020-barr-chtog,Phenotype,suppression of ch-tog multipolar spindle phenotype,34
+137,137,idr0001-graml-sysgro,Phenotype,s-shaped cell,34
+138,138,idr0012-fuchs-cellmorph,Phenotype,sm phenotype (round cells and many in metaphase),31
+139,139,idr0008-rohn-actinome,Phenotype,decreased dna area,31
+140,140,idr0012-fuchs-cellmorph,Phenotype,lamellipodia and high actin cells,31
+141,141,idr0001-graml-sysgro,Phenotype,sp reduced,30
+142,142,idr0028-pascualvargas-rhogtpases,Phenotype,triangular,29
+143,143,idr0008-rohn-actinome,Phenotype,motile lamellae,27
+144,144,idr0006-fong-nuclearbodies,Phenotype,protein localized in nuclear speckles,27
+145,145,idr0008-rohn-actinome,Phenotype,increased number of zigzag actin stress fibres,27
+146,146,idr0007-srikumar-sumo,Phenotype,the smt3allr gfp signal is more diffuse than wt,27
+147,147,idr0007-srikumar-sumo,Phenotype,the smt3allr gfp signal seems more nuclear than wt,26
+148,148,idr0012-fuchs-cellmorph,Phenotype,bright nuclei,25
+149,149,idr0028-pascualvargas-rhogtpases,Phenotype,fan,24
+150,150,idr0006-fong-nuclearbodies,Phenotype,protein localized in paraspeckles,24
+151,151,idr0033-rohban-pathways,Phenotype,enriched for slightly elongated,24
+152,152,idr0007-srikumar-sumo,Phenotype,the smt3allr mutant population contains odd shaped cells,22
+153,153,idr0025-stadler-proteinatlas,Phenotype,antibody localized in cytoplasm,22
+154,154,idr0008-rohn-actinome,Phenotype,increased number of transverse actin stress fibres,22
+155,155,idr0030-sero-yap,Phenotype,small cells,22
+156,156,idr0001-graml-sysgro,Phenotype,viable pear-shaped vegetative cell,20
+157,157,idr0001-graml-sysgro,Phenotype,ip increased,20
+158,158,idr0025-stadler-proteinatlas,Phenotype,antibody localized in mitochondria,20
+159,159,idr0007-srikumar-sumo,Phenotype,the smt3allr mutant cells display either cytoplasmic structures or brighter cytoplasmic signal than wt,19
+160,160,idr0030-sero-yap,Phenotype,small nuclei,18
+161,161,idr0030-sero-yap,Phenotype,low nucleus/cell area,18
+162,162,idr0001-graml-sysgro,Phenotype,abnormal mitotic cell cycle phase,17
+163,163,idr0006-fong-nuclearbodies,Phenotype,protein localized in cajal bodies,17
+164,164,idr0001-graml-sysgro,Phenotype,viable elongated vegetative cell,17
+165,165,idr0007-srikumar-sumo,Phenotype,the smt3allr mutant displays more vacuolar structures,17
+166,166,idr0028-pascualvargas-rhogtpases,Phenotype,"round, small",16
+167,167,idr0013-neumann-mitocheck,Phenotype,metaphase alignment problems/including no metaphase (manual),16
+168,168,idr0007-srikumar-sumo,Phenotype,"the smt3allr mutant cells display a more intense gfp signal, with localization similar to wt",16
+169,169,idr0028-pascualvargas-rhogtpases,Phenotype,low nuclear yap/taz,14
+170,170,idr0033-rohban-pathways,Phenotype,de-enriched for small asymmetric cells,13
+171,171,idr0008-rohn-actinome,Phenotype,increased number of actin stress fibres,13
+172,172,idr0011-ledesmafernandez-dad4,Phenotype,not listed,13
+173,173,idr0011-ledesmafernandez-dad4,Phenotype,altered kinetochore foci,12
+174,174,idr0025-stadler-proteinatlas,Phenotype,antibody localized in endoplasmic reticulum,12
+175,175,idr0008-rohn-actinome,Phenotype,misshapen dna,12
+176,176,idr0033-rohban-pathways,Phenotype,de-enriched for extremely triangular,12
+177,177,idr0033-rohban-pathways,Phenotype,de-enriched for telophase/late telophase,12
+178,178,idr0033-rohban-pathways,Phenotype,enriched for small asymmetric cells,12
+179,179,idr0008-rohn-actinome,Phenotype,cell shape round or non-adherent,11
+180,180,idr0001-graml-sysgro,Phenotype,short cytoplasmic microtubules,10
+181,181,idr0025-stadler-proteinatlas,Phenotype,antibody localized in vesicles,10
+182,182,idr0008-rohn-actinome,Phenotype,decreased cell size,10
+183,183,idr0025-stadler-proteinatlas,Phenotype,antibody localized in nucleus,10
+184,184,idr0007-srikumar-sumo,Phenotype,the smt3allr mutant has more foci per cell than wt,10
+185,185,idr0001-graml-sysgro,Phenotype,viable curved vegetative cell,10
+186,186,idr0001-graml-sysgro,Phenotype,ip reduced,10
+187,187,idr0001-graml-sysgro,Phenotype,ip2 increased,10
+188,188,idr0008-rohn-actinome,Phenotype,microtubules disorganised,9
+189,189,idr0008-rohn-actinome,Phenotype,cell shape processes or spiky or stretchy,9
+190,190,idr0025-stadler-proteinatlas,Phenotype,antibody localized in nucleoplasm,8
+191,191,idr0008-rohn-actinome,Phenotype,disorganised peripheral actin,7
+192,192,idr0008-rohn-actinome,Phenotype,decreased cell number,7
+193,193,idr0025-stadler-proteinatlas,Phenotype,antibody localized in plasma membrane,6
+194,194,idr0025-stadler-proteinatlas,Phenotype,antibody localized in nuclear membrane,6
+195,195,idr0025-stadler-proteinatlas,Phenotype,antibody localized in golgi apparatus,6
+196,196,idr0007-srikumar-sumo,Phenotype,the smt3allr mutant displays brighter foci than wt,6
+197,197,idr0025-stadler-proteinatlas,Phenotype,antibody localized in actin filaments,6
+198,198,idr0025-stadler-proteinatlas,Phenotype,antibody localized in microtubules,6
+199,199,idr0008-rohn-actinome,Phenotype,apoptotic dna,5
+200,200,idr0008-rohn-actinome,Phenotype,increased level of microtubules,5
+201,201,idr0006-fong-nuclearbodies,Phenotype,protein localized in sam68 nuclear bodies,5
+202,202,idr0007-srikumar-sumo,Phenotype,the smt3allr mutant shows a more punctate gfp localization at the plasma membrane,4
+203,203,idr0025-stadler-proteinatlas,Phenotype,antibody localized in nucleoli,4
+204,204,idr0007-srikumar-sumo,Phenotype,the smt3allr mutant displays spindles with fish hook morphology,4
+205,205,idr0013-neumann-mitocheck,Phenotype,segregation problems/chromatin bridges/lagging chromosomes/multiple dna masses (manual),4
+206,206,idr0008-rohn-actinome,Phenotype,microtubule nuclear ring,4
+207,207,idr0007-srikumar-sumo,Phenotype,the smt3allr mutant population has fewer cells with foci than wt,4
+208,208,idr0008-rohn-actinome,Phenotype,microtubule nuclear bracket,4
+209,209,idr0025-stadler-proteinatlas,Phenotype,antibody localized in intermediate filaments,4
+210,210,idr0008-rohn-actinome,Phenotype,increased mitotic index,4
+211,211,idr0010-doil-dnadamage,Phenotype,defective dna damage response,4
+212,212,idr0008-rohn-actinome,Phenotype,microtubule processes,3
+213,213,idr0008-rohn-actinome,Phenotype,increased cytoplasmic actin,3
+214,214,idr0028-pascualvargas-rhogtpases,Phenotype,high total yap/taz in nuclear and ring regions normalised to nuclear area,2
+215,215,idr0008-rohn-actinome,Phenotype,increased actin over nucleus,2
+216,216,idr0007-srikumar-sumo,Phenotype,the smt3allr mutant population display nuclear foci,2
+217,217,idr0008-rohn-actinome,Phenotype,decreased number of filopodia,2
+218,218,idr0007-srikumar-sumo,Phenotype,the smt3allr mutant population display fragmented nucleoli,2
+219,219,idr0007-srikumar-sumo,Phenotype,the smt3allr mutant cells display more fragmented cytoplasmic structures as compared to the wt,2
+220,220,idr0007-srikumar-sumo,Phenotype,"the smt3allr mutant cells display a more intense gfp signal, with localization similar to wt and the smt3allr mutant population contains odd shaped cells",2
+221,221,idr0007-srikumar-sumo,Phenotype,the smt3allr mutant population contains odd shaped cells and the smt3allr mutant population displays an increased number of cells with foci,2
+222,222,idr0006-fong-nuclearbodies,Phenotype,protein localized in polycomb bodies,2
+223,223,idr0007-srikumar-sumo,Phenotype,the smt3allr mutant population display increased fluorescence signal vs. wt cells,2
+224,224,idr0007-srikumar-sumo,Phenotype,the smt3allr mutant has a population of cells that contain gfp signals between mother and daughter cells,2
+225,225,idr0007-srikumar-sumo,Phenotype,smt3allr mutant cells display foci with localization that differs from wt,2
+226,226,idr0008-rohn-actinome,Phenotype,increased cell number,2
+227,227,idr0008-rohn-actinome,Phenotype,increased width of lamellae,1
+228,228,idr0007-srikumar-sumo,Phenotype,the smt3allr mutant has a population of cells with more than 2 spindle pole bodies,1
+229,229,idr0008-rohn-actinome,Phenotype,increased number of actin puncta or dots,1
+230,230,idr0007-srikumar-sumo,Phenotype,the smt3allr mutant does not show localization at the bud neck,1
+231,0,idr0016-wawer-bioactivecompoundprofiling,Phenotype Term Name,not listed,155722
+232,1,idr0088-cox-phenomicprofiling,Phenotype Term Name,not listed,90777
+233,2,idr0010-doil-dnadamage,Phenotype Term Name,not listed,56771
+234,3,idr0069-caldera-perturbome,Phenotype Term Name,not listed,47616
+235,4,idr0017-breinig-drugscreen,Phenotype Term Name,not listed,36864
+236,5,idr0015-colin-taraoceans,Phenotype Term Name,not listed,32776
+237,6,idr0093-mueller-perturbation,Phenotype Term Name,not listed,23687
+238,7,idr0133-dahlin-cellpainting,Phenotype Term Name,not listed,23111
+239,8,idr0012-fuchs-cellmorph,Phenotype Term Name,not listed,21904
+240,9,idr0078-mattiazziusaj-endocyticcomp,Phenotype Term Name,not listed,21504
+241,10,idr0009-simpson-secretion,Phenotype Term Name,not listed,21013
+242,11,idr0006-fong-nuclearbodies,Phenotype Term Name,not listed,15530
+243,12,idr0001-graml-sysgro,Phenotype Term Name,not listed,14753
+244,13,idr0022-koedoot-cellmigration,Phenotype Term Name,not listed,14592
+245,14,idr0003-breker-plasticity,Phenotype Term Name,protein localized in cytosol phenotype,13044
+246,15,idr0003-breker-plasticity,Phenotype Term Name,not listed,10796
+247,16,idr0094-ellinger-sarscov2,Phenotype Term Name,not listed,9792
+248,17,idr0013-neumann-mitocheck,Phenotype Term Name,not listed,8154
+249,18,idr0036-gustafsdottir-cellpainting,Phenotype Term Name,not listed,7360
+250,19,idr0080-way-perturbation,Phenotype Term Name,not listed,6912
+251,20,idr0128-georgi-influenza,Phenotype Term Name,not listed,6144
+252,21,idr0081-georgi-adenovirus,Phenotype Term Name,not listed,6144
+253,22,idr0129-georgi-rhinovirus,Phenotype Term Name,not listed,6144
+254,23,idr0009-simpson-secretion,Phenotype Term Name,strong decrease in rate of protein secretion,5867
+255,24,idr0072-schormann-subcellref,Phenotype Term Name,not listed,5464
+256,25,idr0056-stojic-lncrnas,Phenotype Term Name,not listed,3837
+257,26,idr0033-rohban-pathways,Phenotype Term Name,not listed,3696
+258,27,idr0004-thorpe-rad52,Phenotype Term Name,not listed,3694
+259,28,idr0037-vigilante-hipsci,Phenotype Term Name,not listed,3303
+260,29,idr0035-caie-drugresponse,Phenotype Term Name,not listed,3300
+261,30,idr0008-rohn-actinome,Phenotype Term Name,not listed,3265
+262,31,idr0003-breker-plasticity,Phenotype Term Name,protein localized in nucleus phenotype,3241
+263,32,idr0061-wolf-spindlepositioning,Phenotype Term Name,not listed,2976
+264,33,idr0001-graml-sysgro,Phenotype Term Name,abnormal microtubule cytoskeleton morphology during mitotic interphase,2447
+265,34,idr0093-mueller-perturbation,Phenotype Term Name,"transcription, dna-templated",2258
+266,35,idr0019-sero-nfkappab,Phenotype Term Name,not listed,2156
+267,36,idr0003-breker-plasticity,Phenotype Term Name,protein localized in mitochondrion phenotype,1735
+268,37,idr0003-breker-plasticity,Phenotype Term Name,protein localized in punctate foci phenotype,1561
+269,38,idr0112-verzat-motorneurons,Phenotype Term Name,not listed,1402
+270,39,idr0030-sero-yap,Phenotype Term Name,not listed,1204
+271,40,idr0020-barr-chtog,Phenotype Term Name,not listed,1140
+272,41,idr0007-srikumar-sumo,Phenotype Term Name,not listed,1097
+273,42,idr0028-pascualvargas-rhogtpases,Phenotype Term Name,not listed,1005
+274,43,idr0005-toret-adhesion,Phenotype Term Name,not listed,922
+275,44,idr0002-heriche-condensation,Phenotype Term Name,not listed,848
+276,45,idr0005-toret-adhesion,Phenotype Term Name,fewer aggregated cells in population phenotype,806
+277,46,idr0130-olszewski-herpes,Phenotype Term Name,not listed,768
+278,47,idr0003-breker-plasticity,Phenotype Term Name,protein localized in endoplasmic reticulum phenotype,762
+279,48,idr0097-reicher-proteintag,Phenotype Term Name,not listed,720
+280,49,idr0034-kilpinen-hipsci,Phenotype Term Name,not listed,684
+281,50,idr0030-sero-yap,Phenotype Term Name,cell adhesion phenotype,653
+282,51,idr0001-graml-sysgro,Phenotype Term Name,abnormal cell shape phenotype,606
+283,52,idr0090-ashdown-malaria,Phenotype Term Name,not listed,544
+284,53,idr0064-goglia-erkdynamics,Phenotype Term Name,not listed,450
+285,54,idr0013-neumann-mitocheck,Phenotype Term Name,polylobed nuclear phenotype,433
+286,55,idr0013-neumann-mitocheck,Phenotype Term Name,binuclear cell phenotype,330
+287,56,idr0036-gustafsdottir-cellpainting,Phenotype Term Name,cellular response to chemical stimulus phenotype,320
+288,57,idr0013-neumann-mitocheck,Phenotype Term Name,mitosis arrested,306
+289,58,idr0033-rohban-pathways,Phenotype Term Name,increased cell size phenotype,300
+290,59,idr0003-breker-plasticity,Phenotype Term Name,protein localized in bud neck phenotype,300
+291,60,idr0003-breker-plasticity,Phenotype Term Name,protein localized in nucleolus phenotype,294
+292,61,idr0003-breker-plasticity,Phenotype Term Name,protein localized in cell periphery phenotype,291
+293,62,idr0030-sero-yap,Phenotype Term Name,increased cell size phenotype,248
+294,63,idr0028-pascualvargas-rhogtpases,Phenotype Term Name,negative regulation of protein import into nucleus phenotype,244
+295,64,idr0030-sero-yap,Phenotype Term Name,deformed nucleus,224
+296,65,idr0003-breker-plasticity,Phenotype Term Name,protein localized in nuclear periphery phenotype,220
+297,66,idr0013-neumann-mitocheck,Phenotype Term Name,abnormal nucleus shape phenotype,212
+298,67,idr0003-breker-plasticity,Phenotype Term Name,protein localized in vacuolar membrane phenotype,210
+299,68,idr0030-sero-yap,Phenotype Term Name,more aggregated cells in population phenotype,207
+300,69,idr0033-rohban-pathways,Phenotype Term Name,multinucleated cell phenotype,192
+301,70,idr0003-breker-plasticity,Phenotype Term Name,protein localized in vacuole phenotype,186
+302,71,idr0012-fuchs-cellmorph,Phenotype Term Name,increased number of actin filament phenotype,181
+303,72,idr0001-graml-sysgro,Phenotype Term Name,fewer cells with g1 phase microtubule arrays phenotype,179
+304,73,idr0092-ostrop-organoid,Phenotype Term Name,not listed,176
+305,74,idr0025-stadler-proteinatlas,Phenotype Term Name,not listed,168
+306,75,idr0002-heriche-condensation,Phenotype Term Name,decreased duration of mitotic prophase phenotype,164
+307,76,idr0030-sero-yap,Phenotype Term Name,increased nucleus size phenotype,152
+308,77,idr0001-graml-sysgro,Phenotype Term Name,stubby cell phenotype,150
+309,78,idr0006-fong-nuclearbodies,Phenotype Term Name,protein localized in nucleolus phenotype,148
+310,79,idr0002-heriche-condensation,Phenotype Term Name,increased duration of mitotic prophase phenotype,140
+311,80,idr0028-pascualvargas-rhogtpases,Phenotype Term Name,cell with projections,133
+312,81,idr0013-neumann-mitocheck,Phenotype Term Name,metaphase arrested phenotype,132
+313,82,idr0030-sero-yap,Phenotype Term Name,abnormal nucleus shape phenotype,132
+314,83,idr0001-graml-sysgro,Phenotype Term Name,elongated cytoplasmic microtubules phenotype,119
+315,84,idr0008-rohn-actinome,Phenotype Term Name,elongated cell phenotype,114
+316,85,idr0012-fuchs-cellmorph,Phenotype Term Name,metaphase arrested phenotype,109
+317,86,idr0033-rohban-pathways,Phenotype Term Name,mitochondrion phenotype,108
+318,87,idr0012-fuchs-cellmorph,Phenotype Term Name,proliferating cells,100
+319,88,idr0033-rohban-pathways,Phenotype Term Name,elongated cell phenotype,96
+320,89,idr0020-barr-chtog,Phenotype Term Name,microtubule spindle morphology phenotype,92
+321,90,idr0012-fuchs-cellmorph,Phenotype Term Name,elongated cell phenotype,91
+322,91,idr0120-german-immunologicalsynapse,Phenotype Term Name,not listed,90
+323,92,idr0012-fuchs-cellmorph,Phenotype Term Name,increased cell size phenotype,86
+324,93,idr0033-rohban-pathways,Phenotype Term Name,apoptotic cell shape phenotype,84
+325,94,idr0030-sero-yap,Phenotype Term Name,increased nucleus to cell area ratio,81
+326,95,idr0012-fuchs-cellmorph,Phenotype Term Name,cell with projections,81
+327,96,idr0030-sero-yap,Phenotype Term Name,fewer aggregated cells in population phenotype,79
+328,97,idr0012-fuchs-cellmorph,Phenotype Term Name,bright nuclei phenotype,74
+329,98,idr0004-thorpe-rad52,Phenotype Term Name,cell response to dna damage phenotype,71
+330,99,idr0012-fuchs-cellmorph,Phenotype Term Name,more lamellipodia cells,67
+331,100,idr0006-fong-nuclearbodies,Phenotype Term Name,protein localized in nucleus phenotype,64
+332,101,idr0028-pascualvargas-rhogtpases,Phenotype Term Name,increased cell size phenotype,61
+333,102,idr0010-doil-dnadamage,Phenotype Term Name,cell response to dna damage phenotype,61
+334,103,idr0012-fuchs-cellmorph,Phenotype Term Name,round cell phenotype,60
+335,104,idr0033-rohban-pathways,Phenotype Term Name,decreased cell numbers,60
+336,105,idr0012-fuchs-cellmorph,Phenotype Term Name,decreased cell size in population,58
+337,106,idr0008-rohn-actinome,Phenotype Term Name,increased number of filopodia,56
+338,107,idr0008-rohn-actinome,Phenotype Term Name,loss of cell monolayer,55
+339,108,idr0033-rohban-pathways,Phenotype Term Name,telophase phenotype,48
+340,109,idr0008-rohn-actinome,Phenotype Term Name,increased amount of stress fibers located in the cell cortex phenotype,47
+341,110,idr0008-rohn-actinome,Phenotype Term Name,more multinucleate cells,44
+342,111,idr0013-neumann-mitocheck,Phenotype Term Name,graped micronucleus phenotype,40
+343,112,idr0030-sero-yap,Phenotype Term Name,decreased cell size in population,40
+344,113,idr0006-fong-nuclearbodies,Phenotype Term Name,protein localized in pml body phenotype,38
+345,114,idr0028-pascualvargas-rhogtpases,Phenotype Term Name,increased level of polypetide in cell nucleus,37
+346,115,idr0012-fuchs-cellmorph,Phenotype Term Name,increased nucleus size phenotype,36
+347,116,idr0001-graml-sysgro,Phenotype Term Name,s-shaped cell phenotype,34
+348,117,idr0030-sero-yap,Phenotype Term Name,decreased nucleus to cell area ratio,32
+349,118,idr0008-rohn-actinome,Phenotype Term Name,decreased nucleus size phenotype,31
+350,119,idr0001-graml-sysgro,Phenotype Term Name,fewer cells with metaphase microtubule spindles phenotype,30
+351,120,idr0030-sero-yap,Phenotype Term Name,decreased nucleus size phenotype,28
+352,121,idr0007-srikumar-sumo,Phenotype Term Name,protein localized in nucleus phenotype,28
+353,122,idr0006-fong-nuclearbodies,Phenotype Term Name,protein localized in nuclear speckle phenotype,27
+354,123,idr0008-rohn-actinome,Phenotype Term Name,fan-shaped lamellipodia phenotype,27
+355,124,idr0008-rohn-actinome,Phenotype Term Name,increased amount of zig-zag stress fibers,27
+356,125,idr0007-srikumar-sumo,Phenotype Term Name,abnormal cell shape phenotype,26
+357,126,idr0006-fong-nuclearbodies,Phenotype Term Name,protein localized in paraspeckle phenotype,24
+358,127,idr0028-pascualvargas-rhogtpases,Phenotype Term Name,fan-shaped cell phenotype,24
+359,128,idr0008-rohn-actinome,Phenotype Term Name,increased amount of transverse stress fibers,22
+360,129,idr0025-stadler-proteinatlas,Phenotype Term Name,protein localized in cytosol phenotype,22
+361,130,idr0001-graml-sysgro,Phenotype Term Name,more cells with interphase microtubule arrays phenotype,20
+362,131,idr0025-stadler-proteinatlas,Phenotype Term Name,protein localized in mitochondrion phenotype,20
+363,132,idr0001-graml-sysgro,Phenotype Term Name,pear-shaped cell phenotype,20
+364,133,idr0006-fong-nuclearbodies,Phenotype Term Name,protein localized in cajal body phenotype,17
+365,134,idr0001-graml-sysgro,Phenotype Term Name,abnormal mitotic cell cycle phase phenotype,17
+366,135,idr0001-graml-sysgro,Phenotype Term Name,elongated cell phenotype,17
+367,136,idr0013-neumann-mitocheck,Phenotype Term Name,mitotic metaphase plate congression phenotype,16
+368,137,idr0028-pascualvargas-rhogtpases,Phenotype Term Name,round cell phenotype,16
+369,138,idr0028-pascualvargas-rhogtpases,Phenotype Term Name,decreased level of polypetide in cell nucleus,14
+370,139,idr0011-ledesmafernandez-dad4,Phenotype Term Name,not listed,13
+371,140,idr0008-rohn-actinome,Phenotype Term Name,increased amount of stress fibers phenotype,13
+372,141,idr0033-rohban-pathways,Phenotype Term Name,triangular shaped cell phenotype,12
+373,142,idr0033-rohban-pathways,Phenotype Term Name,asymmetric cellular component phenotype,12
+374,143,idr0011-ledesmafernandez-dad4,Phenotype Term Name,kinetochore phenotype,12
+375,144,idr0025-stadler-proteinatlas,Phenotype Term Name,protein localized in endoplasmic reticulum phenotype,12
+376,145,idr0008-rohn-actinome,Phenotype Term Name,misshapen dna,12
+377,146,idr0008-rohn-actinome,Phenotype Term Name,round cell phenotype,11
+378,147,idr0025-stadler-proteinatlas,Phenotype Term Name,protein localized in vesicle phenotype,10
+379,148,idr0001-graml-sysgro,Phenotype Term Name,fewer cells with interphase microtubule arrays phenotype,10
+380,149,idr0025-stadler-proteinatlas,Phenotype Term Name,protein localized in nucleus phenotype,10
+381,150,idr0001-graml-sysgro,Phenotype Term Name,curved cell phenotype,10
+382,151,idr0001-graml-sysgro,Phenotype Term Name,more cells with g1 phase microtubule arrays phenotype,10
+383,152,idr0001-graml-sysgro,Phenotype Term Name,shortened cytoplasmic microtubules phenotype,10
+384,153,idr0008-rohn-actinome,Phenotype Term Name,decreased cell size phenotype,10
+385,154,idr0008-rohn-actinome,Phenotype Term Name,star shaped cell phenotype,9
+386,155,idr0008-rohn-actinome,Phenotype Term Name,disorganized microtubules phenotype,9
+387,156,idr0025-stadler-proteinatlas,Phenotype Term Name,protein localized in nucleoplasm phenotype,8
+388,157,idr0008-rohn-actinome,Phenotype Term Name,disorganised cortical actin cytoskeleton phenotype,7
+389,158,idr0008-rohn-actinome,Phenotype Term Name,decreased cell numbers,7
+390,159,idr0025-stadler-proteinatlas,Phenotype Term Name,protein localized in plasma membrane phenotype,6
+391,160,idr0025-stadler-proteinatlas,Phenotype Term Name,protein localized in microtubule phenotype,6
+392,161,idr0025-stadler-proteinatlas,Phenotype Term Name,protein localized in golgi phenotype,6
+393,162,idr0025-stadler-proteinatlas,Phenotype Term Name,protein localized in actin filament phenotype,6
+394,163,idr0025-stadler-proteinatlas,Phenotype Term Name,protein localized in nuclear membrane phenotype,6
+395,164,idr0008-rohn-actinome,Phenotype Term Name,increased number of microtubules phenotype,5
+396,165,idr0006-fong-nuclearbodies,Phenotype Term Name,protein localized in sam68 nuclear body phenotype,5
+397,166,idr0008-rohn-actinome,Phenotype Term Name,apoptotic dna,5
+398,167,idr0008-rohn-actinome,Phenotype Term Name,more cells in m phase,4
+399,168,idr0008-rohn-actinome,Phenotype Term Name,microtubules nuclear bracket phenotype,4
+400,169,idr0025-stadler-proteinatlas,Phenotype Term Name,protein localized in nucleolus phenotype,4
+401,170,idr0013-neumann-mitocheck,Phenotype Term Name,abnormal chromosome segregation phenotype,4
+402,171,idr0008-rohn-actinome,Phenotype Term Name,microtubules nuclear ring phenotype,4
+403,172,idr0025-stadler-proteinatlas,Phenotype Term Name,protein localized in intermediate filament phenotype,4
+404,173,idr0008-rohn-actinome,Phenotype Term Name,increased microtubule-based processes phenotype,3
+405,174,idr0008-rohn-actinome,Phenotype Term Name,increased actin localised to the cytoplasm,3
+406,175,idr0028-pascualvargas-rhogtpases,Phenotype Term Name,positive regulation of protein import into nucleus phenotype,2
+407,176,idr0006-fong-nuclearbodies,Phenotype Term Name,protein localized in polycomb body phenotype,2
+408,177,idr0008-rohn-actinome,Phenotype Term Name,decreased number of filopodia phenotype,2
+409,178,idr0008-rohn-actinome,Phenotype Term Name,increased actin localised to the nucleus,2
+410,179,idr0008-rohn-actinome,Phenotype Term Name,increased cell numbers,2
+411,180,idr0008-rohn-actinome,Phenotype Term Name,increased amount of punctate actin foci phenotype,1
+412,181,idr0007-srikumar-sumo,Phenotype Term Name,absence of protein localized in bud neck phenotype,1
+413,182,idr0008-rohn-actinome,Phenotype Term Name,increased lamellipodia width phenotype,1
