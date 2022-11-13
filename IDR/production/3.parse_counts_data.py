@@ -3,6 +3,22 @@ import pathlib
 from numpy import log10 as log
 
 def process_counts_df(attribute_: str, element_counts_df: pd.DataFrame):
+    """Subsets attributes from entire counts dataframe, sorts values, and adds log_10(Counts) column.
+
+    Parameters
+    ----------
+    attribute_: str
+    Attribute to subset from the element_counts_df
+
+    element_counts_df: pd.DataFrame
+    Unique elements and counts dataframe
+
+    Returns
+    -------
+    element_counts_sorted: pd.DataFrame
+    Subsetted and processed dataframe to save for data visualization/analysis for a single attribute
+
+    """
     # Subset specified attribute from dataframe
     att_counts = element_counts_df[element_counts_df["Attribute"] == attribute_]
     # Replace empty entries with 'Not listed'
@@ -10,6 +26,11 @@ def process_counts_df(attribute_: str, element_counts_df: pd.DataFrame):
 
     # Sort element counts in decending order
     element_counts_sorted = att_counts.sort_values(by=["Count"], ascending=False, na_position='last').reset_index(drop=True)
+
+    # Compute and add log_10(Counts) column
+    element_counts_sorted["Count_log10"] = element_counts_sorted["Count"].apply(
+            lambda x: log(x)
+        )
     
     return element_counts_sorted
 
