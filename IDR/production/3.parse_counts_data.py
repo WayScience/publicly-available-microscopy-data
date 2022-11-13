@@ -2,7 +2,7 @@ import pandas as pd
 import pathlib
 from numpy import log10 as log
 
-def sort_counts(attribute_: str, element_counts_df: pd.DataFrame):
+def counts_df_processing(attribute_: str, element_counts_df: pd.DataFrame):
     # Subset specified attribute from dataframe
     att_counts = element_counts_df[element_counts_df["Attribute"] == attribute_]
     # Replace empty entries with 'Not listed'
@@ -10,11 +10,6 @@ def sort_counts(attribute_: str, element_counts_df: pd.DataFrame):
 
     # Sort element counts in decending order
     element_counts_sorted = att_counts.sort_values(by=["Count"], ascending=False, na_position='last').reset_index(drop=True)
-
-    # Compute log_10(Counts) and add to sorted dataframe
-    element_counts_sorted["Count_log10"] = element_counts_sorted["Count"].apply(
-            lambda x: log(x)
-        )
     
     return element_counts_sorted
 
