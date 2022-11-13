@@ -27,15 +27,15 @@ if __name__ == "__main__":
     
     # Iterate through attributes to sort
     for attribute in attributes:
-        final_df = process_counts_df(attribute_=attribute, element_counts_df=counts_df)
+        attribute_df_processed = process_counts_df(attribute_=attribute, element_counts_df=counts_df)
 
         # Account for alternative phenotype names
         if attribute == "Phenotype":
-            alt_df = process_counts_df(attribute_="Phenotype Term Name", element_counts_df=counts_df)
-            final_df = pd.concat([final_df, alt_df]).reset_index()
+            alternative_phenotype_df = process_counts_df(attribute_="Phenotype Term Name", element_counts_df=counts_df)
+            attribute_df_processed = pd.concat([attribute_df_processed, alternative_phenotype_df]).reset_index()
         
         # Save attribute counts as individual csv files
         element_counts_dir = pathlib.Path("IDR/data/Element_Counts")
         pathlib.Path.mkdir(element_counts_dir, exist_ok=True)
         output_file = pathlib.Path(element_counts_dir, f"{attributes[attribute]}_Counts.csv")
-        final_df.to_csv(output_file)
+        attribute_df_processed.to_csv(output_file)
